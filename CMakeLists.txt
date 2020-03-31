@@ -27,7 +27,7 @@
 #    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ##############################################################################
-CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
+CMAKE_MINIMUM_REQUIRED( VERSION 3.8 )
 
 # This version of pbrt is intended to be used for the Blue Brain Project @ the
 # Swiss Federal Institute of Technology Lausanne (EPFL), Switzerland.
@@ -324,4 +324,20 @@ TARGET_LINK_LIBRARIES(exravg pbrtlibv2)
 # exrdiff
 ADD_EXECUTABLE(exrdiff "src/tools/exrdiff.cpp")
 TARGET_LINK_LIBRARIES(exrdiff pbrtlibv2)
+
+install(
+    TARGETS pbrtlibv2
+    EXPORT pbrtv2-config
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/runtime
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+
+install(
+    EXPORT pbrtv2-config
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake/pbrtv2)
+
+install(
+    DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/src/
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/include/pbrtv2
+    FILES_MATCHING PATTERN "*.h")
 
