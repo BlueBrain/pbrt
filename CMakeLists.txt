@@ -36,7 +36,9 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
 # https://github.com/mmp/pbrt-v2.
 PROJECT(bbp:pbrt-v2)
 
-set(CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
+list (APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+list (APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}" ${CMAKE_MODULE_PATH})
+
 include(OpenEXR)
 
 IF(CMAKE_COMPILER_IS_GNUCXX)
@@ -76,77 +78,77 @@ FIND_PACKAGE(Threads)
 ADD_DEFINITIONS(-DNDEBUG -O2 -m64)
 
 # Output directories
-SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 
 # glob me some header files
 FILE(GLOB ACCELERATORS_HEADERS
-    "src/accelerators/*.h")
+    "${PROJECT_SOURCE_DIR}/src/accelerators/*.h")
 FILE(GLOB CAMERAS_HEADERS
-    "src/cameras/*.h")
+    "${PROJECT_SOURCE_DIR}/src/cameras/*.h")
 FILE(GLOB CORE_HEADERS
-    "src/core/*.h" "src/core/*.hh")
+    "${PROJECT_SOURCE_DIR}/src/core/*.h" "src/core/*.hh")
 FILE(GLOB FILM_HEADERS
-    "src/film/*.h")
+    "${PROJECT_SOURCE_DIR}/src/film/*.h")
 FILE(GLOB FILTERS_HEADERS
-    "src/filters/*.h")
+    "${PROJECT_SOURCE_DIR}/src/filters/*.h")
 FILE(GLOB INTEGRATORS_HEADERS
-    "src/integrators/*.h")
+    "${PROJECT_SOURCE_DIR}/src/integrators/*.h")
 FILE(GLOB LIGHTS_HEADERS
-    "src/lights/*.h")
+    "${PROJECT_SOURCE_DIR}/src/lights/*.h")
 FILE(GLOB MATERIALS_HEADERS
-    "src/materials/*.h")
+    "${PROJECT_SOURCE_DIR}/src/materials/*.h")
 FILE(GLOB RENDERERS_HEADERS
-    "src/renderers/*.h")
+    "${PROJECT_SOURCE_DIR}/src/renderers/*.h")
 FILE(GLOB SAMPLERS_HEADERS
-    "src/samplers/*.h")
+    "${PROJECT_SOURCE_DIR}/src/samplers/*.h")
 FILE(GLOB SHAPES_HEADERS
-    "src/shapes/*.h")
+    "${PROJECT_SOURCE_DIR}/src/shapes/*.h")
 FILE(GLOB TEXTURES_HEADERS
-    "src/textures/*.h")
+    "${PROJECT_SOURCE_DIR}/src/textures/*.h")
 FILE(GLOB VOLUMES_HEADERS
-    "src/volumes/*.h")
+    "${PROJECT_SOURCE_DIR}/src/volumes/*.h")
 FILE(GLOB VSD_HEADERS
-    "src/vsd/*.h")
+    "${PROJECT_SOURCE_DIR}/src/vsd/*.h")
 
 FILE(GLOB ACCELERATORS_src
-    "src/accelerators/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/accelerators/*.cpp")
 FILE(GLOB CAMERAS_SOURCES
-    "src/cameras/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/cameras/*.cpp")
 FILE(GLOB CORE_SOURCES
-    "src/core/*.cpp" "src/core/*.c"
-    "src/core/*.yy" "src/core/*.ll"
+    "${PROJECT_SOURCE_DIR}/src/core/*.cpp" "src/core/*.c"
+    "${PROJECT_SOURCE_DIR}/src/core/*.yy" "src/core/*.ll"
 )
 FILE(GLOB FILM_SOURCES
-    "src/film/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/film/*.cpp")
 FILE(GLOB FILTERS_SOURCES
-    "src/filters/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/filters/*.cpp")
 FILE(GLOB INTEGRATORS_SOURCES
-    "src/integrators/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/integrators/*.cpp")
 FILE(GLOB LIGHTS_SOURCES
-    "src/lights/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/lights/*.cpp")
 FILE(GLOB MATERIALS_SOURCES
-    "src/materials/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/materials/*.cpp")
 FILE(GLOB RENDERERS_SOURCES
-    "src/renderers/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/renderers/*.cpp")
 FILE(GLOB SAMPLERS_SOURCES
-    "src/samplers/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/samplers/*.cpp")
 FILE(GLOB SHAPES_SOURCES
-    "src/shapes/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/shapes/*.cpp")
 FILE(GLOB TEXTURE_SOURCES
-    "src/textures/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/textures/*.cpp")
 FILE(GLOB VOLUME_SOURCES
-    "src/volumes/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/volumes/*.cpp")
 FILE(GLOB VSD_SOURCES
-    "src/vsd/*.cpp")
+    "${PROJECT_SOURCE_DIR}/src/vsd/*.cpp")
 
 INCLUDE_DIRECTORIES(
-    "src"
-    "src/core"
-    "src/3rdparty/ilmbase-1.0.2"
-    "src/3rdparty/openexr-1.7.0"
-    "src/3rdparty/zlib-1.2.5"
+    "${PROJECT_SOURCE_DIR}/src"
+    "${PROJECT_SOURCE_DIR}/src/core"
+    "${PROJECT_SOURCE_DIR}/src/3rdparty/ilmbase-1.0.2"
+    "${PROJECT_SOURCE_DIR}/src/3rdparty/openexr-1.7.0"
+    "${PROJECT_SOURCE_DIR}/src/3rdparty/zlib-1.2.5"
 )
 
 ADD_DEFINITIONS(-DPBRT_HAS_OPENEXR -DPBRT_PROBES_NONE)
@@ -154,124 +156,124 @@ ADD_DEFINITIONS(-DPBRT_HAS_OPENEXR -DPBRT_PROBES_NONE)
 FIND_PACKAGE(BISON REQUIRED)
 FIND_PACKAGE(FLEX REQUIRED)
 IF(BISON_FOUND AND FLEX_FOUND)
-  SET(BisonOutput ${CMAKE_BINARY_DIR}/pbrtparse.cpp)
+  SET(BisonOutput ${PROJECT_BINARY_DIR}/pbrtparse.cpp)
   ADD_CUSTOM_COMMAND(
-    OUTPUT ${BisonOutput} ${CMAKE_BINARY_DIR}/pbrtparse.h
-    DEPENDS ${CMAKE_SOURCE_DIR}/src/core/pbrtparse.yy
+    OUTPUT ${BisonOutput} ${PROJECT_BINARY_DIR}/pbrtparse.h
+    DEPENDS ${PROJECT_SOURCE_DIR}/src/core/pbrtparse.yy
     COMMAND ${BISON_EXECUTABLE} -d -v -t
-            --output=${CMAKE_BINARY_DIR}/pbrtparse.cpp
-            ${CMAKE_SOURCE_DIR}/src/core/pbrtparse.yy
-    COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_BINARY_DIR}/pbrtparse.cpp
-                                       ${CMAKE_BINARY_DIR}/pbrtparse.cpp
+            --output=${PROJECT_BINARY_DIR}/pbrtparse.cpp
+            ${PROJECT_SOURCE_DIR}/src/core/pbrtparse.yy
+    COMMAND ${CMAKE_COMMAND} -E rename ${PROJECT_BINARY_DIR}/pbrtparse.cpp
+                                       ${PROJECT_BINARY_DIR}/pbrtparse.cpp
     COMMENT "Generating pbrtparse.cpp and pbrtparse.h"
   )
 
-  SET(FlexOutput ${CMAKE_BINARY_DIR}/pbrtlex.cpp)
+  SET(FlexOutput ${PROJECT_BINARY_DIR}/pbrtlex.cpp)
   ADD_CUSTOM_COMMAND(
     OUTPUT ${FlexOutput}
-    DEPENDS ${CMAKE_BINARY_DIR}/pbrtparse.h
-            ${CMAKE_SOURCE_DIR}/src/core/pbrtlex.ll
+    DEPENDS ${PROJECT_BINARY_DIR}/pbrtparse.h
+            ${PROJECT_SOURCE_DIR}/src/core/pbrtlex.ll
     COMMAND ${FLEX_EXECUTABLE}
             -o${FlexOutput}
-            ${CMAKE_SOURCE_DIR}/src/core/pbrtlex.ll
+            ${PROJECT_SOURCE_DIR}/src/core/pbrtlex.ll
     COMMENT "Generating pbrtlex.cpp"
   )
 
   SET (PBRT_YACC_LEX_SOURCE ${BisonOutput} ${FlexOutput})
 ELSE()
   SET (PBRT_YACC_LEX_SOURCE
-    src/core/pbrtlex.cpp
-    src/core/pbrtparse.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/pbrtlex.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/pbrtparse.cpp
     )
 ENDIF()
 
 SET(PBRT_CORE_SOURCE
-    src/core/api.cpp
-    src/core/api.h
-    src/core/bitarray.cpp
-    src/core/bitarray.h
-    src/core/camera.cpp
-    src/core/camera.h
-    src/core/diffgeom.cpp
-    src/core/diffgeom.h
-    src/core/error.cpp
-    src/core/error.h
-    src/core/fileutil.cpp
-    src/core/fileutil.h
-    src/core/film.cpp
-    src/core/film.h
-    src/core/filter.cpp
-    src/core/filter.h
-    src/core/floatfile.cpp
-    src/core/floatfile.h
-    src/core/geometry.cpp
-    src/core/geometry.h
-    src/core/imageio.cpp
-    src/core/imageio.h
-    src/core/integrator.cpp
-    src/core/integrator.h
-    src/core/intersection.cpp
-    src/core/intersection.h
-    src/core/kdtree.h
-    src/core/light.cpp
-    src/core/light.h
-    src/core/material.cpp
-    src/core/material.h
-    src/core/memory.cpp
-    src/core/memory.h
-    src/core/mipmap.h
-    src/core/montecarlo.cpp
-    src/core/montecarlo.h
-    src/core/octree.h
-    src/core/parallel.cpp
-    src/core/parallel.h
-    src/core/paramset.cpp
-    src/core/paramset.h
-    src/core/parser.cpp
-    src/core/parser.h
-    src/core/pbrt.h
-    src/core/primitive.cpp
-    src/core/primitive.h
-    src/core/probes.cpp
-    src/core/probes.h
-    src/core/progressreporter.cpp
-    src/core/progressreporter.h
-    src/core/quaternion.cpp
-    src/core/quaternion.h
-    src/core/reflection.cpp
-    src/core/reflection.h
-    src/core/renderer.cpp
-    src/core/renderer.h
-    src/core/rng.cpp
-    src/core/rng.h
-    src/core/sampler.cpp
-    src/core/sampler.h
-    src/core/scene.cpp
-    src/core/scene.h
-    src/core/sensor.cpp
-    src/core/sensor.h
-    src/core/shape.cpp
-    src/core/shape.h
-    src/core/sh.cpp
-    src/core/sh.h
-    src/core/shrots.cpp
-    src/core/spectrum.cpp
-    src/core/spectrum.h
-    src/core/stb_image_write.h
-    src/core/stdafx.cpp
-    src/core/stdafx.h
-    src/core/targa.c
-    src/core/targa.h
-    src/core/texture.cpp
-    src/core/texture.h
-    src/core/timer.cpp
-    src/core/timer.h
-    src/core/transform.cpp
-    src/core/transform.h
-    src/core/volume.cpp
-    src/core/volume.h
-    src/core/volumeutil.cpp
-    src/core/volumeutil.h
+    ${PROJECT_SOURCE_DIR}/src/core/api.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/api.h
+    ${PROJECT_SOURCE_DIR}/src/core/bitarray.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/bitarray.h
+    ${PROJECT_SOURCE_DIR}/src/core/camera.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/camera.h
+    ${PROJECT_SOURCE_DIR}/src/core/diffgeom.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/diffgeom.h
+    ${PROJECT_SOURCE_DIR}/src/core/error.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/error.h
+    ${PROJECT_SOURCE_DIR}/src/core/fileutil.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/fileutil.h
+    ${PROJECT_SOURCE_DIR}/src/core/film.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/film.h
+    ${PROJECT_SOURCE_DIR}/src/core/filter.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/filter.h
+    ${PROJECT_SOURCE_DIR}/src/core/floatfile.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/floatfile.h
+    ${PROJECT_SOURCE_DIR}/src/core/geometry.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/geometry.h
+    ${PROJECT_SOURCE_DIR}/src/core/imageio.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/imageio.h
+    ${PROJECT_SOURCE_DIR}/src/core/integrator.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/integrator.h
+    ${PROJECT_SOURCE_DIR}/src/core/intersection.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/intersection.h
+    ${PROJECT_SOURCE_DIR}/src/core/kdtree.h
+    ${PROJECT_SOURCE_DIR}/src/core/light.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/light.h
+    ${PROJECT_SOURCE_DIR}/src/core/material.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/material.h
+    ${PROJECT_SOURCE_DIR}/src/core/memory.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/memory.h
+    ${PROJECT_SOURCE_DIR}/src/core/mipmap.h
+    ${PROJECT_SOURCE_DIR}/src/core/montecarlo.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/montecarlo.h
+    ${PROJECT_SOURCE_DIR}/src/core/octree.h
+    ${PROJECT_SOURCE_DIR}/src/core/parallel.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/parallel.h
+    ${PROJECT_SOURCE_DIR}/src/core/paramset.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/paramset.h
+    ${PROJECT_SOURCE_DIR}/src/core/parser.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/parser.h
+    ${PROJECT_SOURCE_DIR}/src/core/pbrt.h
+    ${PROJECT_SOURCE_DIR}/src/core/primitive.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/primitive.h
+    ${PROJECT_SOURCE_DIR}/src/core/probes.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/probes.h
+    ${PROJECT_SOURCE_DIR}/src/core/progressreporter.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/progressreporter.h
+    ${PROJECT_SOURCE_DIR}/src/core/quaternion.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/quaternion.h
+    ${PROJECT_SOURCE_DIR}/src/core/reflection.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/reflection.h
+    ${PROJECT_SOURCE_DIR}/src/core/renderer.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/renderer.h
+    ${PROJECT_SOURCE_DIR}/src/core/rng.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/rng.h
+    ${PROJECT_SOURCE_DIR}/src/core/sampler.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/sampler.h
+    ${PROJECT_SOURCE_DIR}/src/core/scene.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/scene.h
+    ${PROJECT_SOURCE_DIR}/src/core/sensor.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/sensor.h
+    ${PROJECT_SOURCE_DIR}/src/core/shape.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/shape.h
+    ${PROJECT_SOURCE_DIR}/src/core/sh.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/sh.h
+    ${PROJECT_SOURCE_DIR}/src/core/shrots.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/spectrum.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/spectrum.h
+    ${PROJECT_SOURCE_DIR}/src/core/stb_image_write.h
+    ${PROJECT_SOURCE_DIR}/src/core/stdafx.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/stdafx.h
+    ${PROJECT_SOURCE_DIR}/src/core/targa.c
+    ${PROJECT_SOURCE_DIR}/src/core/targa.h
+    ${PROJECT_SOURCE_DIR}/src/core/texture.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/texture.h
+    ${PROJECT_SOURCE_DIR}/src/core/timer.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/timer.h
+    ${PROJECT_SOURCE_DIR}/src/core/transform.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/transform.h
+    ${PROJECT_SOURCE_DIR}/src/core/volume.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/volume.h
+    ${PROJECT_SOURCE_DIR}/src/core/volumeutil.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/volumeutil.h
 )
 
 FIND_PACKAGE( OpenMP )
@@ -280,7 +282,7 @@ IF( OPENMP_FOUND )
     SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}" )
 ENDIF( )
 
-ADD_LIBRARY(pbrtlib
+ADD_LIBRARY(pbrtlibv2
     ${PBRT_CORE_SOURCE}
     ${PBRT_YACC_LEX_SOURCE}
     ${tiff_hdr} ${tiff_src}
@@ -301,25 +303,25 @@ ADD_LIBRARY(pbrtlib
 
 # Executable
 ADD_EXECUTABLE(pbrt "src/main/pbrt.cpp")
-TARGET_LINK_LIBRARIES(pbrt pbrtlib)
+TARGET_LINK_LIBRARIES(pbrt pbrtlibv2)
 
 # pbrt2raw
 ADD_EXECUTABLE(pbrt2raw "src/tools/pbrt2raw.cpp")
-TARGET_LINK_LIBRARIES(pbrt2raw pbrtlib)
+TARGET_LINK_LIBRARIES(pbrt2raw pbrtlibv2)
 
 # volumizesprite
 ADD_EXECUTABLE(volumizesprite "src/tools/volumizesprite.cpp")
-TARGET_LINK_LIBRARIES(volumizesprite pbrtlib)
+TARGET_LINK_LIBRARIES(volumizesprite pbrtlibv2)
 
 # spritebounds
 ADD_EXECUTABLE(spritebounds "src/tools/spritebounds.cpp")
-TARGET_LINK_LIBRARIES(spritebounds pbrtlib)
+TARGET_LINK_LIBRARIES(spritebounds pbrtlibv2)
 
 # exravg
 ADD_EXECUTABLE(exravg "src/tools/exravg.cpp")
-TARGET_LINK_LIBRARIES(exravg pbrtlib)
+TARGET_LINK_LIBRARIES(exravg pbrtlibv2)
 
 # exrdiff
 ADD_EXECUTABLE(exrdiff "src/tools/exrdiff.cpp")
-TARGET_LINK_LIBRARIES(exrdiff pbrtlib)
+TARGET_LINK_LIBRARIES(exrdiff pbrtlibv2)
 

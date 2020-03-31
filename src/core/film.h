@@ -44,7 +44,7 @@ class Film {
 public:
     // Film Interface
     Film(int xres, int yres)
-        : xResolution(xres), yResolution(yres) { }
+        : xResolution(xres), yResolution(yres) { _rgb.resize(xres * yres * 3, 0.f); }
     virtual ~Film();
     virtual void AddSample(const CameraSample &sample,
                            const Spectrum &L) = 0;
@@ -58,6 +58,7 @@ public:
 
     // Film Public Data
     const int xResolution, yResolution;
+    std::vector<float> _rgb;
 };
 
 

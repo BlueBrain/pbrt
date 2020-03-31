@@ -248,39 +248,39 @@ void ImageFilm::GetPixelExtent(int *xstart, int *xend,
 void ImageFilm::WriteImage(float splatScale) {
     // Convert image to RGB and compute final pixel values
     int nPix = xPixelCount * yPixelCount;
-    float* recordedEnergy = new float[nPix];
-    float *rgb = new float[3*nPix];
+    //float* recordedEnergy = new float[nPix];
     int offset = 0;
     for (int y = 0; y < yPixelCount; ++y) {
         for (int x = 0; x < xPixelCount; ++x) {
-            XYZToRGB((*pixels)(x, y).Lxyz, &rgb[3*offset]);
+            XYZToRGB((*pixels)(x, y).Lxyz, &_rgb[3*offset]);
             float r = (*pixels)(x, y).Lxyz[0];
             float g = (*pixels)(x, y).Lxyz[1];
             float b = (*pixels)(x, y).Lxyz[2];
             float average = splatScale * (r + g + b) / 3.f;
-            recordedEnergy[offset] = average;
-            if(rgb[3 * offset    ] != 0 &&
-               rgb[3 * offset + 1] != 0 &&
-               rgb[3 * offset + 2] != 0) {
+            //recordedEnergy[offset] = average;
+            if(_rgb[3 * offset    ] != 0 &&
+               _rgb[3 * offset + 1] != 0 &&
+               _rgb[3 * offset + 2] != 0) {
                 this->nIlluminatedPixels += 1;
             }
 
             float weightSum = (*pixels)(x, y).weightSum;
             if (weightSum != 0.f) {
                 float invWt = 1.f / weightSum;
-                rgb[3*offset  ] = max(0.f, rgb[3*offset  ] * invWt);
-                rgb[3*offset+1] = max(0.f, rgb[3*offset+1] * invWt);
-                rgb[3*offset+2] = max(0.f, rgb[3*offset+2] * invWt);
+                _rgb[3*offset  ] = max(0.f, _rgb[3*offset  ] * invWt);
+                _rgb[3*offset+1] = max(0.f, _rgb[3*offset+1] * invWt);
+                _rgb[3*offset+2] = max(0.f, _rgb[3*offset+2] * invWt);
             }
 
             float splatRGB[3];
             XYZToRGB((*pixels)(x, y).splatXYZ, splatRGB);
-            rgb[3*offset  ] += splatScale * splatRGB[0];
-            rgb[3*offset+1] += splatScale * splatRGB[1];
-            rgb[3*offset+2] += splatScale * splatRGB[2];
+            _rgb[3*offset  ] += splatScale * splatRGB[0];
+            _rgb[3*offset+1] += splatScale * splatRGB[1];
+            _rgb[3*offset+2] += splatScale * splatRGB[2];
             ++offset;
         }
     }
+/*
     strip(fileNamePrefix, ".exr");
     string imageFile = fileNamePrefix + ".exr";
     ::WriteImage(imageFile, rgb, NULL, xPixelCount, yPixelCount,
@@ -301,6 +301,7 @@ void ImageFilm::WriteImage(float splatScale) {
 
     // Write the validation image
     WriteValidationImage(0.f);
+*/
 }
 
 
