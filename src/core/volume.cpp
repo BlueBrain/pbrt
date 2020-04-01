@@ -36,6 +36,9 @@
 #include "volume.h"
 #include <limits>
 
+namespace pbrt
+{
+
 // Volume Scattering Local Definitions
 struct MeasuredSS {
     const char *name;
@@ -762,4 +765,6 @@ float DensityRegion::tauLambda(const Ray &r, float stepSize, float u,
         t0 += stepSize;
     }
     return tau * stepSize;
+}
+
 }

@@ -36,6 +36,9 @@
 #include "transform.h"
 #include "shape.h"
 
+namespace pbrt
+{
+
 // DifferentialGeometry Method Definitions
 DifferentialGeometry::DifferentialGeometry(const Point &P,
         const Vector &DPDU, const Vector &DPDV,
@@ -110,6 +113,7 @@ fail:
         dudy = dvdy = 0.;
         dpdx = dpdy = Vector(0,0,0);
     }
+}
 }
 
 

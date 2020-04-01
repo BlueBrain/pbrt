@@ -37,6 +37,8 @@
 #include "parser.h"
 #include "parallel.h"
 
+using namespace pbrt;
+
 // main program
 int main(int argc, char *argv[]) {
     Options options;

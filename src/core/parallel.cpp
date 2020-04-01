@@ -48,6 +48,9 @@
 #endif 
 #include <list>
 
+namespace pbrt
+{
+
 // Parallel Local Declarations
 #if defined(PBRT_IS_WINDOWS)
 static HANDLE *threads;
@@ -907,6 +910,8 @@ int NumSystemCores() {
     }
     return nCores;
 #endif
+}
+
 }
 
 

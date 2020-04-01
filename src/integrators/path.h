@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // PathIntegrator Declarations
 class PathIntegrator : public SurfaceIntegrator {
 public:
@@ -61,5 +64,7 @@ private:
 
 
 PathIntegrator *CreatePathSurfaceIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_PATH_H

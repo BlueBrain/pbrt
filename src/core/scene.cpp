@@ -41,6 +41,9 @@
 #include "progressreporter.h"
 #include "renderer.h"
 
+namespace pbrt
+{
+
 // Scene Method Definitions
 Scene::~Scene() {
     delete aggregate;
@@ -68,4 +71,5 @@ const BBox &Scene::WorldBound() const {
     return bound;
 }
 
+}
 

@@ -39,10 +39,12 @@
 // core/imageio.h*
 #include "pbrt.h"
 
+
 // ImageIO Declarations
-RGBSpectrum *ReadImage(const string &name, int *xSize, int *ySize);
+pbrt::RGBSpectrum *ReadImage(const string &name, int *xSize, int *ySize);
 void WriteImage(const string &name, float *pixels, float *alpha,
     int XRes, int YRes, int totalXRes, int totalYRes, int xOffset,
     int yOffset);
+
 
 #endif // PBRT_CORE_IMAGEIO_H

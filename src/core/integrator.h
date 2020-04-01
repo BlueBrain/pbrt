@@ -47,6 +47,9 @@
 #include "probes.h"
 #include "renderer.h"
 
+namespace pbrt
+{
+
 // Integrator Declarations
 class Integrator {
 public:
@@ -97,5 +100,6 @@ Spectrum SpecularTransmit(const RayDifferential &ray, BSDF *bsdf, RNG &rng,
     const Intersection &isect, const Renderer *renderer, const Scene *scene,
     const Sample *sample, MemoryArena &arena);
 Distribution1D *ComputeLightSamplingCDF(const Scene *scene);
+}
 
 #endif // PBRT_CORE_INTEGRATOR_H

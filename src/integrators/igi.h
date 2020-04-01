@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // IGIIntegrator Local Structures
 struct VirtualLight {
     VirtualLight() { }
@@ -92,5 +95,7 @@ private:
 
 
 IGIIntegrator *CreateIGISurfaceIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_IGI_H

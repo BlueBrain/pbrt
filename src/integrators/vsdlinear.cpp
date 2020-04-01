@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // VSDLinearIntegrator Method Definitions
 void VSDLinearIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -114,4 +117,4 @@ VSDLinearIntegrator *CreateVSDLinearIntegrator(const ParamSet &params) {
     return new VSDLinearIntegrator(stepSize);
 }
 
-
+}

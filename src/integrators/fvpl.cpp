@@ -40,6 +40,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+namespace pbrt
+{
+
 // FVPLIntegrator Method Definitions
 void FVPLIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -262,4 +265,4 @@ FVPLIntegrator *CreateFVPLIntegrator(const ParamSet &params) {
     return new FVPLIntegrator(stepSize, nLightPaths, nLightSets, glimit);
 }
 
-
+}

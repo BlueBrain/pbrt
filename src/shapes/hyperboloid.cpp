@@ -35,6 +35,9 @@
 #include "shapes/hyperboloid.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Hyperboloid Method Definitions
 Hyperboloid::Hyperboloid(const Transform *o2w, const Transform *w2o, bool ro,
         const Point &point1, const Point &point2, float tm)
@@ -263,5 +266,5 @@ Shape *CreateHyperboloidShape(const Transform *o2w, const Transform *w2o,
     float phimax = params.FindOneFloat("phimax", 360);
     return new Hyperboloid(o2w, w2o, reverseOrientation, p1, p2, phimax);
 }
-
+}
 

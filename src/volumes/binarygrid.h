@@ -41,6 +41,8 @@
 #include "volume.h"
 #include "bitarray.h"
 
+namespace pbrt
+{
 // BinaryVolumeGridDensity Declarations
 class BinaryVolumeGrid : public DensityRegion {
 public:
@@ -104,4 +106,5 @@ protected:
 BinaryVolumeGrid *CreateBinaryGridVolumeRegion(const Transform &volume2world,
         const ParamSet &params);
 
+}
 #endif // PBRT_VOLUMES_BINARYVOLUMEGRID_H

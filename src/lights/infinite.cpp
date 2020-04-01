@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "imageio.h"
 
+namespace pbrt
+{
+
 // InfiniteAreaLight Utility Classes
 struct InfiniteAreaCube {
     // InfiniteAreaCube Public Methods
@@ -273,4 +276,4 @@ Spectrum InfiniteAreaLight::Sample_L(const Scene *scene,
     return Ls;
 }
 
-
+}

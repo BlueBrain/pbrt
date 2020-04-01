@@ -41,6 +41,9 @@
 #include "texture.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // ScaleTexture Declarations
 template <typename T1, typename T2>
 class ScaleTexture : public Texture<T2> {
@@ -62,4 +65,5 @@ ScaleTexture<float, float> *CreateScaleFloatTexture(const Transform &tex2world,
 ScaleTexture<Spectrum, Spectrum> *CreateScaleSpectrumTexture(const Transform &tex2world,
         const TextureParams &tp);
 
+}
 #endif // PBRT_TEXTURES_SCALE_H

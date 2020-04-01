@@ -43,6 +43,9 @@
 #include <vector>
 #include "bitarray.h"
 
+namespace pbrt
+{
+
 // FluorescentBinaryVolumeGrid Declarations
 class FluorescentBinaryVolumeGrid : public FluorescentGridDensity {
 public:
@@ -64,5 +67,7 @@ private:
 
 FluorescentBinaryVolumeGrid *CreateFluorescentBinaryVolumeGrid
 (const Transform &volume2world, const ParamSet &params);
+
+}
 
 #endif // PBRT_VOLUMES_FLUORESCENTBINARYVOLUMEGRID_H

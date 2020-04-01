@@ -38,6 +38,9 @@
 
 #include "pbrt.h"
 
+namespace pbrt
+{
+
 class BitArray
 {
 public:
@@ -59,6 +62,8 @@ private:
     uint64_t numBytes_;
     uchar* byteData_;
 };
+
+}
 
 #endif // PBRT_CORE_BITARRAY_H
 

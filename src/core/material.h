@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "memory.h"
 
+namespace pbrt
+{
+
 // Material Declarations
 class Material : public ReferenceCounted {
 public:
@@ -57,6 +60,6 @@ public:
         const DifferentialGeometry &dgShading, DifferentialGeometry *dgBump);
 };
 
-
+}
 
 #endif // PBRT_CORE_MATERIAL_H

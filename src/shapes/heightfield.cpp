@@ -36,6 +36,8 @@
 #include "shapes/trianglemesh.h"
 #include "paramset.h"
 
+namespace pbrt
+{
 // Heightfield Method Definitions
 Heightfield::Heightfield(const Transform *o2w, const Transform *w2o,
         bool ro, int x, int y, const float *zs)
@@ -123,4 +125,4 @@ Heightfield *CreateHeightfieldShape(const Transform *o2w, const Transform *w2o,
     return new Heightfield(o2w, w2o, reverseOrientation, nu, nv, Pz);
 }
 
-
+}

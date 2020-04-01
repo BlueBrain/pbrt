@@ -39,6 +39,9 @@
 // core/renderer.h*
 #include "pbrt.h"
 
+namespace pbrt
+{
+
 // Renderer Declarations
 class Renderer {
 public:
@@ -53,6 +56,6 @@ public:
         RNG &rng, MemoryArena &arena) const = 0;
 };
 
-
+}
 
 #endif // PBRT_CORE_RENDERER_H

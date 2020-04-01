@@ -40,6 +40,9 @@
 // core/api.h*
 #include "pbrt.h"
 
+namespace pbrt
+{
+
 // API Function Declarations
 void pbrtInit(const Options &opt);
 void pbrtCleanup();
@@ -86,5 +89,7 @@ void pbrtObjectBegin(const string &name);
 void pbrtObjectEnd();
 void pbrtObjectInstance(const string &name);
 void pbrtWorldEnd();
+
+}
 
 #endif // PBRT_CORE_API_H

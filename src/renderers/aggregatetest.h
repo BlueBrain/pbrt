@@ -41,6 +41,9 @@
 #include "renderer.h"
 #include "memory.h"
 
+namespace pbrt
+{
+
 // AggregateTest Declarations
 class AggregateTest : public Renderer {
 public:
@@ -62,5 +65,7 @@ private:
 
 AggregateTest *CreateAggregateTestRenderer(const ParamSet &params,
     const vector<Reference<Primitive> > &primitives);
+
+}
 
 #endif // PBRT_RENDERERS_AGGREGATETEST_H

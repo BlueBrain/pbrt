@@ -39,6 +39,9 @@
 // volumes/annotatedgrid.h*
 #include "volume.h"
 
+namespace pbrt
+{
+
 // AnnotatedVolumeGrid Declarations
 class AnnotatedVolumeGrid : public DensityRegion {
 public:
@@ -103,4 +106,5 @@ private:
 AnnotatedVolumeGrid *CreateAnnotatedVolumeGrid(const Transform &volume2world,
         const ParamSet &params);
 
+}
 #endif // PBRT_VOLUMES_ANNOTATEDGRID_H

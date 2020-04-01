@@ -40,6 +40,9 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // VolumePathIntegrator Declarations
 class VolumePatIntegrator : public VolumeIntegrator {
 public:
@@ -83,5 +86,7 @@ private:
 
 
 VolumePatIntegrator *CreateVolumePathIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VOLUME_PATH_H

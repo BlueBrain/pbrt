@@ -40,6 +40,9 @@
 #include "texture.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // KdSubsurfaceMaterial Method Definitions
 BSDF *KdSubsurfaceMaterial::GetBSDF(const DifferentialGeometry &dgGeom,
               const DifferentialGeometry &dgShading,
@@ -83,4 +86,4 @@ KdSubsurfaceMaterial *CreateKdSubsurfaceMaterial(const Transform &xform,
     return new KdSubsurfaceMaterial(kd, kr, mfp, ior, bumpMap);
 }
 
-
+}

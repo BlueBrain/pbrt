@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // TriangleMesh Method Definitions
 TriangleMesh::TriangleMesh(const Transform *o2w, const Transform *w2o,
         bool ro, int nt, int nv, const int *vi, const Point *P,
@@ -455,4 +458,4 @@ Point Triangle::Sample(float u1, float u2, Normal *Ns) const {
     return p;
 }
 
-
+}

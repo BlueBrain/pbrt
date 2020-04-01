@@ -9,8 +9,8 @@ using namespace std;
 int main(int argc, char** argv)
 {
     if(argc < 7) {
-        Warning("arguments <PSH> <INPUT_DATA_DIRECTORY> <OUTPUT_DATA_DIRECTORY>"
-                "<X_SHIFT = 0> <Y_SHIFT = 0> <Z_SHIFT = 0>");
+        pbrt::Warning("arguments <PSH> <INPUT_DATA_DIRECTORY> <OUTPUT_DATA_DIRECTORY>"
+                      "<X_SHIFT = 0> <Y_SHIFT = 0> <Z_SHIFT = 0>");
         return EXIT_SUCCESS;
     }
 
@@ -22,10 +22,10 @@ int main(int argc, char** argv)
     float yShift = atof(argv[5]);
     float zShift = atof(argv[6]);
 
-    Vector shift(xShift, yShift, zShift);
+    pbrt::Vector shift(xShift, yShift, zShift);
 
     // Read the VSD sprite
-    VSDSprite sprite;
+    pbrt::VSDSprite sprite;
     string pshFile = pshFilePrefix + ".psh";
     sprite.Read(inputDataDirectory, pshFile, false, shift);
     std::string original = pshFilePrefix + ".original";

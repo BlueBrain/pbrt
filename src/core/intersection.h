@@ -41,6 +41,9 @@
 #include "diffgeom.h"
 #include "transform.h"
 
+namespace pbrt
+{
+
 // Intersection Declarations
 struct Intersection {
     // Intersection Public Methods
@@ -61,6 +64,6 @@ struct Intersection {
     float rayEpsilon;
 };
 
-
+}
 
 #endif // PBRT_CORE_INTERSECTION_H

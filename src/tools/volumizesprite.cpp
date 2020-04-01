@@ -5,6 +5,7 @@
 #include <string>
 
 using namespace std;
+using namespace pbrt;
 
 int main(int argc, char** argv)
 {

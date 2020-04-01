@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "sampler.h"
 
+namespace pbrt
+{
+
 // AdaptiveSampler Declarations
 class AdaptiveSampler : public Sampler {
 public:
@@ -74,5 +77,7 @@ private:
 
 AdaptiveSampler *CreateAdaptiveSampler(const ParamSet &params, const Film *film,
     const Camera *camera);
+
+}
 
 #endif // PBRT_SAMPLERS_ADAPTIVE_H

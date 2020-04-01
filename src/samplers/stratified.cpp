@@ -37,6 +37,9 @@
 #include "camera.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // StratifiedSampler Method Definitions
 StratifiedSampler::StratifiedSampler(int xstart, int xend,
         int ystart, int yend, int xs, int ys, bool jitter,
@@ -98,7 +101,7 @@ int StratifiedSampler::GetMoreSamples(Sample *samples, RNG &rng) {
         samples[i].imageY = imageSamples[2*i+1];
         samples[i].lensU = lensSamples[2*i];
         samples[i].lensV = lensSamples[2*i+1];
-        samples[i].time = Lerp(timeSamples[i], shutterOpen, shutterClose);
+        samples[i].time = ::Lerp(timeSamples[i], shutterOpen, shutterClose);
         // Generate stratified samples for integrators
         for (uint32_t j = 0; j < samples[i].n1D.size(); ++j)
             LatinHypercube(samples[i].oneD[j], samples[i].n1D[j], 1, rng);
@@ -128,4 +131,4 @@ StratifiedSampler *CreateStratifiedSampler(const ParamSet &params, const Film *f
         jitter, camera->shutterOpen, camera->shutterClose);
 }
 
-
+}

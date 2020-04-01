@@ -39,6 +39,9 @@
 // shapes/cylinder.h*
 #include "shape.h"
 
+namespace pbrt
+{
+
 // Cylinder Declarations
 class Cylinder : public Shape {
 public:
@@ -60,5 +63,5 @@ protected:
 
 Cylinder *CreateCylinderShape(const Transform *o2w, const Transform *w2o,
         bool reverseOrientation, const ParamSet &params);
-
+}
 #endif // PBRT_SHAPES_CYLINDER_H

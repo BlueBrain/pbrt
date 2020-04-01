@@ -41,6 +41,9 @@
 #include "light.h"
 #include "primitive.h"
 
+namespace pbrt
+{
+
 // DiffuseAreaLight Declarations
 class DiffuseAreaLight : public AreaLight {
 public:
@@ -75,4 +78,6 @@ AreaLight
 *CreateDiffuseAreaLight(const Transform &light2world, const ParamSet &paramSet,
         const Reference<Shape> &shape);
 
+
+}
 #endif // PBRT_LIGHTS_DIFFUSE_H

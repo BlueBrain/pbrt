@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // GlossyPRTIntegrator Declarations
 class GlossyPRTIntegrator : public SurfaceIntegrator {
 public:
@@ -67,5 +70,7 @@ private:
 
 
 GlossyPRTIntegrator *CreateGlossyPRTIntegratorSurfaceIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_GLOSSYPRT_H

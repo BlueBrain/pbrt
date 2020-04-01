@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "geometry.h"
 
+namespace pbrt
+{
+
 // KdTree Declarations
 struct KdNode {
     void init(float p, uint32_t a) {
@@ -182,6 +185,6 @@ void KdTree<NodeData>::privateLookup(uint32_t nodeNum, const Point &p,
         process(p, nodeData[nodeNum], dist2, maxDistSquared);
 }
 
-
+}
 
 #endif // PBRT_CORE_KDTREE_H

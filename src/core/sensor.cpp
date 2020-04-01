@@ -46,6 +46,9 @@
 
 using namespace std;
 
+namespace pbrt
+{
+
 // Shape Method Definitions
 Sensor::~Sensor() {
     delete [] Lpixels;
@@ -196,8 +199,8 @@ void Sensor::WriteFilm(void) {
 
     // Write an RGB image
     const string sensorImageName = reference + ".exr";
-    ::WriteImage(sensorImageName, rgb, NULL, xPixels, yPixels,
-                 xPixels, yPixels, 0, 0);
+    WriteImage(sensorImageName, rgb, NULL, xPixels, yPixels,
+               xPixels, yPixels, 0, 0);
 
     // Write the VSD image
     const string file =  reference + ".vsd";
@@ -236,4 +239,6 @@ Sensor* CreateSensor(const std::string shapeId, Shape* shape,
     }
 
     return sensor;
+}
+
 }

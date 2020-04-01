@@ -42,6 +42,9 @@
 #include "camera.h"
 #include "intersection.h"
 
+namespace pbrt
+{
+
 using namespace std;
 
 static uint32_t hashFunction(char *key, uint32_t len)
@@ -257,4 +260,4 @@ Spectrum SamplerRenderer::Transmittance(const Scene *scene,
                                            rng, arena);
 }
 
-
+}

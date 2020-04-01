@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "geometry.h"
 
+namespace pbrt
+{
+
 // DifferentialGeometry Declarations
 struct DifferentialGeometry {
     DifferentialGeometry() { 
@@ -64,6 +67,6 @@ struct DifferentialGeometry {
     mutable float dudx, dvdx, dudy, dvdy;
 };
 
-
+}
 
 #endif // PBRT_CORE_DIFFGEOM_H

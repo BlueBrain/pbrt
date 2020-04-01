@@ -41,6 +41,9 @@
 #include <iostream>
 #include <fstream>
 
+namespace pbrt
+{
+
 // VSDLinearSpriteIntegrator Method Definitions
 void VSDLinearSpriteIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                                const Scene *scene) {
@@ -268,4 +271,6 @@ VSDLinearSpriteIntegrator *CreateVSDLinearSpriteIntegrator(const ParamSet &param
     shift.y = params.FindOneFloat("yshift", 0);
     shift.z = params.FindOneFloat("zshift", 0);
     return new VSDLinearSpriteIntegrator(vsdDataDirectory, pshFileName, shift);
+}
+
 }

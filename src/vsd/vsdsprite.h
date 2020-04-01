@@ -41,6 +41,9 @@
 #include "vsdgrid.h"
 #include "vsdevent.h"
 
+namespace pbrt
+{
+
 // VSDSprite Declarations
 class VSDSprite
 {
@@ -88,4 +91,5 @@ int ParseIntParameter(const string line);
 float ParseFloatParameter(const std::string line);
 std::string ParseStringParameter(const std::string line);
 
+}
 #endif // PBRT_VSD_VSDSPRITE_H

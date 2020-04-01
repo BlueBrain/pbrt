@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "sh.h"
 
+namespace pbrt
+{
+
 // Light Method Definitions
 Light::~Light() {
 }
@@ -184,4 +187,4 @@ bool ShapeSet::Projects(const Point &p, Point &ps, Normal &ns) const {
     return false;
 }
 
-
+}

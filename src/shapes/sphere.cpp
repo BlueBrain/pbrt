@@ -36,6 +36,9 @@
 #include "montecarlo.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Sphere Method Definitions
 Sphere::Sphere(const Transform *o2w, const Transform *w2o, bool ro,
                float rad, float z0, float z1, float pm)
@@ -273,4 +276,4 @@ float Sphere::Pdf(const Point &p, const Vector &wi) const {
     return UniformConePdf(cosThetaMax);
 }
 
-
+}

@@ -43,6 +43,9 @@
 #include "diffgeom.h"
 #include "memory.h"
 
+namespace pbrt
+{
+
 // Shape Declarations
 class Shape : public ReferenceCounted {
 public:
@@ -83,6 +86,6 @@ public:
     static uint32_t nextshapeId;
 };
 
-
+}
 
 #endif // PBRT_CORE_SHAPE_H

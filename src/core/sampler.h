@@ -42,6 +42,9 @@
 #include "rng.h"
 #include "memory.h"
 
+namespace pbrt
+{
+
 // Sampling Declarations
 class Sampler {
 public:
@@ -102,6 +105,6 @@ private:
     Sample() { oneD = twoD = NULL; }
 };
 
-
+}
 
 #endif // PBRT_CORE_SAMPLER_H

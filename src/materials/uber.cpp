@@ -38,6 +38,9 @@
 #include "texture.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // UberMaterial Method Definitions
 BSDF *UberMaterial::GetBSDF(const DifferentialGeometry &dgGeom, const DifferentialGeometry &dgShading, MemoryArena &arena) const {
     // Allocate _BSDF_, possibly doing bump mapping with _bumpMap_
@@ -96,4 +99,4 @@ UberMaterial *CreateUberMaterial(const Transform &xform,
     return new UberMaterial(Kd, Ks, Kr, Kt, roughness, opacity, eta, bumpMap);
 }
 
-
+}

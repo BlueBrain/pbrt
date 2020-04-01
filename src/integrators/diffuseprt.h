@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // DiffusePRTIntegrator Declarations
 class DiffusePRTIntegrator : public SurfaceIntegrator {
 public:
@@ -59,5 +62,7 @@ private:
 
 
 DiffusePRTIntegrator *CreateDiffusePRTIntegratorSurfaceIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_DIFFUSEPRT_H

@@ -39,6 +39,9 @@
 // core/film.h*
 #include "pbrt.h"
 
+namespace pbrt
+{
+
 // Film Declarations
 class Film {
 public:
@@ -61,6 +64,6 @@ public:
     std::vector<float> _rgb;
 };
 
-
+}
 
 #endif // PBRT_CORE_FILM_H

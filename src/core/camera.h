@@ -41,6 +41,9 @@
 #include "geometry.h"
 #include "transform.h"
 
+namespace pbrt
+{
+
 // Camera Declarations
 class Camera {
 public:
@@ -72,6 +75,6 @@ protected:
     float lensRadius, focalDistance;
 };
 
-
+}
 
 #endif // PBRT_CORE_CAMERA_H

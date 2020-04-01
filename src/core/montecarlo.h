@@ -41,6 +41,9 @@
 #include "geometry.h"
 #include "rng.h"
 
+namespace pbrt
+{
+
 // smallest floating point value less than one; all canonical random samples
 // should be <= this.
 #ifdef PBRT_IS_WINDOWS
@@ -322,6 +325,7 @@ inline void LDShuffleScrambled2D(int nSamples, int nPixel,
     Shuffle(samples, nPixel, 2 * nSamples, rng);
 }
 
+}
 
 
 #endif // PBRT_CORE_MONTECARLO_H

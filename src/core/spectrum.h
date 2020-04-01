@@ -41,6 +41,9 @@
 #include "pbrt.h"
 #include "parallel.h"
 
+namespace pbrt
+{
+
 // Spectrum Utility Declarations
 static const int sampledLambdaStart = 300;
 static const int sampledLambdaEnd = 800;
@@ -883,6 +886,6 @@ inline Spectrum Lerp(float t, const Spectrum &s1, const Spectrum &s2) {
     return (1.f - t) * s1 + t * s2;
 }
 
-
+}
 
 #endif // PBRT_CORE_SPECTRUM_H

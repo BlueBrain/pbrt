@@ -39,6 +39,9 @@
 // shapes/cone.h*
 #include "shape.h"
 
+namespace pbrt
+{
+
 // Cone Declarations
 class Cone : public Shape {
 public:
@@ -59,5 +62,5 @@ protected:
 
 Cone *CreateConeShape(const Transform *o2w, const Transform *w2o,
         bool reverseOrientation, const ParamSet &params);
-
+}
 #endif // PBRT_SHAPES_CONE_H

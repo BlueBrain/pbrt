@@ -49,6 +49,9 @@
 #include <map>
 using std::map;
 
+namespace pbrt
+{
+
 // ParamSet Declarations
 class ParamSet {
 public:
@@ -199,6 +202,6 @@ private:
     const ParamSet &geomParams, &materialParams;
 };
 
-
+}
 
 #endif // PBRT_CORE_PARAMSET_H

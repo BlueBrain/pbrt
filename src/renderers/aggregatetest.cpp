@@ -40,6 +40,9 @@
 #include "primitive.h"
 #include "intersection.h"
 
+namespace pbrt
+{
+
 // AggregateTest Method Definitions
 AggregateTest::AggregateTest(int niters,
         const vector<Reference<Primitive> > &p) {
@@ -71,9 +74,9 @@ void AggregateTest::Render(const Scene *scene) {
         // Choose random rays, _rayAccel_ and _rayAll_ for testing
 
         // Choose ray origin for testing accelerator
-        Point org(Lerp(rng.RandomFloat(), bbox.pMin.x, bbox.pMax.x),
-                  Lerp(rng.RandomFloat(), bbox.pMin.y, bbox.pMax.y),
-                  Lerp(rng.RandomFloat(), bbox.pMin.z, bbox.pMax.z));
+        Point org(::Lerp(rng.RandomFloat(), bbox.pMin.x, bbox.pMax.x),
+                  ::Lerp(rng.RandomFloat(), bbox.pMin.y, bbox.pMax.y),
+                  ::Lerp(rng.RandomFloat(), bbox.pMin.z, bbox.pMax.z));
         if ((rng.RandomUInt() % 4) == 0) org = lastHit;
 
         // Choose ray direction for testing accelerator
@@ -132,4 +135,4 @@ Spectrum AggregateTest::Transmittance(const Scene *scene,
     return 0.f;
 }
 
-
+}

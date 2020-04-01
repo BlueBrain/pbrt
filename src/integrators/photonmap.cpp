@@ -41,6 +41,8 @@
 #include "paramset.h"
 #include "camera.h"
 
+namespace pbrt
+{
 
 // PhotonIntegrator Local Declarations
 struct Photon {
@@ -800,4 +802,4 @@ PhotonIntegrator *CreatePhotonMapSurfaceIntegrator(const ParamSet &params) {
         gatherAngle);
 }
 
-
+}

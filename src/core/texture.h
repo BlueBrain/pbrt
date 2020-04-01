@@ -43,6 +43,9 @@
 #include "transform.h"
 #include "memory.h"
 
+namespace pbrt
+{
+
 // Texture Declarations
 class TextureMapping2D {
 public:
@@ -148,5 +151,7 @@ float FBm(const Point &P, const Vector &dpdx, const Vector &dpdy,
     float omega, int octaves);
 float Turbulence(const Point &P, const Vector &dpdx, const Vector &dpdy,
     float omega, int octaves);
+
+}
 
 #endif // PBRT_CORE_TEXTURE_H

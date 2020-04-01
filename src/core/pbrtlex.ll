@@ -69,15 +69,15 @@ void add_string_char(char c) {
 
 void include_push(char *filename) {
     if (includeStack.size() > 32) {
-        Error("Only 32 levels of nested Include allowed in scene files.");
+        pbrt::Error("Only 32 levels of nested Include allowed in scene files.");
         exit(1);
     }
 
-    string new_file = AbsolutePath(ResolveFilename(filename));
+    string new_file = pbrt::AbsolutePath(pbrt::ResolveFilename(filename));
 
     FILE *f = fopen(new_file.c_str(), "r");
     if (!f)
-        Error("Unable to open included scene file \"%s\"", new_file.c_str());
+        pbrt::Error("Unable to open included scene file \"%s\"", new_file.c_str());
     else {
         extern string current_file;
         IncludeInfo ii;
@@ -197,15 +197,14 @@ WorldEnd                { return WORLDEND; }
 <STR>\\. { add_string_char(yytext[1]);}
 <STR>\" {BEGIN INITIAL; return STRING;}
 <STR>. {add_string_char(yytext[0]);}
-<STR>\n {Error("Unterminated string!");}
+<STR>\n {pbrt::Error("Unterminated string!");}
 
-. { Error( "Illegal character: %c (0x%x)", yytext[0], int(yytext[0])); }
+. { pbrt::Error( "Illegal character: %c (0x%x)", yytext[0], int(yytext[0])); }
 %%
 int yywrap() {
     if (includeStack.size() == 0) return 1;
     include_pop();
     return 0;
 }
-
 
 

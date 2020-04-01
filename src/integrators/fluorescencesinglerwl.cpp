@@ -39,6 +39,9 @@
 #include "montecarlo.h"
 #include "stdio.h"
 
+namespace pbrt
+{
+
 // SingleScatteringFluorescenceRWLIntegrator Method Definitions
 void SingleScatteringFluorescenceRWLIntegrator::RequestSamples(Sampler *sampler,
         Sample *sample, const Scene *scene) {
@@ -170,5 +173,7 @@ SingleScatteringFluorescenceRWLIntegrator
 *CreateSingleScatteringFluorescenceRWLIntegrator(const ParamSet &params) {
     float stepSize  = params.FindOneFloat("stepsize", 1.f);
     return new SingleScatteringFluorescenceRWLIntegrator(stepSize);
+}
+
 }
 

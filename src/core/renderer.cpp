@@ -34,8 +34,11 @@
 #include "stdafx.h"
 #include "renderer.h"
 
+namespace pbrt
+{
+
 // Renderer Method Definitions
 Renderer::~Renderer() {
 }
 
-
+}

@@ -40,6 +40,9 @@
 #define UPPER_MASK 0x80000000UL /* most significant w-r bits */
 #define LOWER_MASK 0x7fffffffUL /* least significant r bits */
 
+namespace pbrt
+{
+
 void RNG::Seed(uint32_t seed) const {
     mt[0]= seed & 0xffffffffUL;
     for (mti=1; mti<N; mti++) {
@@ -105,5 +108,5 @@ uint32_t RNG::RandomUInt() const
 
     return y;
 }
-
+}
 

@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // PlasticMaterial Method Definitions
 BSDF *PlasticMaterial::GetBSDF(const DifferentialGeometry &dgGeom,
                                const DifferentialGeometry &dgShading,
@@ -75,4 +78,4 @@ PlasticMaterial *CreatePlasticMaterial(const Transform &xform,
     return new PlasticMaterial(Kd, Ks, roughness, bumpMap);
 }
 
-
+}

@@ -40,6 +40,9 @@
 using std::set;
 using std::map;
 
+namespace pbrt
+{
+
 // LoopSubdiv Macros
 #define NEXT(i) (((i)+1)%3)
 #define PREV(i) (((i)+2)%3)
@@ -507,4 +510,4 @@ LoopSubdiv *CreateLoopSubdivShape(const Transform *o2w, const Transform *w2o,
         vi, P, nlevels);
 }
 
-
+}

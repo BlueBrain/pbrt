@@ -40,6 +40,9 @@
 #include "memory.h"
 #include "shape.h"
 
+namespace pbrt
+{
+
 class Sensor : public ReferenceCounted
 {
 public:
@@ -82,5 +85,7 @@ private:
 };
 
 Sensor* CreateSensor(const std::string shapeid, Shape* shape, const ParamSet &params);
+
+}
 
 #endif // PBRT_CORE_SENSOR_H

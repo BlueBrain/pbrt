@@ -48,6 +48,9 @@
 #include <sys/time.h>
 #endif
 
+namespace pbrt
+{
+
 // Timer Declarations
 class Timer {
 public:
@@ -74,6 +77,6 @@ private:
 #endif
 };
 
-
+}
 
 #endif // PBRT_CORE_TIMER_H

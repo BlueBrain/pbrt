@@ -41,6 +41,8 @@
 #include "shape.h"
 #include "geometry.h"
 
+namespace pbrt
+{
 
 // NURBS Declarations
 class NURBS : public Shape {
@@ -72,5 +74,5 @@ private:
 extern NURBS *CreateNURBSShape(const Transform *o2w, const Transform *w2o,
     bool ReverseOrientation, const ParamSet &params);
 
-
+}
 #endif // PBRT_SHAPES_NURBS_H

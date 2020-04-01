@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // SubstrateMaterial Method Definitions
 BSDF *SubstrateMaterial::GetBSDF(const DifferentialGeometry &dgGeom, const DifferentialGeometry &dgShading, MemoryArena &arena) const {
     // Allocate _BSDF_, possibly doing bump mapping with _bumpMap_
@@ -68,4 +71,4 @@ SubstrateMaterial *CreateSubstrateMaterial(const Transform &xform,
     return new SubstrateMaterial(Kd, Ks, uroughness, vroughness, bumpMap);
 }
 
-
+}

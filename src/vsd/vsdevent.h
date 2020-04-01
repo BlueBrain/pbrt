@@ -3,6 +3,9 @@
 
 #include "geometry.h"
 
+namespace pbrt
+{
+
 // VSDEvent Declarations
 class VSDEvent {
 public:
@@ -13,5 +16,7 @@ public:
     Point p;
     float power;
 };
+
+}
 
 #endif // PBRT_VSD_VSDEVENT_H

@@ -41,6 +41,9 @@
 #include "shape.h"
 #include "material.h"
 
+namespace pbrt
+{
+
 // Primitive Declarations
 class Primitive : public ReferenceCounted {
 public:
@@ -134,5 +137,5 @@ public:
 };
 
 
-
+}
 #endif // PBRT_CORE_PRIMITIVE_H

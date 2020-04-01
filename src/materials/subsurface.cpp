@@ -40,6 +40,9 @@
 #include "texture.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // SubsurfaceMaterial Method Definitions
 BSDF *SubsurfaceMaterial::GetBSDF(const DifferentialGeometry &dgGeom,
         const DifferentialGeometry &dgShading, MemoryArena &arena) const {
@@ -86,4 +89,4 @@ SubsurfaceMaterial *CreateSubsurfaceMaterial(const Transform &xform,
     return new SubsurfaceMaterial(scale, Kr, sigma_a, sigma_prime_s, ior, bumpMap);
 }
 
-
+}

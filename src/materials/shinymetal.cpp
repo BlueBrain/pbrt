@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 static inline Spectrum FresnelApproxEta(const Spectrum &Fr) {
     Spectrum reflectance = Fr.Clamp(0.f, .999f);
     return (Spectrum(1.) + Sqrt(reflectance)) /
@@ -84,4 +87,6 @@ ShinyMetalMaterial *CreateShinyMetalMaterial(const Transform &xform,
     Reference<Texture<float> > roughness = mp.GetFloatTexture("roughness", .1f);
     Reference<Texture<float> > bumpMap = mp.GetFloatTextureOrNull("bumpmap");
     return new ShinyMetalMaterial(Ks, roughness, Kr, bumpMap);
+}
+
 }

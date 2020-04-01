@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // VSDBackwardScatteringIntegrator Method Definitions
 void VSDBackwardScatteringIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -200,4 +203,4 @@ VSDBackwardScatteringIntegrator *CreateVSDBackwardScatteringIntegrator(const Par
     return new VSDBackwardScatteringIntegrator(stepSize);
 }
 
-
+}

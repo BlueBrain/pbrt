@@ -42,6 +42,9 @@
 #include "intersection.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // IrradianceCacheIntegrator Local Declarations
 struct IrradiancePrimeTask : public Task {
     IrradiancePrimeTask(const Scene *sc, const Renderer *sr, const Camera *c, Sampler *samp,
@@ -394,4 +397,4 @@ IrradianceCacheIntegrator *CreateIrradianceCacheIntegrator(const ParamSet &param
         maxSpecularDepth, maxIndirectDepth, nSamples);
 }
 
-
+}

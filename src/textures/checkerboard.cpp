@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/checkerboard.h"
 
+namespace pbrt
+{
+
 // CheckerboardTexture Method Definitions
 Texture<float> *CreateCheckerboardFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -117,4 +120,5 @@ Texture<Spectrum> *CreateCheckerboardSpectrumTexture(const Transform &tex2world,
     }
 }
 
+}
 

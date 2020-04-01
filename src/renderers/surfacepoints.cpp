@@ -49,6 +49,9 @@
 #include <sys/errno.h>
 #endif
 
+namespace pbrt
+{
+
 // SurfacePointsRenderer Local Declarations
 class SurfacePointTask : public Task {
 public:
@@ -287,4 +290,4 @@ SurfacePointsRenderer *CreateSurfacePointsRenderer(const ParamSet &params,
     return new SurfacePointsRenderer(minDist, pCamera, time, filename);
 }
 
-
+}

@@ -36,6 +36,9 @@
 #include "intersection.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // WhittedIntegrator Method Definitions
 Spectrum WhittedIntegrator::Li(const Scene *scene,
         const Renderer *renderer, const RayDifferential &ray,
@@ -86,4 +89,4 @@ WhittedIntegrator *CreateWhittedSurfaceIntegrator(const ParamSet &params)
     return new WhittedIntegrator(maxDepth);
 }
 
-
+}

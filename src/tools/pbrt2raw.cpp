@@ -12,6 +12,8 @@
 #include <geometry.h>
 
 using namespace std;
+using namespace pbrt;
+
 #define HEADER_EXTENSION ".hdr"
 #define RAW_EXTENSION ".img"
 

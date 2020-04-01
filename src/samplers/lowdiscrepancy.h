@@ -42,6 +42,9 @@
 #include "film.h"
 #include "parallel.h"
 
+namespace pbrt
+{
+
 // LDSampler Declarations
 class LDSampler : public Sampler {
 public:
@@ -63,4 +66,5 @@ private:
 LDSampler *CreateLowDiscrepancySampler(const ParamSet &params, const Film *film,
         const Camera *camera);
 
+}
 #endif // PBRT_SAMPLERS_LOWDISCREPANCY_H

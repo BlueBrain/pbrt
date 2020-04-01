@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // MirrorMaterial Method Definitions
 BSDF *MirrorMaterial::GetBSDF(const DifferentialGeometry &dgGeom, const DifferentialGeometry &dgShading, MemoryArena &arena) const {
     // Allocate _BSDF_, possibly doing bump mapping with _bumpMap_
@@ -62,4 +65,4 @@ MirrorMaterial *CreateMirrorMaterial(const Transform &xform,
     return new MirrorMaterial(Kr, bumpMap);
 }
 
-
+}

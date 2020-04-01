@@ -38,6 +38,8 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
 // HomogeneousVolumeDensity Method Definitions
 bool HomogeneousVolumeDensity::SampleDistance(const Ray &ray, float *tDist,
         Point &Psample, float *pdf, RNG &rng) const {
@@ -105,4 +107,5 @@ HomogeneousVolumeDensity
     Point p1 = params.FindOnePoint("p1", Point(1,1,1));
     return new HomogeneousVolumeDensity(sigma_a, sigma_s,
                 density, g, Le, BBox(p0, p1), volume2world);
+}
 }

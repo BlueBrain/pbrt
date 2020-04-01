@@ -37,6 +37,8 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
 
 // VSDBackwardLinearIntegrator Method Definitions
 void VSDBackwardLinearIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
@@ -116,4 +118,4 @@ VSDBackwardLinearIntegrator *CreateVSDBackwardLinearIntegrator(const ParamSet &p
     return new VSDBackwardLinearIntegrator(stepSize);
 }
 
-
+}

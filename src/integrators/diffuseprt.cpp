@@ -41,6 +41,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // DiffusePRTIntegrator Method Definitions
 DiffusePRTIntegrator::DiffusePRTIntegrator(int lm, int ns)
     : lmax(lm), nSamples(RoundUpPow2(ns)) {
@@ -102,4 +105,4 @@ DiffusePRTIntegrator *CreateDiffusePRTIntegratorSurfaceIntegrator(const ParamSet
     return new DiffusePRTIntegrator(lmax, ns);
 }
 
-
+}

@@ -41,6 +41,9 @@
 #include "integrator.h"
 #include "scene.h"
 
+namespace pbrt
+{
+
 // EmissionIntegrator Declarations
 class EmissionIntegrator : public VolumeIntegrator {
 public:
@@ -61,5 +64,7 @@ private:
 
 
 EmissionIntegrator *CreateEmissionVolumeIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_EMISSION_H

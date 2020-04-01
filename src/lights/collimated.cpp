@@ -37,6 +37,9 @@
 #include <string>
 #include <sstream>
 
+namespace pbrt
+{
+
 using namespace std;
 
 // CollimatedAreaLight Method Definitions
@@ -170,4 +173,6 @@ AreaLight
     if (PbrtOptions.quickRender) nSamples = max(1, nSamples / 4);
     return new CollimatedAreaLight(light2world, lightUnit, photons * sc,
                     nSamples, shape);
+}
+
 }

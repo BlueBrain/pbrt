@@ -37,6 +37,9 @@
 #include "montecarlo.h"
 #include "imageio.h"
 
+namespace pbrt
+{
+
 // GonioPhotometricLight Method Definitions
 Spectrum GonioPhotometricLight::Sample_L(const Point &p, float pEpsilon,
         const LightSample &ls, float time, Vector *wi, float *pdf, VisibilityTester *visibility) const {
@@ -91,4 +94,4 @@ float GonioPhotometricLight::Pdf(const Point &, const Vector &) const {
     return 0.;
 }
 
-
+}

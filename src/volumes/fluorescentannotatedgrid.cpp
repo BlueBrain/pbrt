@@ -43,6 +43,9 @@
 
 using namespace std;
 
+namespace pbrt
+{
+
 // FluorescentAnnotatedVolumeGrid Method Definitions
 void FluorescentAnnotatedVolumeGrid::ValidateData() const {
     for (uint64 i = 0; i < nTags; ++i) {
@@ -119,4 +122,6 @@ FluorescentAnnotatedVolumeGrid *CreateFluorescentAnnotatedVolumeGrid(const Trans
     uint8 *indices = ReadIndices(prefix, nx, ny, nz);
     return new FluorescentAnnotatedVolumeGrid(BBox(p0, p1), volume2world,
             fex, fem, epsilon, c, yield, gf, nx, ny, nz, indices, numberTags);
+}
+
 }

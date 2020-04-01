@@ -41,6 +41,9 @@
 #include "renderer.h"
 #include "parallel.h"
 
+namespace pbrt
+{
+
 // SamplerRenderer Declarations
 class SamplerRenderer : public Renderer {
 public:
@@ -90,6 +93,6 @@ private:
     int taskNum, taskCount;
 };
 
-
+}
 
 #endif // PBRT_RENDERERS_SAMPLERRENDERER_H

@@ -43,6 +43,9 @@
 #include <vector>
 #include <iostream>
 
+namespace pbrt
+{
+
 // VSDLinearSpriteIntegrator Declarations
 class VSDLinearSpriteIntegrator : public VolumeIntegrator {
 public:
@@ -72,5 +75,7 @@ private:
 };
 
 VSDLinearSpriteIntegrator *CreateVSDLinearSpriteIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VSD_LINEAR_SPRITE_H

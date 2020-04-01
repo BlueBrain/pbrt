@@ -36,6 +36,8 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
 // Disk Method Definitions
 Disk::Disk(const Transform *o2w, const Transform *w2o, bool ro,
            float ht, float r, float ri, float tmax)
@@ -179,4 +181,5 @@ bool Disk::Projects(const Point &p, Point &ps, Normal &ns) const
     (*ObjectToWorld)(PSobj, &ps);
     ns = Normalize((*ObjectToWorld)(Normal(0,0,1)));
     return true;
+}
 }

@@ -38,6 +38,9 @@
 #include "spectrum.h"
 #include "reflection.h"
 
+namespace pbrt
+{
+
 // Material Method Definitions
 Material::~Material() {
 }
@@ -84,4 +87,4 @@ void Material::Bump(const Reference<Texture<float> > &d,
     dgBump->nn = Faceforward(dgBump->nn, dgGeom.nn);
 }
 
-
+}

@@ -117,6 +117,9 @@ typedef u_int64_t uint64;
 #define isinf(f) (!_finite((f)))
 #endif
 
+namespace pbrt
+{
+
 // Global Macros
 #define ALLOCA(TYPE, COUNT) (TYPE *)alloca((COUNT) * sizeof(TYPE))
 
@@ -191,6 +194,8 @@ struct LightSampleOffsets;
 class SurfaceIntegrator;
 class Integrator;
 class VolumeIntegrator;
+
+}
 
 // Global Constants
 #define PBRT_VERSION "2.0.0"
@@ -331,7 +336,4 @@ inline bool Quadratic(float A, float B, float C, float *t0, float *t1) {
     if (*t0 > *t1) swap(*t0, *t1);
     return true;
 }
-
-
-
 #endif // PBRT_CORE_PBRT_H

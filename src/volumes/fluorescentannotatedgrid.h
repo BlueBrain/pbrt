@@ -39,6 +39,9 @@
 // volumes/annotatedgrid.h*
 #include "volume.h"
 
+namespace pbrt
+{
+
 // FluorescentAnnotatedGrid Declarations
 class FluorescentAnnotatedVolumeGrid : public DensityRegion {
 public:
@@ -178,5 +181,7 @@ private:
 
 FluorescentAnnotatedVolumeGrid *CreateFluorescentAnnotatedVolumeGrid(const Transform &volume2world,
         const ParamSet &params);
+
+}
 
 #endif // PBRT_VOLUMES_FLUORESCENTANNOTATEDGRID_H

@@ -42,6 +42,12 @@
 #define PBRT_ERROR_CONTINUE 1
 #define PBRT_ERROR_ABORT 2
 
+extern int line_num;
+extern string current_file;
+
+namespace pbrt
+{
+
 const char *findWordEnd(const char *buf) {
     while (*buf != '\0' && !isspace(*buf))
         ++buf;
@@ -61,9 +67,7 @@ static void processError(const char *format, va_list args,
     std::string errorString;
 
     // Print line and position in input file, if available
-    extern int line_num;
     if (line_num != 0) {
-        extern string current_file;
         errorString += current_file;
         char buf[16];
         sprintf(buf, "(%d): ", line_num);
@@ -72,7 +76,7 @@ static void processError(const char *format, va_list args,
 
     // PBRT_ERROR_CONTINUE, PBRT_ERROR_ABORT
     // Print formatted error message
-    int width = max(20, TerminalWidth() - 2);
+    int width = max(20, ::TerminalWidth() - 2);
     errorString += errorType;
     errorString += ": ";
     int column = errorString.size();
@@ -155,5 +159,5 @@ void Severe(const char *format, ...) {
     processError(format, args, "Fatal Error", PBRT_ERROR_ABORT);
     va_end(args);
 }
-
+}
 

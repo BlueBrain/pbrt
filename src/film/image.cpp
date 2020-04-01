@@ -49,6 +49,8 @@
 #include <stdio.h>
 #include <pthread.h>
 
+namespace pbrt
+{
 
 void strip(std::string &fullString, const std::string subString)
 {
@@ -404,7 +406,7 @@ void ImageFilm::WriteValidationImage(float splatScale) {
     if(validate) {
         string validationFileName = fileNamePrefix + ".validation.exr";
         ::WriteImage(validationFileName, rgbPixel, NULL, xPixelCount, yPixelCount,
-                     xResolution, yResolution, xPixelStart, yPixelStart);
+                   xResolution, yResolution, xPixelStart, yPixelStart);
     }
 
     delete[] rgbPixel;
@@ -464,4 +466,6 @@ ImageFilm *CreateImageFilm(const ParamSet &params, Filter *filter) {
     return new ImageFilm(xres, yres, pixelWidth_um, pixelHeight_um,
             filter, crop, filename, openwin, writeSpectrum, writeAverageSpectrum,
             spectralfilter, filterBandMin, filterBandMax, validate);
+}
+
 }

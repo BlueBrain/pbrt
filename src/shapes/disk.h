@@ -39,6 +39,9 @@
 // shapes/disk.h*
 #include "shape.h"
 
+namespace pbrt
+{
+
 // Disk Declarations
 class Disk : public Shape {
 public:
@@ -60,5 +63,5 @@ private:
 
 Disk *CreateDiskShape(const Transform *o2w, const Transform *w2o,
         bool reverseOrientation, const ParamSet &params);
-
+}
 #endif // PBRT_SHAPES_DISK_H

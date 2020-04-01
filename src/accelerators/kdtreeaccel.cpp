@@ -35,6 +35,9 @@
 #include "accelerators/kdtreeaccel.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // KdTreeAccel Local Declarations
 struct KdAccelNode {
     // KdAccelNode Methods
@@ -479,6 +482,8 @@ KdTreeAccel *CreateKdTreeAccelerator(const vector<Reference<Primitive> > &prims,
     int maxDepth = ps.FindOneInt("maxdepth", -1);
     return new KdTreeAccel(prims, isectCost, travCost,
         emptyBonus, maxPrims, maxDepth);
+}
+
 }
 
 

@@ -37,6 +37,9 @@
 #include "intersection.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // Integrator Method Definitions
 Integrator::~Integrator() {
 }
@@ -266,5 +269,5 @@ Distribution1D *ComputeLightSamplingCDF(const Scene *scene) {
         lightPower[i] = scene->lights[i]->Power(scene).y();
     return new Distribution1D(&lightPower[0], nLights);
 }
-
+}
 

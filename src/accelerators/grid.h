@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "primitive.h"
 
+namespace pbrt
+{
+
 // GridAccel Forward Declarations
 struct Voxel;
 
@@ -101,5 +104,6 @@ private:
 
 GridAccel *CreateGridAccelerator(const vector<Reference<Primitive> > &prims,
         const ParamSet &ps);
+}
 
 #endif // PBRT_ACCELERATORS_GRID_H

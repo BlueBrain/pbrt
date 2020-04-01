@@ -35,6 +35,9 @@
 #include "shapes/cylinder.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Cylinder Method Definitions
 Cylinder::Cylinder(const Transform *o2w, const Transform *w2o, bool ro,
                    float rad, float z0, float z1, float pm)
@@ -203,7 +206,7 @@ Cylinder *CreateCylinderShape(const Transform *o2w, const Transform *w2o,
 
 
 Point Cylinder::Sample(float u1, float u2, Normal *Ns) const {
-    float z = Lerp(u1, zmin, zmax);
+    float z = ::Lerp(u1, zmin, zmax);
     float t = u2 * phiMax;
     Point p = Point(radius * cosf(t), radius * sinf(t), z);
     *Ns = Normalize((*ObjectToWorld)(Normal(p.x, p.y, 0.)));
@@ -211,4 +214,4 @@ Point Cylinder::Sample(float u1, float u2, Normal *Ns) const {
     return (*ObjectToWorld)(p);
 }
 
-
+}

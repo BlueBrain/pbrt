@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "geometry.h"
 
+namespace pbrt
+{
+
 // BBox Method Definitions
 BBox Union(const BBox &b, const Point &p) {
     BBox ret = b;
@@ -84,5 +87,5 @@ bool BBox::IntersectP(const Ray &ray, float *hitt0,
     if (hitt1) *hitt1 = t1;
     return true;
 }
-
+}
 

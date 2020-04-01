@@ -36,6 +36,9 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+namespace pbrt
+{
+
 bool ReadFloatFile(const char *filename, vector<float> *values) {
     FILE *f = fopen(filename, "r");
     if (!f) {
@@ -81,4 +84,4 @@ bool ReadFloatFile(const char *filename, vector<float> *values) {
     return true;
 }
 
-
+}

@@ -40,6 +40,9 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // VSDScatteringIntegrator Declarations
 class VSDScatteringIntegrator : public VolumeIntegrator {
 public:
@@ -64,5 +67,7 @@ private:
 
 
 VSDScatteringIntegrator *CreateVSDScatteringIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VSDSCATTERING_H

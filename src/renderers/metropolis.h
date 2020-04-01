@@ -40,6 +40,10 @@
 #include "pbrt.h"
 #include "renderer.h"
 #include "parallel.h"
+
+namespace pbrt
+{
+
 struct MLTSample;
 class DirectLightingIntegrator;
 struct LightingSample;
@@ -91,5 +95,7 @@ private:
 
 MetropolisRenderer *CreateMetropolisRenderer(const ParamSet &params,
     Camera *camera);
+
+}
 
 #endif // PBRT_RENDERERS_METROPOLIS_H

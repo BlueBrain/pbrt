@@ -39,6 +39,9 @@
 // shapes/paraboloid.h*
 #include "shape.h"
 
+namespace pbrt
+{
+
 // Paraboloid Declarations
 class Paraboloid : public Shape {
 public:
@@ -61,5 +64,5 @@ protected:
 
 Paraboloid *CreateParaboloidShape(const Transform *o2w, const Transform *w2o,
         bool reverseOrientation, const ParamSet &params);
-
+}
 #endif // PBRT_SHAPES_PARABOLOID_H

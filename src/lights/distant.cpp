@@ -36,6 +36,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // DistantLight Method Definitions
 DistantLight::DistantLight(const Transform &light2world,
         const Spectrum &radiance, const Vector &dir)
@@ -101,4 +104,4 @@ Spectrum DistantLight::Sample_L(const Scene *scene,
     return L;
 }
 
-
+}

@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "shape.h"
 
+namespace pbrt
+{
+
 // Shape Method Definitions
 Shape::~Shape() {
 }
@@ -98,4 +101,4 @@ float Shape::Pdf(const Point &p, const Vector &wi) const {
     return pdf;
 }
 
-
+}

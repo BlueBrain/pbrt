@@ -40,6 +40,9 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 struct VPL {
     VPL(const Point &pp,  const Spectrum &c, const Vector &wi)
         : p(pp), pathContrib(c), w(wi) { }
@@ -85,5 +88,7 @@ private:
 };
 
 FVPLIntegrator *CreateFVPLIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_FVPL_H

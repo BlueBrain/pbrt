@@ -44,6 +44,9 @@
 #include <vector>
 #include <iostream>
 
+namespace pbrt
+{
+
 // VSDForwardLinearIntegrator Declarations
 class VSDForwardLinearIntegrator : public VolumeIntegrator {
 public:
@@ -74,5 +77,7 @@ private:
 };
 
 VSDForwardLinearIntegrator *CreateVSDForwardLinearIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VSD_FLS_H

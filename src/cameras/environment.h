@@ -40,6 +40,9 @@
 #include "camera.h"
 #include "film.h"
 
+namespace pbrt
+{
+
 // EnvironmentCamera Declarations
 class EnvironmentCamera : public Camera {
 public:
@@ -54,5 +57,6 @@ public:
 
 EnvironmentCamera *CreateEnvironmentCamera(const ParamSet &params,
         const AnimatedTransform &cam2world, Film *film);
+}
 
 #endif // PBRT_CAMERAS_ENVIRONMENT_H

@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // VSDBackwardDirectIntegrator Method Definitions
 void VSDBackwardDirectIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -114,4 +117,4 @@ VSDBackwardDirectIntegrator *CreateVSDBackwardDirectIntegrator(const ParamSet &p
     return new VSDBackwardDirectIntegrator(stepSize);
 }
 
-
+}

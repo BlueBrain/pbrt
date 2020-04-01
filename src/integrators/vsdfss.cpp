@@ -41,6 +41,9 @@
 #include <iostream>
 #include <fstream>
 
+namespace pbrt
+{
+
 // VSDForwardScatteringIntegrator Method Definitions
 void VSDForwardScatteringIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                                const Scene *scene) {
@@ -117,4 +120,6 @@ VSDForwardScatteringIntegrator *CreateVSDForwardScatteringIntegrator(const Param
     shift.y = params.FindOneFloat("yshift", 0);
     shift.z = params.FindOneFloat("zshift", 0);
     return new VSDForwardScatteringIntegrator(vsdDataDirectory, pshFileName, shift);
+}
+
 }

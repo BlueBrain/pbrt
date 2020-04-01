@@ -39,6 +39,9 @@
 #include "montecarlo.h"
 #include "stdio.h"
 
+namespace pbrt
+{
+
 // SingleScatteringFluorescenceIntegrator Method Definitions
 void SingleScatteringFluorescenceIntegrator::RequestSamples(Sampler *sampler,
         Sample *sample, const Scene *scene) {
@@ -177,3 +180,4 @@ SingleScatteringFluorescenceIntegrator
     return new SingleScatteringFluorescenceIntegrator(stepSize);
 }
 
+}

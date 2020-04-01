@@ -42,6 +42,9 @@
 #include <fstream>
 #include <omp.h>
 
+namespace pbrt
+{
+
 // VSDForwardLinearIntegrator Method Definitions
 void VSDForwardLinearIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                                const Scene *scene) {
@@ -126,4 +129,6 @@ VSDForwardLinearIntegrator *CreateVSDForwardLinearIntegrator(const ParamSet &par
     shift.y = params.FindOneFloat("yshift", 0);
     shift.z = params.FindOneFloat("zshift", 0);
     return new VSDForwardLinearIntegrator(vsdDataDirectory, pshFileName, shift);
+}
+
 }

@@ -43,6 +43,10 @@
 #include "octree.h"
 #include "camera.h"
 #include "floatfile.h"
+
+namespace pbrt
+{
+
 struct DiffusionReflectance;
 
 // DipoleSubsurfaceIntegrator Local Declarations
@@ -356,4 +360,4 @@ DipoleSubsurfaceIntegrator *CreateDipoleSubsurfaceIntegrator(const ParamSet &par
     return new DipoleSubsurfaceIntegrator(maxDepth, maxError, minDist, pointsfile);
 }
 
-
+}

@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "material.h"
 
+namespace pbrt
+{
+
 // MixMaterial Declarations
 class MixMaterial : public Material {
 public:
@@ -61,5 +64,7 @@ private:
 MixMaterial *CreateMixMaterial(const Transform &xform,
     const TextureParams &mp, const Reference<Material> &m1,
     const Reference<Material> &m2);
+
+}
 
 #endif // PBRT_MATERIALS_MIXMAT_H

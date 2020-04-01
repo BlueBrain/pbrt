@@ -37,6 +37,9 @@
 #include "sampler.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // OrthographicCamera Definitions
 OrthoCamera::OrthoCamera(const AnimatedTransform &cam2world,
         const float screenWindow[4], float sopen, float sclose,
@@ -170,4 +173,4 @@ OrthoCamera *CreateOrthographicCamera(const ParamSet &params,
         lensradius, focaldistance, film);
 }
 
-
+}

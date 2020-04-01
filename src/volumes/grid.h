@@ -40,6 +40,9 @@
 // volumes/grid.h*
 #include "volume.h"
 
+
+namespace pbrt
+{
 // VolumeGridDensity Declarations
 class VolumeGrid : public DensityRegion {
 public:
@@ -88,5 +91,5 @@ private:
 
 VolumeGrid *CreateGridVolumeRegion(const Transform &volume2world,
         const ParamSet &params);
-
+}
 #endif // PBRT_VOLUMES_VOLUMEGRID_H

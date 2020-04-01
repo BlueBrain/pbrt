@@ -39,6 +39,8 @@
 // core/progressreporter.h*
 #include "pbrt.h"
 
+namespace pbrt
+{
 // ProgressReporter Declarations
 class ProgressReporter {
 public:
@@ -58,6 +60,7 @@ private:
     Mutex *mutex;
 };
 
+}
 
 extern int TerminalWidth();
 

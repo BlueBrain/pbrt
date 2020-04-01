@@ -40,6 +40,9 @@
 #include "sampler.h"
 #include "film.h"
 
+namespace pbrt
+{
+
 // StratifiedSampler Declarations
 class StratifiedSampler : public Sampler {
 public:
@@ -63,4 +66,5 @@ private:
 StratifiedSampler *CreateStratifiedSampler(const ParamSet &params, const Film *film,
     const Camera *camera);
 
+}
 #endif // PBRT_SAMPLERS_STRATIFIED_H

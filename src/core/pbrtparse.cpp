@@ -89,11 +89,9 @@ string current_file;
 #define YYMAXDEPTH 100000000
 
 void yyerror(const char *str) {
-    Error("Parsing error: %s", str);
+    pbrt::Error("Parsing error: %s", str);
     exit(1);
 }
-
-
 
 struct ParamArray {
     ParamArray() {
@@ -169,7 +167,7 @@ static void FreeArgs() {
 static bool VerifyArrayLength(ParamArray *arr, int required,
     const char *command) {
     if (arr->nelems != required) {
-        Error("\"%s\" requires a %d element array! (%d found)",
+        pbrt::Error("\"%s\" requires a %d element array! (%d found)",
                     command, required, arr->nelems);
         return false;
     }
@@ -182,7 +180,7 @@ enum { PARAM_TYPE_INT, PARAM_TYPE_BOOL, PARAM_TYPE_FLOAT, PARAM_TYPE_POINT,
     PARAM_TYPE_BLACKBODY, PARAM_TYPE_SPECTRUM,
     PARAM_TYPE_STRING, PARAM_TYPE_TEXTURE };
 static const char *paramTypeToName(int type);
-static void InitParamSet(ParamSet &ps, SpectrumType);
+static void InitParamSet(pbrt::ParamSet &ps, pbrt::SpectrumType);
 static bool lookupType(const char *name, int *type, string &sname);
 #define YYPRINT(file, type, value)  { \
     if ((type) == ID || (type) == STRING) \
@@ -1622,7 +1620,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 187 "core/pbrtparse.yy"
     {
-    if (cur_array) Severe("MUH");
+    if (cur_array) pbrt::Severe("MUH");
     cur_array = new ParamArray;
 ;}
     break;
@@ -1843,9 +1841,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 353 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtAccelerator((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtAccelerator((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -1855,7 +1853,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 362 "core/pbrtparse.yy"
     {
-    pbrtActiveTransformAll();
+    pbrt::pbrtActiveTransformAll();
 ;}
     break;
 
@@ -1864,7 +1862,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 368 "core/pbrtparse.yy"
     {
-    pbrtActiveTransformEndTime();
+    pbrt::pbrtActiveTransformEndTime();
 ;}
     break;
 
@@ -1873,7 +1871,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 374 "core/pbrtparse.yy"
     {
-    pbrtActiveTransformStartTime();
+    pbrt::pbrtActiveTransformStartTime();
 ;}
     break;
 
@@ -1882,9 +1880,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 380 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_ILLUMINANT);
-    pbrtAreaLightSource((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_ILLUMINANT);
+    pbrt::pbrtAreaLightSource((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -1894,7 +1892,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 389 "core/pbrtparse.yy"
     {
-    pbrtAttributeBegin();
+    pbrt::pbrtAttributeBegin();
 ;}
     break;
 
@@ -1903,7 +1901,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 395 "core/pbrtparse.yy"
     {
-    pbrtAttributeEnd();
+    pbrt::pbrtAttributeEnd();
 ;}
     break;
 
@@ -1912,9 +1910,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 401 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtCamera((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtCamera((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -1925,7 +1923,7 @@ yyreduce:
 #line 410 "core/pbrtparse.yy"
     {
     if (VerifyArrayLength((yyvsp[(2) - (2)].ribarray), 16, "ConcatTransform"))
-        pbrtConcatTransform((float *) (yyvsp[(2) - (2)].ribarray)->array);
+        pbrt::pbrtConcatTransform((float *) (yyvsp[(2) - (2)].ribarray)->array);
     ArrayFree((yyvsp[(2) - (2)].ribarray));
 ;}
     break;
@@ -1935,7 +1933,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 418 "core/pbrtparse.yy"
     {
-    pbrtCoordinateSystem((yyvsp[(2) - (2)].string));
+    pbrt::pbrtCoordinateSystem((yyvsp[(2) - (2)].string));
 ;}
     break;
 
@@ -1944,7 +1942,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 424 "core/pbrtparse.yy"
     {
-    pbrtCoordSysTransform((yyvsp[(2) - (2)].string));
+    pbrt::pbrtCoordSysTransform((yyvsp[(2) - (2)].string));
 ;}
     break;
 
@@ -1953,9 +1951,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 430 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtFilm((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtFilm((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -1965,7 +1963,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 439 "core/pbrtparse.yy"
     {
-    pbrtIdentity();
+    pbrt::pbrtIdentity();
 ;}
     break;
 
@@ -1983,9 +1981,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 451 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_ILLUMINANT);
-    pbrtLightSource((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_ILLUMINANT);
+    pbrt::pbrtLightSource((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -1995,7 +1993,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 460 "core/pbrtparse.yy"
     {
-    pbrtLookAt((yyvsp[(2) - (10)].num), (yyvsp[(3) - (10)].num), (yyvsp[(4) - (10)].num), (yyvsp[(5) - (10)].num), (yyvsp[(6) - (10)].num), (yyvsp[(7) - (10)].num), (yyvsp[(8) - (10)].num), (yyvsp[(9) - (10)].num), (yyvsp[(10) - (10)].num));
+    pbrt::pbrtLookAt((yyvsp[(2) - (10)].num), (yyvsp[(3) - (10)].num), (yyvsp[(4) - (10)].num), (yyvsp[(5) - (10)].num), (yyvsp[(6) - (10)].num), (yyvsp[(7) - (10)].num), (yyvsp[(8) - (10)].num), (yyvsp[(9) - (10)].num), (yyvsp[(10) - (10)].num));
 ;}
     break;
 
@@ -2004,9 +2002,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 466 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtMakeNamedMaterial((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtMakeNamedMaterial((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2016,9 +2014,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 475 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtMaterial((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtMaterial((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2028,7 +2026,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 484 "core/pbrtparse.yy"
     {
-    pbrtNamedMaterial((yyvsp[(2) - (2)].string));
+    pbrt::pbrtNamedMaterial((yyvsp[(2) - (2)].string));
 ;}
     break;
 
@@ -2037,7 +2035,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 490 "core/pbrtparse.yy"
     {
-    pbrtObjectBegin((yyvsp[(2) - (2)].string));
+    pbrt::pbrtObjectBegin((yyvsp[(2) - (2)].string));
 ;}
     break;
 
@@ -2046,7 +2044,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 496 "core/pbrtparse.yy"
     {
-    pbrtObjectEnd();
+    pbrt::pbrtObjectEnd();
 ;}
     break;
 
@@ -2055,7 +2053,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 502 "core/pbrtparse.yy"
     {
-    pbrtObjectInstance((yyvsp[(2) - (2)].string));
+    pbrt::pbrtObjectInstance((yyvsp[(2) - (2)].string));
 ;}
     break;
 
@@ -2064,9 +2062,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 508 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtPixelFilter((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtPixelFilter((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2076,9 +2074,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 517 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtRenderer((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtRenderer((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2088,7 +2086,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 526 "core/pbrtparse.yy"
     {
-    pbrtReverseOrientation();
+    pbrt::pbrtReverseOrientation();
 ;}
     break;
 
@@ -2097,7 +2095,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 532 "core/pbrtparse.yy"
     {
-    pbrtRotate((yyvsp[(2) - (5)].num), (yyvsp[(3) - (5)].num), (yyvsp[(4) - (5)].num), (yyvsp[(5) - (5)].num));
+    pbrt::pbrtRotate((yyvsp[(2) - (5)].num), (yyvsp[(3) - (5)].num), (yyvsp[(4) - (5)].num), (yyvsp[(5) - (5)].num));
 ;}
     break;
 
@@ -2106,9 +2104,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 538 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtSampler((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtSampler((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2118,7 +2116,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 547 "core/pbrtparse.yy"
     {
-    pbrtScale((yyvsp[(2) - (4)].num), (yyvsp[(3) - (4)].num), (yyvsp[(4) - (4)].num));
+    pbrt::pbrtScale((yyvsp[(2) - (4)].num), (yyvsp[(3) - (4)].num), (yyvsp[(4) - (4)].num));
 ;}
     break;
 
@@ -2127,9 +2125,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 553 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtSensor((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtSensor((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2139,9 +2137,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 562 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtShape((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtShape((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2151,9 +2149,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 571 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtSurfaceIntegrator((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtSurfaceIntegrator((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2163,9 +2161,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 580 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtTexture((yyvsp[(2) - (5)].string), (yyvsp[(3) - (5)].string), (yyvsp[(4) - (5)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtTexture((yyvsp[(2) - (5)].string), (yyvsp[(3) - (5)].string), (yyvsp[(4) - (5)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2175,7 +2173,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 589 "core/pbrtparse.yy"
     {
-    pbrtTransformBegin();
+    pbrt::pbrtTransformBegin();
 ;}
     break;
 
@@ -2184,7 +2182,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 595 "core/pbrtparse.yy"
     {
-    pbrtTransformEnd();
+    pbrt::pbrtTransformEnd();
 ;}
     break;
 
@@ -2193,7 +2191,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 601 "core/pbrtparse.yy"
     {
-    pbrtTransformTimes((yyvsp[(2) - (3)].num), (yyvsp[(3) - (3)].num));
+    pbrt::pbrtTransformTimes((yyvsp[(2) - (3)].num), (yyvsp[(3) - (3)].num));
 ;}
     break;
 
@@ -2203,7 +2201,7 @@ yyreduce:
 #line 607 "core/pbrtparse.yy"
     {
     if (VerifyArrayLength( (yyvsp[(2) - (2)].ribarray), 16, "Transform" ))
-        pbrtTransform( (float *) (yyvsp[(2) - (2)].ribarray)->array );
+        pbrt::pbrtTransform( (float *) (yyvsp[(2) - (2)].ribarray)->array );
     ArrayFree((yyvsp[(2) - (2)].ribarray));
 ;}
     break;
@@ -2213,7 +2211,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 615 "core/pbrtparse.yy"
     {
-    pbrtTranslate((yyvsp[(2) - (4)].num), (yyvsp[(3) - (4)].num), (yyvsp[(4) - (4)].num));
+    pbrt::pbrtTranslate((yyvsp[(2) - (4)].num), (yyvsp[(3) - (4)].num), (yyvsp[(4) - (4)].num));
 ;}
     break;
 
@@ -2222,9 +2220,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 621 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtVolumeIntegrator((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtVolumeIntegrator((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2234,9 +2232,9 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 630 "core/pbrtparse.yy"
     {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtVolume((yyvsp[(2) - (3)].string), params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtVolume((yyvsp[(2) - (3)].string), params);
     FreeArgs();
 ;}
     break;
@@ -2246,7 +2244,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 639 "core/pbrtparse.yy"
     {
-    pbrtWorldBegin();
+    pbrt::pbrtWorldBegin();
 ;}
     break;
 
@@ -2255,7 +2253,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 645 "core/pbrtparse.yy"
     {
-    pbrtWorldEnd();
+    pbrt::pbrtWorldEnd();
 ;}
     break;
 
@@ -2490,12 +2488,12 @@ static const char *paramTypeToName(int type) {
     case PARAM_TYPE_SPECTRUM: return "spectrum";
     case PARAM_TYPE_STRING: return "string";
     case PARAM_TYPE_TEXTURE: return "texture";
-    default: Severe("Error in paramTypeToName"); return NULL;
+    default: pbrt::Severe("Error in paramTypeToName"); return NULL;
     }
 }
 
 
-static void InitParamSet(ParamSet &ps, SpectrumType type) {
+static void InitParamSet(pbrt::ParamSet &ps, pbrt::SpectrumType type) {
     ps.Clear();
     for (uint32_t i = 0; i < cur_paramlist.size(); ++i) {
         int type;
@@ -2504,14 +2502,14 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
             if (type == PARAM_TYPE_TEXTURE || type == PARAM_TYPE_STRING ||
                 type == PARAM_TYPE_BOOL) {
                 if (!cur_paramlist[i].isString) {
-                    Error("Expected string parameter value for parameter \"%s\" with type \"%s\". Ignoring.",
+                    pbrt::Error("Expected string parameter value for parameter \"%s\" with type \"%s\". Ignoring.",
                           name.c_str(), paramTypeToName(type));
                     continue;
                 }
             }
             else if (type != PARAM_TYPE_SPECTRUM) { /* spectrum can be either... */
                 if (cur_paramlist[i].isString) {
-                    Error("Expected numeric parameter value for parameter \"%s\" with type \"%s\".  Ignoring.",
+                    pbrt::Error("Expected numeric parameter value for parameter \"%s\" with type \"%s\".  Ignoring.",
                           name.c_str(), paramTypeToName(type));
                     continue;
                 }
@@ -2537,7 +2535,7 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
                     if (s == "true") bdata[j] = true;
                     else if (s == "false") bdata[j] = false;
                     else {
-                        Warning("Value \"%s\" unknown for boolean parameter \"%s\"."
+                        pbrt::Warning("Value \"%s\" unknown for boolean parameter \"%s\"."
                             "Using \"false\".", s.c_str(), cur_paramlist[i].name);
                         bdata[j] = false;
                     }
@@ -2549,32 +2547,32 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
                 ps.AddFloat(name, (float *)data, nItems);
             } else if (type == PARAM_TYPE_POINT) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess values given with point parameter \"%s\". "
+                    pbrt::Warning("Excess values given with point parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
-                ps.AddPoint(name, (Point *)data, nItems / 3);
+                ps.AddPoint(name, (pbrt::Point *)data, nItems / 3);
             } else if (type == PARAM_TYPE_VECTOR) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess values given with vector parameter \"%s\". "
+                    pbrt::Warning("Excess values given with vector parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
-                ps.AddVector(name, (Vector *)data, nItems / 3);
+                ps.AddVector(name, (pbrt::Vector *)data, nItems / 3);
             } else if (type == PARAM_TYPE_NORMAL) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess values given with normal parameter \"%s\". "
+                    pbrt::Warning("Excess values given with normal parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
-                ps.AddNormal(name, (Normal *)data, nItems / 3);
+                ps.AddNormal(name, (pbrt::Normal *)data, nItems / 3);
             } else if (type == PARAM_TYPE_RGB) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess RGB values given with parameter \"%s\". "
+                    pbrt::Warning("Excess RGB values given with parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
                 ps.AddRGBSpectrum(name, (float *)data, nItems);
             } else if (type == PARAM_TYPE_XYZ) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess XYZ values given with parameter \"%s\". "
+                    pbrt::Warning("Excess XYZ values given with parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
                 ps.AddXYZSpectrum(name, (float *)data, nItems);
             } else if (type == PARAM_TYPE_BLACKBODY) {
                 if ((nItems % 2) != 0)
-                    Warning("Excess value given with blackbody parameter \"%s\". "
+                    pbrt::Warning("Excess value given with blackbody parameter \"%s\". "
                             "Ignoring extra one.", cur_paramlist[i].name);
                 ps.AddBlackbodySpectrum(name, (float *)data, nItems);
             } else if (type == PARAM_TYPE_SPECTRUM) {
@@ -2583,7 +2581,7 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
                 }
                 else {
                     if ((nItems % 2) != 0)
-                        Warning("Non-even number of values given with sampled spectrum "
+                        pbrt::Warning("Non-even number of values given with sampled spectrum "
                                 "parameter \"%s\". Ignoring extra.", cur_paramlist[i].name);
                     ps.AddSampledSpectrum(name, (float *)data, nItems);
                 }
@@ -2600,12 +2598,12 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
                     ps.AddTexture(name, val);
                 }
                 else
-                    Error("Only one string allowed for \"texture\" parameter \"%s\"",
+                    pbrt::Error("Only one string allowed for \"texture\" parameter \"%s\"",
                         name.c_str());
             }
         }
         else
-            Warning("Type of parameter \"%s\" is unknown",
+            pbrt::Warning("Type of parameter \"%s\" is unknown",
                 cur_paramlist[i].name);
     }
 }
@@ -2618,7 +2616,7 @@ static bool lookupType(const char *name, int *type, string &sname) {
     while (*strp && isspace(*strp))
         ++strp;
     if (!*strp) {
-        Error("Parameter \"%s\" doesn't have a type declaration?!", name);
+        pbrt::Error("Parameter \"%s\" doesn't have a type declaration?!", name);
         return false;
     }
 #define TRY_DECODING_TYPE(name, mask) \
@@ -2639,7 +2637,7 @@ static bool lookupType(const char *name, int *type, string &sname) {
     else TRY_DECODING_TYPE("blackbody", PARAM_TYPE_BLACKBODY)
     else TRY_DECODING_TYPE("spectrum",  PARAM_TYPE_SPECTRUM)
     else {
-        Error("Unable to decode type for name \"%s\"", name);
+        pbrt::Error("Unable to decode type for name \"%s\"", name);
         return false;
     }
     while (*strp && isspace(*strp))
@@ -2647,6 +2645,3 @@ static bool lookupType(const char *name, int *type, string &sname) {
     sname = string(strp);
     return true;
 }
-
-
-

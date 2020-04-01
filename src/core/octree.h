@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "geometry.h"
 
+namespace pbrt
+{
+
 // Octree Declarations
 template <typename NodeData> struct OctNode {
     OctNode() {
@@ -151,6 +154,6 @@ bool Octree<NodeData>::lookupPrivate(OctNode<NodeData> *node,
     return lookupPrivate(node->children[child], childBound, p, process);
 }
 
-
+}
 
 #endif // PBRT_CORE_OCTREE_H

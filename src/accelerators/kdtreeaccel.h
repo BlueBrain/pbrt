@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "primitive.h"
 
+namespace pbrt
+{
+
 // KdTreeAccel Declarations
 struct KdAccelNode;
 struct BoundEdge;
@@ -79,5 +82,7 @@ struct KdToDo {
 
 KdTreeAccel *CreateKdTreeAccelerator(const vector<Reference<Primitive> > &prims,
         const ParamSet &ps);
+
+}
 
 #endif // PBRT_ACCELERATORS_KDTREEACCEL_H

@@ -37,6 +37,9 @@
 #include "intersection.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // PathIntegrator Method Definitions
 void PathIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                     const Scene *scene) {
@@ -128,4 +131,4 @@ PathIntegrator *CreatePathSurfaceIntegrator(const ParamSet &params) {
     return new PathIntegrator(maxDepth);
 }
 
-
+}

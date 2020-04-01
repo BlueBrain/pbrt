@@ -35,6 +35,9 @@
 #include "filters/triangle.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Triangle Filter Method Definitions
 float TriangleFilter::Evaluate(float x, float y) const {
     return max(0.f, xWidth - fabsf(x)) *
@@ -49,4 +52,4 @@ TriangleFilter *CreateTriangleFilter(const ParamSet &ps) {
     return new TriangleFilter(xw, yw);
 }
 
-
+}

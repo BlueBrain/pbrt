@@ -59,12 +59,16 @@
 		#define _ReadWriteBarrier()
 	#endif
 
+namespace pbrt
+{
 	typedef volatile LONG AtomicInt32;
 
 	#ifdef PBRT_HAS_64_BIT_ATOMICS
 		typedef volatile LONGLONG AtomicInt64;
 	#endif // 64-bit
 #else
+namespace pbrt
+{
 	typedef volatile int32_t AtomicInt32;
 	#ifdef PBRT_HAS_64_BIT_ATOMICS
 		typedef volatile int64_t AtomicInt64;
@@ -342,5 +346,7 @@ public:
 void EnqueueTasks(const vector<Task *> &tasks);
 void WaitForAllTasks();
 int NumSystemCores();
+
+}
 
 #endif // PBRT_CORE_PARALLEL_H

@@ -39,6 +39,10 @@
 // accelerators/bvh.h*
 #include "pbrt.h"
 #include "primitive.h"
+
+namespace pbrt
+{
+
 struct BVHBuildNode;
 
 // BVHAccel Forward Declarations
@@ -74,5 +78,6 @@ private:
 
 BVHAccel *CreateBVHAccelerator(const vector<Reference<Primitive> > &prims,
         const ParamSet &ps);
+}
 
 #endif // PBRT_ACCELERATORS_BVH_H

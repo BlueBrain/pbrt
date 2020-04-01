@@ -42,6 +42,9 @@
 #include "reflection.h"
 #include "kdtree.h"
 
+namespace pbrt
+{
+
 // MeasuredMaterial Declarations
 class MeasuredMaterial : public Material {
 public:
@@ -61,5 +64,7 @@ private:
 
 MeasuredMaterial *CreateMeasuredMaterial(const Transform &xform,
         const TextureParams &mp);
+
+}
 
 #endif // PBRT_MATERIALS_MEASURED_H

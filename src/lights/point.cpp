@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // PointLight Method Definitions
 PointLight::PointLight(const Transform &light2world,
                        const Spectrum &intensity)
@@ -106,4 +109,4 @@ void PointLight::SHProject(const Point &p, float pEpsilon, int lmax,
         coeffs[i] = Li * Ylm[i];
 }
 
-
+}

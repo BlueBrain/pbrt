@@ -36,6 +36,9 @@
 #include "probes.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // GridAccel Method Definitions
 GridAccel::GridAccel(const vector<Reference<Primitive> > &p,
                      bool refineImmediately) {
@@ -325,4 +328,5 @@ GridAccel *CreateGridAccelerator(const vector<Reference<Primitive> > &prims,
     return new GridAccel(prims, refineImmediately);
 }
 
+}
 

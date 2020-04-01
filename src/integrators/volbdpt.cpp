@@ -39,6 +39,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // VolumeBDPTIntegrator Method Definitions
 void VolumeBDPTIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -488,4 +491,4 @@ VolumeBDPTIntegrator *CreateVolumeBDPTIntegrator(const ParamSet &params) {
 
 }
 
-
+}

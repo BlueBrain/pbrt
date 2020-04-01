@@ -39,6 +39,9 @@
 // core/filter.h*
 #include "pbrt.h"
 
+namespace pbrt
+{
+
 // Filter Declarations
 class Filter {
 public:
@@ -54,6 +57,6 @@ public:
     const float invXWidth, invYWidth;
 };
 
-
+}
 
 #endif // PBRT_CORE_FILTER_H

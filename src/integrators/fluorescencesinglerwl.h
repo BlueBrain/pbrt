@@ -41,6 +41,9 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // SingleScatteringFluorescenceRWLIntegrator Declarations
 class SingleScatteringFluorescenceRWLIntegrator : public VolumeIntegrator {
 public:
@@ -64,5 +67,7 @@ private:
 
 SingleScatteringFluorescenceRWLIntegrator*
 CreateSingleScatteringFluorescenceRWLIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_FLUORESCENCESINGLERWL_H

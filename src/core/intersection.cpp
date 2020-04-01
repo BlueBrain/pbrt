@@ -37,6 +37,9 @@
 #include "primitive.h"
 #include "light.h"
 
+namespace pbrt
+{
+
 // Intersection Method Definitions
 BSDF *Intersection::GetBSDF(const RayDifferential &ray,
                             MemoryArena &arena) const {
@@ -63,4 +66,5 @@ Spectrum Intersection::Le(const Vector &w) const {
     return area ? area->L(dg.p, dg.nn, w) : Spectrum(0.);
 }
 
+}
 

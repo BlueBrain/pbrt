@@ -36,6 +36,8 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
 
 // AbsorbingVolume Method Definitions
 void AbsorbingVolume::ValidateData() const {
@@ -53,4 +55,6 @@ AbsorbingVolume
     Point p0 = params.FindOnePoint("p0", Point(-0.5, -0.5, -0.5));
     Point p1 = params.FindOnePoint("p1", Point(0.5, 0.5, 0.5));
     return new AbsorbingVolume(BBox(p0, p1), volume2world, epsilon, c, g);
+}
+
 }

@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/scale.h"
 
+namespace pbrt
+{
+
 // ScaleTexture Method Definitions
 ScaleTexture<float, float> *CreateScaleFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -50,4 +53,4 @@ ScaleTexture<Spectrum, Spectrum> *CreateScaleSpectrumTexture(const Transform &te
         tp.GetSpectrumTexture("tex2", Spectrum(1.f)));
 }
 
-
+}

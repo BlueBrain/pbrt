@@ -36,6 +36,9 @@
 #include "light.h"
 #include "intersection.h"
 
+namespace pbrt
+{
+
 // Primitive Method Definitions
 uint32_t Primitive::nextprimitiveId = 1;
 Primitive::~Primitive() { }
@@ -197,5 +200,5 @@ BSSRDF *GeometricPrimitive::GetBSSRDF(const DifferentialGeometry &dg,
     shape->GetShadingGeometry(ObjectToWorld, dg, &dgs);
     return material->GetBSSRDF(dg, dgs, arena);
 }
-
+}
 

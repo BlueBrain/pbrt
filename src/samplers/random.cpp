@@ -36,6 +36,9 @@
 #include "montecarlo.h"
 #include "camera.h"
 
+namespace pbrt
+{
+
 RandomSampler::RandomSampler(int xstart, int xend,
         int ystart, int yend, int ns, float sopen, float sclose)
     : Sampler(xstart, xend, ystart, yend, ns, sopen, sclose) {
@@ -97,7 +100,7 @@ int RandomSampler::GetMoreSamples(Sample *sample, RNG &rng) {
     sample->imageY = imageSamples[2*samplePos+1];
     sample->lensU = lensSamples[2*samplePos];
     sample->lensV = lensSamples[2*samplePos+1];
-    sample->time = Lerp(timeSamples[samplePos], shutterOpen, shutterClose);
+    sample->time = ::Lerp(timeSamples[samplePos], shutterOpen, shutterClose);
     // Generate stratified samples for integrators
     for (uint32_t i = 0; i < sample->n1D.size(); ++i)
         for (uint32_t j = 0; j < sample->n1D[i]; ++j)
@@ -120,4 +123,4 @@ Sampler *CreateRandomSampler(const ParamSet &params,
                              camera->shutterOpen, camera->shutterClose);
 }
 
-
+}

@@ -37,7 +37,8 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
-
+namespace pbrt
+{
 // FluorescentVolumeDensity Method Definitions
 void FluorescentVolumeDensity::ValidateData() const {
     // Write the spectra to validate the input data
@@ -61,4 +62,5 @@ FluorescentVolumeDensity
 
     return new FluorescentVolumeDensity(BBox(p0, p1), volume2world,
         fex, fem, epsilon, c, yield, gf);
+}
 }

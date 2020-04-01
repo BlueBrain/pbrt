@@ -40,6 +40,9 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 struct VPL {
     VPL(const Point &pp,  const Spectrum &c, const Vector &wi)
         : p(pp), pathContrib(c), w(wi) { }
@@ -94,5 +97,7 @@ private:
 //BSDFSampleOffsets gatherSampleOffset;
 
 VPLIntegrator *CreateVPLIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VPL_H

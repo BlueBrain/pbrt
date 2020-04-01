@@ -41,6 +41,9 @@
 #include "geometry.h"
 #include "renderer.h"
 
+namespace pbrt
+{
+
 // SurfacePointsRenderer Declarations
 struct SurfacePoint {
     SurfacePoint() { }
@@ -80,5 +83,7 @@ void FindPoissonPointDistribution(const Point &pCamera, float time, float minDis
     const Scene *scene, vector<SurfacePoint> *points);
 SurfacePointsRenderer *CreateSurfacePointsRenderer(const ParamSet &params,
     const Point &pCamera, float time);
+
+}
 
 #endif // PBRT_RENDERERS_SURFACEPOINTS_H

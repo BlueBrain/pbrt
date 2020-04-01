@@ -36,6 +36,9 @@
 #include "camera.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // LDSampler Method Definitions
 LDSampler::LDSampler(int xstart, int xend, int ystart, int yend, int ps,
                      float sopen, float sclose)
@@ -90,4 +93,4 @@ LDSampler *CreateLowDiscrepancySampler(const ParamSet &params, const Film *film,
         camera->shutterOpen, camera->shutterClose);
 }
 
-
+}

@@ -40,6 +40,8 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
 
 // VSDBackwardLinearIntegrator Declarations
 class VSDBackwardLinearIntegrator : public VolumeIntegrator {
@@ -61,5 +63,7 @@ private:
 
 
 VSDBackwardLinearIntegrator *CreateVSDBackwardLinearIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VSD_BLG_H

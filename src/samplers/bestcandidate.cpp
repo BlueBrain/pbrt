@@ -38,6 +38,10 @@
 
 // BestCandidateSampler Method Definitions
 #include "samplers/bestcandidate.out"
+
+namespace pbrt
+{
+
 Sampler *BestCandidateSampler::GetSubSampler(int num, int count) {
     int x0, x1, y0, y1;
     ComputeSubWindow(num, count, &x0, &x1, &y0, &y1);
@@ -67,7 +71,7 @@ again:
 #define WRAP(x) ((x) >= 1 ? ((x)-1) : (x))
     sample->imageX = (xTile + sampleTable[tableOffset][0]) * tableWidth;
     sample->imageY = (yTile + sampleTable[tableOffset][1]) * tableWidth;
-    sample->time  = Lerp(WRAP(sampleOffsets[0] + sampleTable[tableOffset][2]),
+    sample->time  = ::Lerp(WRAP(sampleOffsets[0] + sampleTable[tableOffset][2]),
                               shutterOpen, shutterClose);
     sample->lensU = WRAP(sampleOffsets[1] +
                          sampleTable[tableOffset][3]);
@@ -102,4 +106,4 @@ BestCandidateSampler *CreateBestCandidateSampler(const ParamSet &params, const F
          camera->shutterOpen, camera->shutterClose);
 }
 
-
+}

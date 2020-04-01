@@ -43,6 +43,9 @@
 #include "scene.h"
 #include "mipmap.h"
 
+namespace pbrt
+{
+
 // GonioPhotometricLight Declarations
 class GonioPhotometricLight : public Light {
 public:
@@ -77,4 +80,5 @@ private:
 GonioPhotometricLight *CreateGoniometricLight(const Transform &light2world,
         const ParamSet &paramSet);
 
+}
 #endif // PBRT_LIGHTS_GONIOMETRIC_H

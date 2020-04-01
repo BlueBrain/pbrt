@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "sh.h"
 
+namespace pbrt
+{
+
 // Spherical Harmonics Rotations Definitions
 void SHRotateXMinus(const Spectrum *c_in, Spectrum *c_out, int lmax) {
     // -x rotations are the same as +x rotations, just with a negation
@@ -1469,3 +1472,4 @@ void SHSwapYZ(const Spectrum *c_in, Spectrum *c_out, int lmax) {
 
 
 #endif
+}

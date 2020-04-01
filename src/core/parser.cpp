@@ -35,13 +35,17 @@
 #include "parser.h"
 #include "fileutil.h"
 
+extern FILE *yyin;
+extern int yyparse(void);
+extern string current_file;
+extern int line_num;
+extern int yydebug;
+
+namespace pbrt
+{
+
 // Parsing Global Interface
 bool ParseFile(const string &filename) {
-    extern FILE *yyin;
-    extern int yyparse(void);
-    extern string current_file;
-    extern int line_num;
-    extern int yydebug;
 
     if (getenv("PBRT_YYDEBUG") != NULL)
         yydebug = 1;
@@ -64,5 +68,5 @@ bool ParseFile(const string &filename) {
     line_num = 0;
     return (yyin != NULL);
 }
-
+}
 

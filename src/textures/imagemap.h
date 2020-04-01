@@ -43,6 +43,9 @@
 #include "paramset.h"
 #include <map>
 
+namespace pbrt
+{
+
 // TexInfo Declarations
 struct TexInfo {
     TexInfo(const string &f, bool dt, float ma, ImageWrap wm, float sc, float ga)
@@ -115,4 +118,5 @@ ImageTexture<float, float> *CreateImageFloatTexture(const Transform &tex2world,
 ImageTexture<RGBSpectrum, Spectrum> *CreateImageSpectrumTexture(const Transform &tex2world,
         const TextureParams &tp);
 
+}
 #endif // PBRT_TEXTURES_IMAGEMAP_H

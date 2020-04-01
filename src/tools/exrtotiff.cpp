@@ -20,6 +20,8 @@ using std::max;
 using namespace Imf;
 using namespace Imath;
 
+using namespace pbrt;
+
 static bool ReadEXR(const char *name, float *&rgba, int &xRes, int &yRes, bool &hasAlpha);
 static void WriteTIFF(const char *name, float *rgba, int xRes, int yRes, bool hasAlpha);
 

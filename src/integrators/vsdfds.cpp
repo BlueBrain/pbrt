@@ -41,6 +41,9 @@
 #include <iostream>
 #include <fstream>
 
+namespace pbrt
+{
+
 // VSDForwardDirectIntegrator Method Definitions
 void VSDForwardDirectIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                                const Scene *scene) {
@@ -118,4 +121,6 @@ VSDForwardDirectIntegrator *CreateVSDForwardDirectIntegrator(const ParamSet &par
     shift.y = params.FindOneFloat("yshift", 0);
     shift.z = params.FindOneFloat("zshift", 0);
     return new VSDForwardDirectIntegrator(vsdDataDirectory, pshFileName, shift);
+}
+
 }

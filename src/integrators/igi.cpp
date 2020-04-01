@@ -41,6 +41,9 @@
 #include "paramset.h"
 #include "camera.h"
 
+namespace pbrt
+{
+
 // IGIIntegrator Method Definitions
 IGIIntegrator::~IGIIntegrator() {
     delete[] lightSampleOffsets;
@@ -240,4 +243,4 @@ IGIIntegrator *CreateIGISurfaceIntegrator(const ParamSet &params) {
                              maxDepth, glimit, gatherSamples);
 }
 
-
+}

@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "geometry.h"
 
+namespace pbrt
+{
+
 // Quaternion Declarations
 struct Quaternion {
     // Quaternion Public Methods
@@ -110,6 +113,6 @@ inline Quaternion Normalize(const Quaternion &q) {
     return q / sqrtf(Dot(q, q));
 }
 
-
+}
 
 #endif // PBRT_CORE_QUATERNION_H

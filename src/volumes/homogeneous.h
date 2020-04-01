@@ -41,6 +41,8 @@
 #include "volume.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
 // HomogeneousVolumeDensity Declarations
 class HomogeneousVolumeDensity : public VolumeRegion {
 public:
@@ -186,5 +188,5 @@ private:
 
 HomogeneousVolumeDensity *CreateHomogeneousVolumeDensityRegion
 (const Transform &volume2world, const ParamSet &params);
-
+}
 #endif // PBRT_VOLUMES_HOMOGENEOUS_H

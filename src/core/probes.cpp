@@ -38,6 +38,7 @@
 #include <map>
 using std::map;
 
+
 // Statistics Counters Local Declarations
 #ifdef PBRT_HAS_64_BIT_ATOMICS
 typedef AtomicInt64 StatsCounterType;
@@ -361,6 +362,5 @@ void PBRT_STARTED_SPECULAR_REFLECTION_RAY(const RayDifferential *) {
 void PBRT_STARTED_SPECULAR_REFRACTION_RAY(const RayDifferential *) {
     ++specularRefractionRays;
 }
-
 
 #endif // PBRT_PROBES_COUNTERS

@@ -35,6 +35,9 @@
 #include "texture.h"
 #include "shape.h"
 
+namespace pbrt
+{
+
 // Texture Inline Functions
 inline float SmoothStep(float min, float max, float value) {
     float v = Clamp((value - min) / (max - min), 0.f, 1.f);
@@ -188,13 +191,13 @@ float Noise(float x, float y, float z) {
 
     // Compute trilinear interpolation of weights
     float wx = NoiseWeight(dx), wy = NoiseWeight(dy), wz = NoiseWeight(dz);
-    float x00 = Lerp(wx, w000, w100);
-    float x10 = Lerp(wx, w010, w110);
-    float x01 = Lerp(wx, w001, w101);
-    float x11 = Lerp(wx, w011, w111);
-    float y0 = Lerp(wy, x00, x10);
-    float y1 = Lerp(wy, x01, x11);
-    return Lerp(wz, y0, y1);
+    float x00 = ::Lerp(wx, w000, w100);
+    float x10 = ::Lerp(wx, w010, w110);
+    float x01 = ::Lerp(wx, w001, w101);
+    float x11 = ::Lerp(wx, w011, w111);
+    float y0 = ::Lerp(wy, x00, x10);
+    float y1 = ::Lerp(wy, x01, x11);
+    return ::Lerp(wz, y0, y1);
 }
 
 
@@ -273,4 +276,4 @@ float Lanczos(float x, float tau) {
     return s * lanczos;
 }
 
-
+}

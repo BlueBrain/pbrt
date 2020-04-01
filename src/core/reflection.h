@@ -44,6 +44,9 @@
 #include "spectrum.h"
 #include "kdtree.h"
 
+namespace pbrt
+{
+
 // Reflection Declarations
 Spectrum FrDiel(float cosi, float cost, const Spectrum &etai,
                 const Spectrum &etat);
@@ -535,7 +538,7 @@ inline int BSDF::NumComponents(BxDFType flags) const {
         if (bxdfs[i]->MatchesFlags(flags)) ++num;
     return num;
 }
-
+}
 
 
 #endif // PBRT_CORE_REFLECTION_H

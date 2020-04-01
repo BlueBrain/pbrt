@@ -40,6 +40,8 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
 
 // VSDBackwardScatteringIntegrator Declarations
 class VSDBackwardScatteringIntegrator : public VolumeIntegrator {
@@ -65,5 +67,7 @@ private:
 
 
 VSDBackwardScatteringIntegrator *CreateVSDBackwardScatteringIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VSD_BSG_H

@@ -37,6 +37,8 @@
 #include "sampler.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
 // OrthographicCamera Definitions
 TelecentricCamera::TelecentricCamera(const AnimatedTransform &cam2world,
         const float screenWindow[4], float sopen, float sclose,
@@ -169,5 +171,5 @@ TelecentricCamera *CreateTelecentricCamera(const ParamSet &params,
     return new TelecentricCamera(cam2world, screen, shutteropen, shutterclose,
         lensradius, focaldistance, film);
 }
-
+}
 

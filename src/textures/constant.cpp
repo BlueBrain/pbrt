@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/constant.h"
 
+namespace pbrt
+{
+
 // ConstantTexture Method Definitions
 ConstantTexture<float> *CreateConstantFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -47,4 +50,4 @@ ConstantTexture<Spectrum> *CreateConstantSpectrumTexture(const Transform &tex2wo
     return new ConstantTexture<Spectrum>(tp.FindSpectrum("value", Spectrum(1.f)));
 }
 
-
+}

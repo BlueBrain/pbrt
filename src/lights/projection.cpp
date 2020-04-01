@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "imageio.h"
 
+namespace pbrt
+{
+
 // ProjectionLight Method Definitions
 ProjectionLight::ProjectionLight(const Transform &light2world,
         const Spectrum &intensity, const string &texname,
@@ -133,4 +136,4 @@ float ProjectionLight::Pdf(const Point &, const Vector &) const {
     return 0.;
 }
 
-
+}

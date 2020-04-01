@@ -38,6 +38,8 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
 
 // Rectangle Method Definitions
 Rectangle::Rectangle(const Transform *o2w, const Transform *w2o, bool ro,
@@ -160,6 +162,8 @@ bool Rectangle::Projects(const Point &p, Point &ps, Normal &ns) const
         }
 
         return false;
+}
+
 }
 
 //    // Transform the point _p_ to the object space _Pobj_

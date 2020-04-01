@@ -41,6 +41,8 @@
 #include <math.h>
 #include "montecarlo.h"
 
+namespace pbrt
+{
 
 // AnnotatedVolumeGrid Method Definitions
 float AnnotatedVolumeGrid::Density(const Point &Pobj) const {
@@ -96,4 +98,5 @@ AnnotatedVolumeGrid *CreateAnnotatedVolumeGrid(const Transform &volume2world,
     uint8 *indices = ReadIndices(prefix, nx, ny, nz);
     return new AnnotatedVolumeGrid(sig_a, sig_s, g, le, BBox(p0, p1),
                 volume2world, nx, ny, nz, density, indices, numberTags);
+}
 }

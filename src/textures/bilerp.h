@@ -41,6 +41,9 @@
 #include "texture.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // BilerpTexture Declarations
 template <typename T> class BilerpTexture : public Texture<T> {
 public:
@@ -69,5 +72,7 @@ BilerpTexture<float> *CreateBilerpFloatTexture(const Transform &tex2world,
         const TextureParams &tp);
 BilerpTexture<Spectrum> *CreateBilerpSpectrumTexture(const Transform &tex2world,
         const TextureParams &tp);
+
+}
 
 #endif // PBRT_TEXTURES_BILERP_H

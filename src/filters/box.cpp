@@ -35,6 +35,9 @@
 #include "filters/box.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Box Filter Method Definitions
 float BoxFilter::Evaluate(float x, float y) const {
     return 1.;
@@ -47,4 +50,4 @@ BoxFilter *CreateBoxFilter(const ParamSet &ps) {
     return new BoxFilter(xw, yw);
 }
 
-
+}

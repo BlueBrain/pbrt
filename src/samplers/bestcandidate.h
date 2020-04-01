@@ -46,6 +46,9 @@
 #define SAMPLE_TABLE_SIZE (SQRT_SAMPLE_TABLE_SIZE * \
                            SQRT_SAMPLE_TABLE_SIZE)
 
+namespace pbrt
+{
+
 // BestCandidateSampler Declarations
 class BestCandidateSampler : public Sampler {
 public:
@@ -86,5 +89,5 @@ private:
 
 BestCandidateSampler *CreateBestCandidateSampler(const ParamSet &params, const Film *film,
     const Camera *camera);
-
+}
 #endif // PBRT_SAMPLERS_BESTCANDIDATE_H

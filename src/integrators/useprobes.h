@@ -41,6 +41,9 @@
 #include "integrator.h"
 #include "sh.h"
 
+namespace pbrt
+{
+
 // UseRadianceProbes Declarations
 class UseRadianceProbes : public SurfaceIntegrator {
 public:
@@ -74,5 +77,7 @@ private:
 
 
 extern UseRadianceProbes *CreateRadianceProbesSurfaceIntegrator(const ParamSet &paramSet);
+
+}
 
 #endif // PBRT_INTEGRATORS_USEPROBES_H

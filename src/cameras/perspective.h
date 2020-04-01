@@ -41,6 +41,9 @@
 #include "camera.h"
 #include "film.h"
 
+namespace pbrt
+{
+
 // PerspectiveCamera Declarations
 class PerspectiveCamera : public ProjectiveCamera {
 public:
@@ -59,5 +62,5 @@ private:
 
 PerspectiveCamera *CreatePerspectiveCamera(const ParamSet &params,
         const AnimatedTransform &cam2world, Film *film);
-
+}
 #endif // PBRT_CAMERAS_PERSPECTIVE_H

@@ -40,6 +40,9 @@
 #include "light.h"
 #include "primitive.h"
 
+namespace pbrt
+{
+
 // CollimatedAreaLight Declarations
 class CollimatedAreaLight : public AreaLight {
 public:
@@ -73,4 +76,5 @@ AreaLight
 *CreateCollimatedAreaLight(const Transform &light2world, const ParamSet &paramSet,
         const Reference<Shape> &shape);
 
+}
 #endif // PBRT_LIGHTS_COLLIMATED_H

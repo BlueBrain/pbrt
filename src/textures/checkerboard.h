@@ -45,6 +45,9 @@
 #include "parallel.h"
 #include "progressreporter.h"
 
+namespace pbrt
+{
+
 // CheckerboardTexture Declarations
 template <typename T> class Checkerboard2DTexture : public Texture<T> {
 public:
@@ -138,5 +141,7 @@ Texture<float> *CreateCheckerboardFloatTexture(const Transform &tex2world,
         const TextureParams &tp);
 Texture<Spectrum> *CreateCheckerboardSpectrumTexture(const Transform &tex2world,
         const TextureParams &tp);
+
+}
 
 #endif // PBRT_TEXTURES_CHECKERBOARD_H

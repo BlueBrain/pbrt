@@ -42,6 +42,9 @@
 
 using std::string;
 
+namespace pbrt
+{
+
 // Platform independent filename-handling functions.
 
 bool IsAbsolutePath(const string &filename);
@@ -51,6 +54,6 @@ string DirectoryContaining(const string &filename);
 void SetSearchDirectory(const string &dirname);
 void RemoveString(string& s, const string& p);
 
-
+}
 #endif // PBRT_CORE_FILEUTIL_H
 

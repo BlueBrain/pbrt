@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "material.h"
 
+namespace pbrt
+{
+
 // MirrorMaterial Declarations
 class MirrorMaterial : public Material {
 public:
@@ -59,4 +62,5 @@ private:
 MirrorMaterial *CreateMirrorMaterial(const Transform &xform,
         const TextureParams &mp);
 
+}
 #endif // PBRT_MATERIALS_MIRROR_H

@@ -36,6 +36,9 @@
 #include "integrator.h"
 #include "volume.h"
 
+namespace pbrt
+{
+
 // Sampler Method Definitions
 Sampler::~Sampler() {
 }
@@ -67,10 +70,10 @@ void Sampler::ComputeSubWindow(int num, int count, int *newXStart,
     int xo = num % nx, yo = num / nx;
     float tx0 = float(xo) / float(nx), tx1 = float(xo+1) / float(nx);
     float ty0 = float(yo) / float(ny), ty1 = float(yo+1) / float(ny);
-    *newXStart = Floor2Int(Lerp(tx0, xPixelStart, xPixelEnd));
-    *newXEnd   = Floor2Int(Lerp(tx1, xPixelStart, xPixelEnd));
-    *newYStart = Floor2Int(Lerp(ty0, yPixelStart, yPixelEnd));
-    *newYEnd   = Floor2Int(Lerp(ty1, yPixelStart, yPixelEnd));
+    *newXStart = ::Floor2Int(::Lerp(tx0, xPixelStart, xPixelEnd));
+    *newXEnd   = ::Floor2Int(::Lerp(tx1, xPixelStart, xPixelEnd));
+    *newYStart = ::Floor2Int(::Lerp(ty0, yPixelStart, yPixelEnd));
+    *newYEnd   = ::Floor2Int(::Lerp(ty1, yPixelStart, yPixelEnd));
 }
 
 
@@ -123,5 +126,5 @@ Sample *Sample::Duplicate(int count) const {
     }
     return ret;
 }
-
+}
 

@@ -39,6 +39,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // MixMaterial Method Definitions
 BSDF *MixMaterial::GetBSDF(const DifferentialGeometry &dgGeom,
                            const DifferentialGeometry &dgShading,
@@ -64,4 +67,4 @@ MixMaterial *CreateMixMaterial(const Transform &xform,
     return new MixMaterial(m1, m2, scale);
 }
 
-
+}

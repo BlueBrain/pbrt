@@ -36,6 +36,9 @@
 #include "probes.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // BVHAccel Local Declarations
 struct BVHPrimitiveInfo {
     BVHPrimitiveInfo() { }
@@ -123,7 +126,7 @@ struct LinearBVHNode {
 };
 
 
-static inline bool IntersectP(const BBox &bounds, const Ray &ray,
+static inline bool IntersectPImpl(const BBox &bounds, const Ray &ray,
         const Vector &invDir, const uint32_t dirIsNeg[3]) {
     // Check for ray intersection against $x$ and $y$ slabs
     float tmin =  (bounds[  dirIsNeg[0]].x - ray.o.x) * invDir.x;
@@ -412,7 +415,7 @@ bool BVHAccel::Intersect(const Ray &ray, Intersection *isect) const {
     while (true) {
         const LinearBVHNode *node = &nodes[nodeNum];
         // Check ray against BVH node
-        if (::IntersectP(node->bounds, ray, invDir, dirIsNeg)) {
+        if (IntersectPImpl(node->bounds, ray, invDir, dirIsNeg)) {
             if (node->nPrimitives > 0) {
                 // Intersect ray with primitives in leaf BVH node
                 PBRT_BVH_INTERSECTION_TRAVERSED_LEAF_NODE(const_cast<LinearBVHNode *>(node));
@@ -463,7 +466,7 @@ bool BVHAccel::IntersectP(const Ray &ray) const {
     uint32_t todoOffset = 0, nodeNum = 0;
     while (true) {
         const LinearBVHNode *node = &nodes[nodeNum];
-        if (::IntersectP(node->bounds, ray, invDir, dirIsNeg)) {
+        if (IntersectPImpl(node->bounds, ray, invDir, dirIsNeg)) {
             // Process BVH node _node_ for traversal
             if (node->nPrimitives > 0) {
                 PBRT_BVH_INTERSECTIONP_TRAVERSED_LEAF_NODE(const_cast<LinearBVHNode *>(node));
@@ -509,5 +512,5 @@ BVHAccel *CreateBVHAccelerator(const vector<Reference<Primitive> > &prims,
     uint32_t maxPrimsInNode = ps.FindOneInt("maxnodeprims", 4);
     return new BVHAccel(prims, maxPrimsInNode, splitMethod);
 }
-
+}
 

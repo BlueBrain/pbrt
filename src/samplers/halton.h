@@ -40,6 +40,9 @@
 #include "sampler.h"
 #include "film.h"
 
+namespace pbrt
+{
+
 // HaltonSampler Declarations
 class HaltonSampler : public Sampler {
 public:
@@ -57,5 +60,5 @@ private:
 
 HaltonSampler *CreateHaltonSampler(const ParamSet &params, const Film *film,
     const Camera *camera);
-
+}
 #endif // PBRT_SAMPLERS_HALTON_H

@@ -40,6 +40,9 @@
 #include "intersection.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // GlossyPRTIntegrator Method Definitions
 GlossyPRTIntegrator::~GlossyPRTIntegrator() {
     delete[] c_in;
@@ -145,4 +148,4 @@ GlossyPRTIntegrator *CreateGlossyPRTIntegratorSurfaceIntegrator(const ParamSet &
     return new GlossyPRTIntegrator(Kd, Ks, roughness, lmax, ns);
 }
 
-
+}

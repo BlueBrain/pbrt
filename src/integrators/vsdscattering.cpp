@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // VSDScatteringIntegrator Method Definitions
 void VSDScatteringIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -205,4 +208,4 @@ VSDScatteringIntegrator *CreateVSDScatteringIntegrator(const ParamSet &params) {
     return new VSDScatteringIntegrator(stepSize);
 }
 
-
+}

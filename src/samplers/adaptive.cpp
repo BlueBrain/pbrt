@@ -40,6 +40,9 @@
 #include "camera.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // AdaptiveSampler Method Definitions
 AdaptiveSampler::AdaptiveSampler(int xstart, int xend,
                      int ystart, int yend, int mins, int maxs, const string &m,
@@ -187,4 +190,4 @@ AdaptiveSampler *CreateAdaptiveSampler(const ParamSet &params, const Film *film,
          camera->shutterOpen, camera->shutterClose);
 }
 
-
+}

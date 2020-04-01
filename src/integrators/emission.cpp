@@ -35,6 +35,9 @@
 #include "integrators/emission.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // EmissionIntegrator Method Definitions
 void EmissionIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                         const Scene *scene) {
@@ -114,4 +117,4 @@ EmissionIntegrator *CreateEmissionVolumeIntegrator(const ParamSet &params) {
     return new EmissionIntegrator(stepSize);
 }
 
-
+}

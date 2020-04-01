@@ -41,6 +41,9 @@
 #include "geometry.h"
 #include "quaternion.h"
 
+namespace pbrt
+{
+
 // Matrix4x4 Declarations
 struct Matrix4x4 {
     // Matrix4x4 Public Methods
@@ -322,5 +325,7 @@ private:
     Quaternion R[2];
     Matrix4x4 S[2];
 };
+
+}
 
 #endif // PBRT_CORE_TRANSFORM_H

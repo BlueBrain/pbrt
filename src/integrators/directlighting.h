@@ -41,6 +41,9 @@
 #include "integrator.h"
 #include "scene.h"
 
+namespace pbrt
+{
+
 // DirectLightingIntegrator Declarations
 enum LightStrategy { SAMPLE_ALL_UNIFORM, SAMPLE_ONE_UNIFORM };
 class DirectLightingIntegrator : public SurfaceIntegrator {
@@ -65,5 +68,7 @@ private:
 
 
 DirectLightingIntegrator *CreateDirectLightingIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_DIRECTLIGHTING_H

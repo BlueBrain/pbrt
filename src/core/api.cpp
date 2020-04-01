@@ -166,6 +166,9 @@
  #endif
 using std::map;
 
+namespace pbrt
+{
+
 // API Global Variables
 Options PbrtOptions;
 
@@ -709,7 +712,7 @@ Primitive *MakeAccelerator(const string &name,
 }
 
 
-Camera *MakeCamera(const string &name,
+Camera *MakeCameraImpl(const string &name,
         const ParamSet &paramSet,
         const TransformSet &cam2worldSet, float transformStart,
         float transformEnd, Film *film) {
@@ -1409,11 +1412,11 @@ Camera *RenderOptions::MakeCamera() const {
     Filter *filter = MakeFilter(FilterName, FilterParams);
     Film *film = MakeFilm(FilmName, FilmParams, filter);
     if (!film) Severe("Unable to create film.");
-    Camera *camera = ::MakeCamera(CameraName, CameraParams,
+    Camera *camera = MakeCameraImpl(CameraName, CameraParams,
         CameraToWorld, renderOptions->transformStartTime,
         renderOptions->transformEndTime, film);
     if (!camera) Severe("Unable to create camera.");
     return camera;
 }
 
-
+}

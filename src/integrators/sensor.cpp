@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // SensorIntegrator Method Definitions
 void SensorIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -355,4 +358,4 @@ SensorIntegrator *CreateSensorIntegrator(const ParamSet &params) {
     return new SensorIntegrator(stepSize, uint64_t(photonCount));
 }
 
-
+}

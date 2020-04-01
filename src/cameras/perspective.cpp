@@ -37,6 +37,9 @@
 #include "sampler.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // PerspectiveCamera Method Definitions
 PerspectiveCamera:: PerspectiveCamera(const AnimatedTransform &cam2world,
         const float screenWindow[4], float sopen, float sclose,
@@ -176,4 +179,5 @@ PerspectiveCamera *CreatePerspectiveCamera(const ParamSet &params,
         fov = 2.f * halffov;
     return new PerspectiveCamera(cam2world, screen, shutteropen,
         shutterclose, lensradius, focaldistance, fov, film);
+}
 }

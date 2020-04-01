@@ -38,6 +38,9 @@
 
 using namespace std;
 
+namespace pbrt
+{
+
 BitArray::BitArray(const uint64_t &nelements) {
     numElements_ = nelements;
     numBytes_ = (uint64_t)
@@ -130,5 +133,7 @@ void BitArray::WriteASCII(const string &prefix) {
 
 BitArray::~BitArray() {
     delete [] byteData_;
+}
+
 }
 

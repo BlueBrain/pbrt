@@ -35,6 +35,9 @@
 #include "shapes/cone.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Cone Method Definitions
 Cone::Cone(const Transform *o2w, const Transform *w2o, bool ro,
            float ht, float rad, float tm)
@@ -215,4 +218,4 @@ Cone *CreateConeShape(const Transform *o2w, const Transform *w2o,
     return new Cone(o2w, w2o, reverseOrientation, height, radius, phimax);
 }
 
-
+}

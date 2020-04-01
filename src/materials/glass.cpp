@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // GlassMaterial Method Definitions
 BSDF *GlassMaterial::GetBSDF(const DifferentialGeometry &dgGeom, const DifferentialGeometry &dgShading, MemoryArena &arena) const {
     DifferentialGeometry dgs;
@@ -67,4 +70,5 @@ GlassMaterial *CreateGlassMaterial(const Transform &xform,
     return new GlassMaterial(Kr, Kt, index, bumpMap);
 }
 
+}
 

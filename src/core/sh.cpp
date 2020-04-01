@@ -40,6 +40,9 @@
 #include "imageio.h"
 #include <float.h>
 
+namespace pbrt
+{
+
 // Spherical Harmonics Local Definitions
 static void legendrep(float x, int lmax, float *out) {
 #define P(l,m) out[SHIndex(l,m)]
@@ -502,5 +505,5 @@ void SHMatrixVectorMultiply(const Spectrum *M, const Spectrum *v,
             vout[i] += M[SHTerms(lmax) * i + j] * v[j];
     }
 }
-
+}
 

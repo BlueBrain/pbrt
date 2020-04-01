@@ -37,6 +37,9 @@
 #include "camera.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // HaltonSampler Method Definitions
 Sampler *HaltonSampler::GetSubSampler(int num, int count) {
     int x0, x1, y0, y1;
@@ -65,8 +68,8 @@ retry:
     float v = (float)RadicalInverse(currentSample, 2);
     float lerpDelta = float(max(xPixelEnd - xPixelStart,
                                 yPixelEnd - yPixelStart));
-    samples->imageX = Lerp(u, xPixelStart, xPixelStart + lerpDelta);
-    samples->imageY = Lerp(v, yPixelStart, yPixelStart + lerpDelta);
+    samples->imageX = ::Lerp(u, xPixelStart, xPixelStart + lerpDelta);
+    samples->imageY = ::Lerp(v, yPixelStart, yPixelStart + lerpDelta);
     ++currentSample;
     if (samples->imageX >= xPixelEnd || samples->imageY >= yPixelEnd)
         goto retry;
@@ -74,7 +77,7 @@ retry:
     // Generate lens, time, and integrator samples for _HaltonSampler_
     samples->lensU = (float)RadicalInverse(currentSample, 5);
     samples->lensV = (float)RadicalInverse(currentSample, 7);
-    samples->time = Lerp((float)RadicalInverse(currentSample, 11),
+    samples->time = ::Lerp((float)RadicalInverse(currentSample, 11),
                          shutterOpen, shutterClose);
     for (uint32_t i = 0; i < samples->n1D.size(); ++i)
         LatinHypercube(samples->oneD[i], samples->n1D[i], 1, rng);
@@ -95,4 +98,4 @@ HaltonSampler *CreateHaltonSampler(const ParamSet &params, const Film *film,
          camera->shutterOpen, camera->shutterClose);
 }
 
-
+}

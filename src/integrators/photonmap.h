@@ -41,6 +41,9 @@
 #include "integrator.h"
 #include "kdtree.h"
 
+namespace pbrt
+{
+
 struct Photon;
 struct RadiancePhoton;
 struct ClosePhoton;
@@ -85,5 +88,7 @@ private:
 
 
 PhotonIntegrator *CreatePhotonMapSurfaceIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_PHOTONMAP_H

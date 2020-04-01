@@ -35,6 +35,9 @@
 #include "shapes/paraboloid.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Paraboloid Method Definitions
 Paraboloid::Paraboloid(const Transform *o2w, const Transform *w2o, bool ro,
                        float rad, float z0, float z1,
@@ -221,4 +224,4 @@ Paraboloid *CreateParaboloidShape(const Transform *o2w, const Transform *w2o,
     return new Paraboloid(o2w, w2o, reverseOrientation, radius, zmin, zmax, phimax);
 }
 
-
+}

@@ -39,6 +39,8 @@
 // shapes/heightfield.h*
 #include "shape.h"
 
+namespace pbrt
+{
 // Heightfield Declarations
 class Heightfield : public Shape {
 public:
@@ -58,5 +60,5 @@ private:
 
 Heightfield *CreateHeightfieldShape(const Transform *o2w, const Transform *w2o,
         bool reverseOrientation, const ParamSet &params);
-
+}
 #endif // PBRT_SHAPES_HEIGHTFIELD_H

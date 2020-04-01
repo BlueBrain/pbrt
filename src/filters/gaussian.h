@@ -39,6 +39,9 @@
 // filters/gaussian.h*
 #include "filter.h"
 
+namespace pbrt
+{
+
 // Gaussian Filter Declarations
 class GaussianFilter : public Filter {
 public:
@@ -60,5 +63,7 @@ private:
 
 
 GaussianFilter *CreateGaussianFilter(const ParamSet &ps);
+
+}
 
 #endif // PBRT_FILTERS_GAUSSIAN_H

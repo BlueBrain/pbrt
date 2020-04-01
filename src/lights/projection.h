@@ -42,6 +42,9 @@
 #include "shape.h"
 #include "mipmap.h"
 
+namespace pbrt
+{
+
 // ProjectionLight Declarations
 class ProjectionLight : public Light {
 public:
@@ -71,5 +74,5 @@ private:
 
 ProjectionLight *CreateProjectionLight(const Transform &light2world,
         const ParamSet &paramSet);
-
+}
 #endif // PBRT_LIGHTS_PROJECTION_H

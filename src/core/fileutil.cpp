@@ -38,6 +38,9 @@
 #include <string.h>
 #endif
 
+namespace pbrt
+{
+
 static string searchDirectory;
 
 #ifdef PBRT_IS_WINDOWS
@@ -146,4 +149,6 @@ void RemoveString(string& s, const string& p) {
          i != string::npos;
          i = s.find(p))
         s.erase(i, n);
+}
+
 }

@@ -36,6 +36,9 @@
 #include "intersection.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // DirectLightingIntegrator Method Definitions
 DirectLightingIntegrator::DirectLightingIntegrator(LightStrategy st, int md) {
     maxDepth = md;
@@ -132,4 +135,4 @@ DirectLightingIntegrator *CreateDirectLightingIntegrator(const ParamSet &params)
     return new DirectLightingIntegrator(strategy, maxDepth);
 }
 
-
+}

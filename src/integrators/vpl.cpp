@@ -42,6 +42,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+namespace pbrt
+{
+
 // VPLIntegrator Method Definitions
 void VPLIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -262,4 +265,4 @@ VPLIntegrator *CreateVPLIntegrator(const ParamSet &params) {
     return new VPLIntegrator(stepSize, nLightPaths, nLightSets, glimit);
 }
 
-
+}

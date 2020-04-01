@@ -36,6 +36,9 @@
 #include "paramset.h"
 #include "sampler.h"
 
+namespace pbrt
+{
+
 // EnvironmentCamera Method Definitions
 float EnvironmentCamera::GenerateRay(const CameraSample &sample,
                                      Ray *ray) const {
@@ -86,4 +89,4 @@ EnvironmentCamera *CreateEnvironmentCamera(const ParamSet &params,
     return new EnvironmentCamera(cam2world, shutteropen, shutterclose, film);
 }
 
-
+}

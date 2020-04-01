@@ -42,6 +42,9 @@
 #include "geometry.h"
 #include "vsdevent.h"
 
+namespace pbrt
+{
+
 // VSDGrid Declarations
 class VSDGrid
 {
@@ -66,5 +69,5 @@ private:
     float dx, dy, dz;
     BBox bbox;
 };
-
+}
 #endif // PBRT_VSD_VSDGRID_H

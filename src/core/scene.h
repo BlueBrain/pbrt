@@ -42,6 +42,9 @@
 #include "integrator.h"
 #include "sensor.h"
 
+namespace pbrt
+{
+
 // Scene Declarations
 class Scene {
 public:
@@ -71,6 +74,6 @@ public:
     BBox bound;
 };
 
-
+}
 
 #endif // PBRT_CORE_SCENE_H

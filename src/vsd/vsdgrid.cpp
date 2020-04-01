@@ -41,6 +41,9 @@
 
 using namespace std;
 
+namespace pbrt
+{
+
 VSDGrid::VSDGrid(const int &nxx, const int &nyy, const int &nzz,
                  const BBox bb) :
     nx(nxx), ny(nyy), nz(nzz), nxyz(nx * ny * nz), bbox(bb)
@@ -271,4 +274,6 @@ void VSDGrid::WriteRAWVolumeFile(const string &outputDir, const string &prefix,
                   << bbox.Height()                  << " "
                   << bbox.Depth()                   << " ";
     hdrFileStream.close();
+}
+
 }

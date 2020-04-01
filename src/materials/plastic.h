@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "material.h"
 
+namespace pbrt
+{
+
 // PlasticMaterial Declarations
 class PlasticMaterial : public Material {
 public:
@@ -62,5 +65,7 @@ private:
 
 PlasticMaterial *CreatePlasticMaterial(const Transform &xform,
         const TextureParams &mp);
+
+}
 
 #endif // PBRT_MATERIALS_PLASTIC_H

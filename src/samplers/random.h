@@ -40,6 +40,10 @@
 #include "sampler.h"
 #include "paramset.h"
 #include "film.h"
+
+namespace pbrt
+{
+
 class RandomSampler : public Sampler {
 public:
     RandomSampler(int xstart, int xend, int ystart,
@@ -61,5 +65,5 @@ private:
 
 Sampler *CreateRandomSampler(const ParamSet &params, const Film *film,
     const Camera *camera);
-
+}
 #endif // PBRT_SAMPLERS_RANDOM_H

@@ -38,6 +38,10 @@
 
 // shapes/loopsubdiv.h*
 #include "shape.h"
+
+namespace pbrt
+{
+
 struct SDVertex;
 struct SDFace;
 
@@ -75,5 +79,5 @@ private:
 
 LoopSubdiv *CreateLoopSubdivShape(const Transform *o2w, const Transform *w2o,
         bool reverseOrientation, const ParamSet &params);
-
+}
 #endif // PBRT_SHAPES_LOOPSUBDIV_H

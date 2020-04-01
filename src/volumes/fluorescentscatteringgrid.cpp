@@ -41,6 +41,8 @@
 #include <math.h>
 #include "montecarlo.h"
 
+namespace pbrt
+{
 
 // FluorescentScatteringGridDensity Method Definitions
 float FluorescentScatteringGridDensity::Density(const Point &Pobj) const {
@@ -54,13 +56,13 @@ float FluorescentScatteringGridDensity::Density(const Point &Pobj) const {
     float dx = vox.x - vx, dy = vox.y - vy, dz = vox.z - vz;
 
     // Trilinearly interpolate density values to compute local density
-    float f00 = Lerp(dx, F(vx, vy, vz),     F(vx+1, vy, vz));
-    float f10 = Lerp(dx, F(vx, vy+1, vz),   F(vx+1, vy+1, vz));
-    float f01 = Lerp(dx, F(vx, vy, vz+1),   F(vx+1, vy, vz+1));
-    float f11 = Lerp(dx, F(vx, vy+1, vz+1), F(vx+1, vy+1, vz+1));
-    float f0 = Lerp(dy, f00, f10);
-    float f1 = Lerp(dy, f01, f11);
-    return Lerp(dz, f0, f1);
+    float f00 = ::Lerp(dx, F(vx, vy, vz),     F(vx+1, vy, vz));
+    float f10 = ::Lerp(dx, F(vx, vy+1, vz),   F(vx+1, vy+1, vz));
+    float f01 = ::Lerp(dx, F(vx, vy, vz+1),   F(vx+1, vy, vz+1));
+    float f11 = ::Lerp(dx, F(vx, vy+1, vz+1), F(vx+1, vy+1, vz+1));
+    float f0 = ::Lerp(dy, f00, f10);
+    float f1 = ::Lerp(dy, f01, f11);
+    return ::Lerp(dz, f0, f1);
 }
 
 
@@ -210,4 +212,6 @@ bool FluorescentScatteringGridDensity::SampleDirection(const Point &p, const Vec
     wo = SampleHG(wi, g, rng.RandomFloat(), rng.RandomFloat());
     *pdf = PhaseHG(wi, wo, g);
     return true;
+}
+
 }

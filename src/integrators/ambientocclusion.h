@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // AmbientOcclusionIntegrator Declarations
 class AmbientOcclusionIntegrator : public SurfaceIntegrator {
 public:
@@ -52,8 +55,7 @@ private:
     float maxDist;
 };
 
-
-
 AmbientOcclusionIntegrator *CreateAmbientOcclusionIntegrator(const ParamSet &params);
 
+}
 #endif // PBRT_INTEGRATORS_AMBIENTOCCLUSION_H

@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "material.h"
 
+namespace pbrt
+{
+
 // SubsurfaceMaterial Declarations
 class SubsurfaceMaterial : public Material {
 public:
@@ -73,4 +76,5 @@ private:
 SubsurfaceMaterial *CreateSubsurfaceMaterial(const Transform &xform,
         const TextureParams &mp);
 
+}
 #endif // PBRT_MATERIALS_SUBSURFACE_H

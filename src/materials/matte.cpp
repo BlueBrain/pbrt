@@ -38,6 +38,9 @@
 #include "diffgeom.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // MatteMaterial Method Definitions
 BSDF *MatteMaterial::GetBSDF(const DifferentialGeometry &dgGeom,
                              const DifferentialGeometry &dgShading,
@@ -71,4 +74,4 @@ MatteMaterial *CreateMatteMaterial(const Transform &xform,
     return new MatteMaterial(Kd, sigma, bumpMap);
 }
 
-
+}

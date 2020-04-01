@@ -41,6 +41,9 @@
 #include "geometry.h"
 #include "spectrum.h"
 
+namespace pbrt
+{
+
 // Spherical Harmonics Declarations
 inline int SHTerms(int lmax) {
     return (lmax + 1) * (lmax + 1);
@@ -125,4 +128,6 @@ void SHComputeBSDFMatrix(const Spectrum &Kd, const Spectrum &Ks,
 void SHMatrixVectorMultiply(const Spectrum *M, const Spectrum *v,
                             Spectrum *vout, int lmax);
 
+
+}
 #endif // PBRT_CORE_SH_H

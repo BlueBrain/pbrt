@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/bilerp.h"
 
+namespace pbrt
+{
+
 // BilerpTexture Method Definitions
 BilerpTexture<float> *CreateBilerpFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -91,4 +94,4 @@ BilerpTexture<Spectrum> *CreateBilerpSpectrumTexture(const Transform &tex2world,
         tp.FindSpectrum("v10", 0.f), tp.FindSpectrum("v11", 1.f));
 }
 
-
+}

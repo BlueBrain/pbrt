@@ -41,6 +41,9 @@
 #include <math.h>
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // FluorescentGridDensity Method Definitions
 void FluorescentGridDensity::ValidateData() {
     // Write the spectra to validate the input data
@@ -71,13 +74,13 @@ float FluorescentGridDensity::Fluorescence(const Point &Pobj) const {
     float dx = vox.x - vx, dy = vox.y - vy, dz = vox.z - vz;
 
     // Trilinearly interpolate density values to compute local density
-    float f00 = Lerp(dx, F(vx, vy, vz),     F(vx+1, vy, vz));
-    float f10 = Lerp(dx, F(vx, vy+1, vz),   F(vx+1, vy+1, vz));
-    float f01 = Lerp(dx, F(vx, vy, vz+1),   F(vx+1, vy, vz+1));
-    float f11 = Lerp(dx, F(vx, vy+1, vz+1), F(vx+1, vy+1, vz+1));
-    float f0 = Lerp(dy, f00, f10);
-    float f1 = Lerp(dy, f01, f11);
-    return Lerp(dz, f0, f1);
+    float f00 = ::Lerp(dx, F(vx, vy, vz),     F(vx+1, vy, vz));
+    float f10 = ::Lerp(dx, F(vx, vy+1, vz),   F(vx+1, vy+1, vz));
+    float f01 = ::Lerp(dx, F(vx, vy, vz+1),   F(vx+1, vy, vz+1));
+    float f11 = ::Lerp(dx, F(vx, vy+1, vz+1), F(vx+1, vy+1, vz+1));
+    float f0 = ::Lerp(dy, f00, f10);
+    float f1 = ::Lerp(dy, f01, f11);
+    return ::Lerp(dz, f0, f1);
 }
 
 
@@ -146,4 +149,6 @@ FluorescentGridDensity *CreateFluorescentGrid(const Transform &volume2world,
         return new FluorescentGridDensity(BBox(p0, p1), volume2world,
                 nx, ny, nz, data, fex, fem, epsilon, c, yield, gf);
     }
+}
+
 }

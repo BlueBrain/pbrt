@@ -41,6 +41,9 @@
 #include "renderer.h"
 #include "geometry.h"
 
+namespace pbrt
+{
+
 // CreateRadianceProbes Declarations
 class CreateRadianceProbes : public Renderer {
 public:
@@ -72,4 +75,5 @@ private:
 CreateRadianceProbes *CreateRadianceProbesRenderer(const Camera *camera,
     SurfaceIntegrator *surf, VolumeIntegrator *vol, const ParamSet &params);
 
+}
 #endif // PBRT_RENDERERS_CREATEPROBES_H

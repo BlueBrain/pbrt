@@ -44,6 +44,9 @@
 #include "transform.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // Volume Scattering Declarations
 float PhaseIsotropic(const Vector &w, const Vector &wp);
 float PhaseRayleigh(const Vector &w, const Vector &wp);
@@ -301,5 +304,7 @@ public:
 
 void SubsurfaceFromDiffuse(const Spectrum &Kd, float meanPathLength, float eta,
         Spectrum *sigma_a, Spectrum *sigma_prime_s);
+
+}
 
 #endif // PBRT_CORE_VOLUME_H

@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // MetalMaterial Method Definitions
 MetalMaterial::MetalMaterial(Reference<Texture<Spectrum> > et,
         Reference<Texture<Spectrum> > kk, Reference<Texture<float> > rough,
@@ -107,4 +110,4 @@ MetalMaterial *CreateMetalMaterial(const Transform &xform, const TextureParams &
     return new MetalMaterial(eta, k, roughness, bumpMap);
 }
 
-
+}

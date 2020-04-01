@@ -42,6 +42,9 @@
 #include "integrator.h"
 #include <vector>
 
+namespace pbrt
+{
+
 // A fluorescent event is a 3d point with a given power that represents the
 // emission of a series of fluorescent photons.
 class FluorescentEvent {
@@ -98,4 +101,5 @@ VSDIntegrator *CreateVSDIntegrator(const ParamSet &params);
 //void ParseStringParameter(const std::string line, const std::string parameter,
 //                          std::string& value);
 
+}
 #endif // PBRT_INTEGRATORS_VSD_H

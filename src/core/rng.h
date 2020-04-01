@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "probes.h"
 
+namespace pbrt
+{
+
 // Random Number Declarations
 class RNG {
 public:
@@ -58,6 +61,6 @@ private:
     mutable int mti;
 };
 
-
+}
 
 #endif // PBRT_CORE_RNG_H

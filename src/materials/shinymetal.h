@@ -39,6 +39,9 @@
 #include "pbrt.h"
 #include "material.h"
 
+namespace pbrt
+{
+
 // ShinyMetalMaterial Class Declarations
 class ShinyMetalMaterial : public Material {
 public:
@@ -61,5 +64,7 @@ private:
 
 ShinyMetalMaterial *CreateShinyMetalMaterial(const Transform &xform,
         const TextureParams &mp);
+
+}
 
 #endif // PBRT_MATERIALS_SHINYMETAL_H

@@ -38,7 +38,11 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+
 using namespace std;
+
+namespace pbrt
+{
 
 void VSDSprite::ReadHeaderData(const string &filePath) {
     std::vector<std::string> data;
@@ -397,4 +401,6 @@ float ParseFloatParameter(const string line) {
 
     value = string(tokens[1]);
     return atof(value.c_str());
+}
+
 }

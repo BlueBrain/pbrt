@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "timer.h"
 
+namespace pbrt
+{
+
 // Timer Method Definitions
 Timer::Timer()
 {
@@ -100,4 +103,5 @@ double Timer::Time()
     return elapsed;
 }
 
+}
 

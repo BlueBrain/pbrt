@@ -40,6 +40,9 @@
 #include "volume.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // AbsorbingVolume Declarations
 class AbsorbingVolume : public VolumeRegion {
 public:
@@ -116,5 +119,7 @@ private:
 
 AbsorbingVolume *CreateAbsorbingVolumeRegion
 (const Transform &volume2world, const ParamSet &params);
+
+}
 
 #endif // PBRT_VOLUMES_ABSORBING_H

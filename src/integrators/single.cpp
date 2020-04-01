@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // SingleScatteringIntegrator Method Definitions
 void SingleScatteringIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -144,4 +147,4 @@ SingleScatteringIntegrator *CreateSingleScatteringIntegrator(const ParamSet &par
     return new SingleScatteringIntegrator(stepSize);
 }
 
-
+}

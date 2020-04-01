@@ -39,6 +39,9 @@
 #include "montecarlo.h"
 #include "volume.h"
 
+namespace pbrt
+{
+
 // VolumePathIntegrator Method Definitions
 void VolumePatIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
         const Scene *scene) {
@@ -331,4 +334,4 @@ VolumePatIntegrator *CreateVolumePathIntegrator(const ParamSet &params) {
     return new VolumePatIntegrator(stepSize, maxDepth);
 }
 
-
+}

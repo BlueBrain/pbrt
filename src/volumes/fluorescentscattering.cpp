@@ -37,6 +37,8 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
 
 // FluorescentScatteringVolumeDensity Method Definitions
 void FluorescentScatteringVolumeDensity::ValidateData() const {
@@ -114,4 +116,6 @@ FluorescentScatteringVolumeDensity
     return new FluorescentScatteringVolumeDensity(sigma_a, sigma_s, g, Le, BBox(p0, p1),
                 volume2world, fex, fem, molecularWeight, epsilon, c,
                 yield, gf, sscale, fscale, density);
+}
+
 }

@@ -35,6 +35,9 @@
 #include "textures/imagemap.h"
 #include "imageio.h"
 
+namespace pbrt
+{
+
 // ImageTexture Method Definitions
 template <typename Tmemory, typename Treturn>
 ImageTexture<Tmemory, Treturn>::ImageTexture(TextureMapping2D *m,
@@ -175,4 +178,4 @@ ImageTexture<RGBSpectrum, Spectrum> *CreateImageSpectrumTexture(const Transform 
         trilerp, maxAniso, wrapMode, scale, gamma);
 }
 
-
+}

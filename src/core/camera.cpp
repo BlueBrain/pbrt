@@ -37,6 +37,9 @@
 #include "montecarlo.h"
 #include "sampler.h"
 
+namespace pbrt
+{
+
 // Camera Method Definitions
 Camera::~Camera() {
     delete film;
@@ -100,5 +103,5 @@ ProjectiveCamera::ProjectiveCamera(const AnimatedTransform &cam2world,
     RasterToScreen = Inverse(ScreenToRaster);
     RasterToCamera = Inverse(CameraToScreen) * RasterToScreen;
 }
-
+}
 

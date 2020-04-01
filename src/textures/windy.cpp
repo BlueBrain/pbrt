@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/windy.h"
 
+namespace pbrt
+{
+
 // WindyTexture Method Definitions
 WindyTexture<float> *CreateWindyFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -51,4 +54,4 @@ WindyTexture<Spectrum> *CreateWindySpectrumTexture(const Transform &tex2world,
     return new WindyTexture<Spectrum>(map);
 }
 
-
+}

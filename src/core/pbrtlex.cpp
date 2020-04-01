@@ -755,15 +755,15 @@ void add_string_char(char c) {
 
 void include_push(char *filename) {
     if (includeStack.size() > 32) {
-        Error("Only 32 levels of nested Include allowed in scene files.");
+        pbrt::Error("Only 32 levels of nested Include allowed in scene files.");
         exit(1);
     }
 
-    string new_file = AbsolutePath(ResolveFilename(filename));
+    string new_file = pbrt::AbsolutePath(pbrt::ResolveFilename(filename));
 
     FILE *f = fopen(new_file.c_str(), "r");
     if (!f)
-        Error("Unable to open included scene file \"%s\"", new_file.c_str());
+        pbrt::Error("Unable to open included scene file \"%s\"", new_file.c_str());
     else {
         extern string current_file;
         IncludeInfo ii;
@@ -1403,12 +1403,12 @@ case 65:
 /* rule 65 can match eol */
 YY_RULE_SETUP
 #line 200 "core/pbrtlex.ll"
-{Error("Unterminated string!");}
+{pbrt::Error("Unterminated string!");}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
 #line 202 "core/pbrtlex.ll"
-{ Error( "Illegal character: %c (0x%x)", yytext[0], int(yytext[0])); }
+{ pbrt::Error( "Illegal character: %c (0x%x)", yytext[0], int(yytext[0])); }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
@@ -1917,7 +1917,7 @@ static void yy_load_buffer_state  (void)
  * @param b a buffer created with yy_create_buffer()
  * 
  */
-    void yy_delete_buffer (YY_BUFFER_STATE  b )
+void yy_delete_buffer (YY_BUFFER_STATE  b )
 {
     
 	if ( ! b )

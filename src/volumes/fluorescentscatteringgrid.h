@@ -40,6 +40,9 @@
 // volumes/fluorescentscatteringgrid.h*
 #include "volume.h"
 
+namespace pbrt
+{
+
 // FluorescentScatteringGridDensity Declarations
 class FluorescentScatteringGridDensity : public DensityRegion {
 public:
@@ -226,4 +229,5 @@ private:
 FluorescentScatteringGridDensity *CreateFluorescentGrid(const Transform &volume2world,
         const ParamSet &params);
 
+}
 #endif // PBRT_VOLUMES_FLUORESCENTSCATTERINGVOLUMEGRID_H

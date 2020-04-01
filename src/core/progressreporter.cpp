@@ -43,6 +43,9 @@
 #include <errno.h>
 #endif // !PBRT_IS_WINDOWS
 
+namespace pbrt
+{
+
 // ProgressReporter Method Definitions
 ProgressReporter::ProgressReporter(int tw, const string &title, int barLength)
     : totalWork(tw) {
@@ -113,7 +116,7 @@ void ProgressReporter::Done() {
     fprintf(outFile, " (%.1fs)       \n", seconds);
     fflush(outFile);
 }
-
+}
 
 int TerminalWidth() {
 #if defined(PBRT_IS_WINDOWS)
@@ -134,6 +137,3 @@ int TerminalWidth() {
     return w.ws_col;
 #endif // PBRT_IS_WINDOWS
 }
-
-
-

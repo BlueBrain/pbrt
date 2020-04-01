@@ -41,6 +41,10 @@
 #include "integrator.h"
 #include "kdtree.h"
 #include "renderers/surfacepoints.h"
+
+namespace pbrt
+{
+
 struct SubsurfaceOctreeNode;
 
 // DipoleSubsurfaceIntegrator Helper Declarations
@@ -92,5 +96,7 @@ private:
 
 
 DipoleSubsurfaceIntegrator *CreateDipoleSubsurfaceIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_DIPOLESUBSURFACE_H

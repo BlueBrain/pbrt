@@ -35,6 +35,9 @@
 #include "transform.h"
 #include "shape.h"
 
+namespace pbrt
+{
+
 // Matrix4x4 Method Definitions
 bool SolveLinearSystem2x2(const float A[2][2],
         const float B[2], float *x0, float *x1) {
@@ -468,6 +471,8 @@ Ray AnimatedTransform::operator()(const Ray &r) const {
     Ray ret;
     (*this)(r, &ret);
     return ret;
+}
+
 }
 
 

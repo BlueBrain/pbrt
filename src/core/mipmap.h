@@ -41,6 +41,9 @@
 #include "spectrum.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // MIPMap Declarations
 typedef enum {
     TEXTURE_REPEAT,
@@ -368,5 +371,7 @@ T MIPMap<T>::EWA(uint32_t level, float s, float t, float ds0, float dt0,
 
 
 template <typename T> float *MIPMap<T>::weightLut = NULL;
+
+}
 
 #endif // PBRT_CORE_MIPMAP_H

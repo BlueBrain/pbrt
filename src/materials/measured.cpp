@@ -36,6 +36,8 @@
 #include "paramset.h"
 #include "floatfile.h"
 
+namespace pbrt
+{
 /*
   File format descriptions:
 
@@ -216,4 +218,4 @@ MeasuredMaterial *CreateMeasuredMaterial(const Transform &xform,
     return new MeasuredMaterial(mp.FindFilename("filename"), bumpMap);
 }
 
-
+}

@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/marble.h"
 
+namespace pbrt
+{
+
 // MarbleTexture Method Definitions
 Texture<float> *CreateMarbleFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -53,4 +56,4 @@ MarbleTexture *CreateMarbleSpectrumTexture(const Transform &tex2world,
         map);
 }
 
-
+}

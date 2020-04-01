@@ -41,6 +41,9 @@
 #include "light.h"
 #include "shape.h"
 
+namespace pbrt
+{
+
 // PointLight Declarations
 class PointLight : public Light {
 public:
@@ -64,5 +67,5 @@ private:
 
 PointLight *CreatePointLight(const Transform &light2world,
         const ParamSet &paramSet);
-
+}
 #endif // PBRT_LIGHTS_POINT_H

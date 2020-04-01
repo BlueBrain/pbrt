@@ -42,7 +42,8 @@
 #include <math.h>
 #include "montecarlo.h"
 
-
+namespace pbrt
+{
 // VSDVolumeGridDensity Method Definitions
 float VSDVolumeGrid::Density(const Point &Pobj) const {
     // If the point is inside the semi infinite layer, return 1.0, else 0.0
@@ -63,13 +64,13 @@ float VSDVolumeGrid::PhotonDensity(const Point &p) const {
     float dx = vox.x - vx, dy = vox.y - vy, dz = vox.z - vz;
 
     // Trilinearly interpolate density values to compute local density
-    float d00 = Lerp(dx, D(vx, vy, vz),     D(vx+1, vy, vz));
-    float d10 = Lerp(dx, D(vx, vy+1, vz),   D(vx+1, vy+1, vz));
-    float d01 = Lerp(dx, D(vx, vy, vz+1),   D(vx+1, vy, vz+1));
-    float d11 = Lerp(dx, D(vx, vy+1, vz+1), D(vx+1, vy+1, vz+1));
-    float d0 = Lerp(dy, d00, d10);
-    float d1 = Lerp(dy, d01, d11);
-    return Lerp(dz, d0, d1);
+    float d00 = ::Lerp(dx, D(vx, vy, vz),     D(vx+1, vy, vz));
+    float d10 = ::Lerp(dx, D(vx, vy+1, vz),   D(vx+1, vy+1, vz));
+    float d01 = ::Lerp(dx, D(vx, vy, vz+1),   D(vx+1, vy, vz+1));
+    float d11 = ::Lerp(dx, D(vx, vy+1, vz+1), D(vx+1, vy+1, vz+1));
+    float d0 = ::Lerp(dy, d00, d10);
+    float d1 = ::Lerp(dy, d01, d11);
+    return ::Lerp(dz, d0, d1);
 }
 
 
@@ -161,4 +162,6 @@ VSDVolumeGrid *CreateVSDGridVolumeRegion(const Transform &volume2world,
                                      volume2world, nx, ny, nz, data);
     }
     return NULL;
+}
+
 }

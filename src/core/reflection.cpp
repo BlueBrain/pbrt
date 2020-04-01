@@ -38,6 +38,9 @@
 #include "montecarlo.h"
 #include <stdarg.h>
 
+namespace pbrt
+{
+
 // BxDF Local Definitions
 struct IrregIsoProc {
     // IrregIsoProc Public Methods
@@ -653,4 +656,4 @@ Spectrum BSDF::rho(const Vector &wo, RNG &rng, BxDFType flags,
     return ret;
 }
 
-
+}

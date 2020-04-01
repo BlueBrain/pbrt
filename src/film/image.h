@@ -45,6 +45,9 @@
 #include "paramset.h"
 #include "spectrum.h"
 
+namespace pbrt
+{
+
 // ImageFilm Declarations
 class ImageFilm : public Film {
 public:
@@ -106,5 +109,6 @@ private:
 
 ImageFilm *CreateImageFilm(const ParamSet &params, Filter *filter);
 
+}
 
 #endif // PBRT_FILM_IMAGE_H

@@ -42,6 +42,9 @@
 using namespace std;
 using namespace std::chrono;
 
+namespace pbrt
+{
+
 void ReadHeader(const string &prefix, int &nx, int &ny, int &nz) {
     std::string header = prefix + std::string(".hdr");
     std::ifstream headerFile(header.c_str());
@@ -269,5 +272,5 @@ float* ReadVSDVolume(const std::string &prefix, uint64& nx, uint64& ny, uint64& 
     return data;
 }
 
-
+}
 

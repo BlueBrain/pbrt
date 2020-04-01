@@ -41,6 +41,9 @@
 #include <math.h>
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 
 // VolumeGridDensity Method Definitions
 float VolumeGrid::Density(const Point &Pobj) const {
@@ -54,13 +57,13 @@ float VolumeGrid::Density(const Point &Pobj) const {
     float dx = vox.x - vx, dy = vox.y - vy, dz = vox.z - vz;
 
     // Trilinearly interpolate density values to compute local density
-    float d00 = Lerp(dx, D(vx, vy, vz),     D(vx+1, vy, vz));
-    float d10 = Lerp(dx, D(vx, vy+1, vz),   D(vx+1, vy+1, vz));
-    float d01 = Lerp(dx, D(vx, vy, vz+1),   D(vx+1, vy, vz+1));
-    float d11 = Lerp(dx, D(vx, vy+1, vz+1), D(vx+1, vy+1, vz+1));
-    float d0 = Lerp(dy, d00, d10);
-    float d1 = Lerp(dy, d01, d11);
-    return Lerp(dz, d0, d1);
+    float d00 = ::Lerp(dx, D(vx, vy, vz),     D(vx+1, vy, vz));
+    float d10 = ::Lerp(dx, D(vx, vy+1, vz),   D(vx+1, vy+1, vz));
+    float d01 = ::Lerp(dx, D(vx, vy, vz+1),   D(vx+1, vy, vz+1));
+    float d11 = ::Lerp(dx, D(vx, vy+1, vz+1), D(vx+1, vy+1, vz+1));
+    float d0 = ::Lerp(dy, d00, d10);
+    float d1 = ::Lerp(dy, d01, d11);
+    return ::Lerp(dz, d0, d1);
 }
 
 
@@ -195,4 +198,6 @@ bool VolumeGrid::SampleDirection(const Point &p, const Vector& wi,
     wo = SampleHG(wi, g, rng.RandomFloat(), rng.RandomFloat());
     *pdf = PhaseHG(wi, wo, g);
     return true;
+}
+
 }

@@ -36,6 +36,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // DiffuseAreaLight Method Definitions
 DiffuseAreaLight::~DiffuseAreaLight() {
     delete shapeSet;
@@ -139,4 +142,4 @@ Spectrum DiffuseAreaLight::Sample_L(const Scene *scene,
     return Ls;
 }
 
-
+}

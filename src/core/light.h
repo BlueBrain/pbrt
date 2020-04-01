@@ -44,6 +44,9 @@
 #include "rng.h"
 #include "memory.h"
 
+namespace pbrt
+{
+
 // Light Declarations
 class Light {
 public:
@@ -177,5 +180,6 @@ enum LightUnit {
     Radiance
 };
 
+}
 
 #endif // PBRT_CORE_LIGHT_H

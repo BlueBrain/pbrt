@@ -49,7 +49,7 @@ string current_file;
 #define YYMAXDEPTH 100000000
 
 void yyerror(const char *str) {
-    Error("Parsing error: %s", str);
+    pbrt::Error("Parsing error: %s", str);
     exit(1);
 }
 
@@ -129,7 +129,7 @@ static void FreeArgs() {
 static bool VerifyArrayLength(ParamArray *arr, int required,
     const char *command) {
     if (arr->nelems != required) {
-        Error("\"%s\" requires a %d element array! (%d found)",
+        pbrt::Error("\"%s\" requires a %d element array! (%d found)",
                     command, required, arr->nelems);
         return false;
     }
@@ -142,7 +142,7 @@ enum { PARAM_TYPE_INT, PARAM_TYPE_BOOL, PARAM_TYPE_FLOAT, PARAM_TYPE_POINT,
     PARAM_TYPE_BLACKBODY, PARAM_TYPE_SPECTRUM,
     PARAM_TYPE_STRING, PARAM_TYPE_TEXTURE };
 static const char *paramTypeToName(int type);
-static void InitParamSet(ParamSet &ps, SpectrumType);
+static void InitParamSet(pbrt::ParamSet &ps, pbrt::SpectrumType);
 static bool lookupType(const char *name, int *type, string &sname);
 #define YYPRINT(file, type, value)  { \
     if ((type) == ID || (type) == STRING) \
@@ -185,7 +185,7 @@ start: pbrt_stmt_list
 
 array_init: %prec HIGH_PRECEDENCE
 {
-    if (cur_array) Severe("MUH");
+    if (cur_array) pbrt::Severe("MUH");
     cur_array = new ParamArray;
 };
 
@@ -351,8 +351,8 @@ pbrt_stmt_list: pbrt_stmt_list pbrt_stmt
 
 pbrt_stmt: ACCELERATOR STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
     pbrtAccelerator($2, params);
     FreeArgs();
 }
@@ -360,26 +360,26 @@ pbrt_stmt: ACCELERATOR STRING paramlist
 
 | ACTIVETRANSFORM ALL
 {
-    pbrtActiveTransformAll();
+    pbrt::pbrtActiveTransformAll();
 }
 
 
 | ACTIVETRANSFORM ENDTIME
 {
-    pbrtActiveTransformEndTime();
+    pbrt::pbrtActiveTransformEndTime();
 }
 
 
 | ACTIVETRANSFORM STARTTIME
 {
-    pbrtActiveTransformStartTime();
+    pbrt::pbrtActiveTransformStartTime();
 }
 
 
 | AREALIGHTSOURCE STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_ILLUMINANT);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_ILLUMINANT);
     pbrtAreaLightSource($2, params);
     FreeArgs();
 }
@@ -387,20 +387,20 @@ pbrt_stmt: ACCELERATOR STRING paramlist
 
 | ATTRIBUTEBEGIN
 {
-    pbrtAttributeBegin();
+    pbrt::pbrtAttributeBegin();
 }
 
 
 | ATTRIBUTEEND
 {
-    pbrtAttributeEnd();
+    pbrt::pbrtAttributeEnd();
 }
 
 
 | CAMERA STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
     pbrtCamera($2, params);
     FreeArgs();
 }
@@ -409,27 +409,27 @@ pbrt_stmt: ACCELERATOR STRING paramlist
 | CONCATTRANSFORM num_array
 {
     if (VerifyArrayLength($2, 16, "ConcatTransform"))
-        pbrtConcatTransform((float *) $2->array);
+        pbrt::pbrtConcatTransform((float *) $2->array);
     ArrayFree($2);
 }
 
 
 | COORDINATESYSTEM STRING
 {
-    pbrtCoordinateSystem($2);
+    pbrt::pbrtCoordinateSystem($2);
 }
 
 
 | COORDSYSTRANSFORM STRING
 {
-    pbrtCoordSysTransform($2);
+    pbrt::pbrtCoordSysTransform($2);
 }
 
 
 | FILM STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
     pbrtFilm($2, params);
     FreeArgs();
 }
@@ -437,7 +437,7 @@ pbrt_stmt: ACCELERATOR STRING paramlist
 
 | IDENTITY
 {
-    pbrtIdentity();
+    pbrt::pbrtIdentity();
 }
 
 
@@ -449,8 +449,8 @@ pbrt_stmt: ACCELERATOR STRING paramlist
 
 | LIGHTSOURCE STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_ILLUMINANT);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_ILLUMINANT);
     pbrtLightSource($2, params);
     FreeArgs();
 }
@@ -458,192 +458,192 @@ pbrt_stmt: ACCELERATOR STRING paramlist
 
 | LOOKAT NUM NUM NUM NUM NUM NUM NUM NUM NUM
 {
-    pbrtLookAt($2, $3, $4, $5, $6, $7, $8, $9, $10);
+    pbrt::pbrtLookAt($2, $3, $4, $5, $6, $7, $8, $9, $10);
 }
 
 
 | MAKENAMEDMATERIAL STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtMakeNamedMaterial($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtMakeNamedMaterial($2, params);
     FreeArgs();
 }
 
 
 | MATERIAL STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtMaterial($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtMaterial($2, params);
     FreeArgs();
 }
 
 
 | NAMEDMATERIAL STRING
 {
-    pbrtNamedMaterial($2);
+    pbrt::pbrtNamedMaterial($2);
 }
 
 
 | OBJECTBEGIN STRING
 {
-    pbrtObjectBegin($2);
+    pbrt::pbrtObjectBegin($2);
 }
 
 
 | OBJECTEND
 {
-    pbrtObjectEnd();
+    pbrt::pbrtObjectEnd();
 }
 
 
 | OBJECTINSTANCE STRING
 {
-    pbrtObjectInstance($2);
+    pbrt::pbrtObjectInstance($2);
 }
 
 
 | PIXELFILTER STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtPixelFilter($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtPixelFilter($2, params);
     FreeArgs();
 }
 
 
 | RENDERER STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtRenderer($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtRenderer($2, params);
     FreeArgs();
 }
 
 
 | REVERSEORIENTATION
 {
-    pbrtReverseOrientation();
+    pbrt::pbrtReverseOrientation();
 }
 
 
 | ROTATE NUM NUM NUM NUM
 {
-    pbrtRotate($2, $3, $4, $5);
+    pbrt::pbrtRotate($2, $3, $4, $5);
 }
 
 
 | SAMPLER STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtSampler($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtSampler($2, params);
     FreeArgs();
 }
 
 
 | SCALE NUM NUM NUM
 {
-    pbrtScale($2, $3, $4);
+    pbrt::pbrtScale($2, $3, $4);
 }
 
 
 | SENSOR STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtSensor($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtSensor($2, params);
     FreeArgs();
 }
 
 
 | SHAPE STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtShape($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtShape($2, params);
     FreeArgs();
 }
 
 
 | SURFACEINTEGRATOR STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtSurfaceIntegrator($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtSurfaceIntegrator($2, params);
     FreeArgs();
 }
 
 
 | TEXTURE STRING STRING STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtTexture($2, $3, $4, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtTexture($2, $3, $4, params);
     FreeArgs();
 }
 
 
 | TRANSFORMBEGIN
 {
-    pbrtTransformBegin();
+    pbrt::pbrtTransformBegin();
 }
 
 
 | TRANSFORMEND
 {
-    pbrtTransformEnd();
+    pbrt::pbrtTransformEnd();
 }
 
 
 | TRANSFORMTIMES NUM NUM
 {
-    pbrtTransformTimes($2, $3);
+    pbrt::pbrtTransformTimes($2, $3);
 }
 
 
 | TRANSFORM num_array
 {
     if (VerifyArrayLength( $2, 16, "Transform" ))
-        pbrtTransform( (float *) $2->array );
+        pbrt::pbrtTransform( (float *) $2->array );
     ArrayFree($2);
 }
 
 
 | TRANSLATE NUM NUM NUM
 {
-    pbrtTranslate($2, $3, $4);
+    pbrt::pbrtTranslate($2, $3, $4);
 }
 
 
 | VOLUMEINTEGRATOR STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtVolumeIntegrator($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtVolumeIntegrator($2, params);
     FreeArgs();
 }
 
 
 | VOLUME STRING paramlist
 {
-    ParamSet params;
-    InitParamSet(params, SPECTRUM_REFLECTANCE);
-    pbrtVolume($2, params);
+    pbrt::ParamSet params;
+    InitParamSet(params, pbrt::SPECTRUM_REFLECTANCE);
+    pbrt::pbrtVolume($2, params);
     FreeArgs();
 }
 
 
 | WORLDBEGIN
 {
-    pbrtWorldBegin();
+    pbrt::pbrtWorldBegin();
 }
 
 
 | WORLDEND
 {
-    pbrtWorldEnd();
+    pbrt::pbrtWorldEnd();
 };
 
 
@@ -662,12 +662,12 @@ static const char *paramTypeToName(int type) {
     case PARAM_TYPE_SPECTRUM: return "spectrum";
     case PARAM_TYPE_STRING: return "string";
     case PARAM_TYPE_TEXTURE: return "texture";
-    default: Severe("Error in paramTypeToName"); return NULL;
+    default: pbrt::Severe("Error in paramTypeToName"); return NULL;
     }
 }
 
 
-static void InitParamSet(ParamSet &ps, SpectrumType type) {
+static void InitParamSet(pbrt::ParamSet &ps, pbrt::SpectrumType type) {
     ps.Clear();
     for (uint32_t i = 0; i < cur_paramlist.size(); ++i) {
         int type;
@@ -676,14 +676,14 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
             if (type == PARAM_TYPE_TEXTURE || type == PARAM_TYPE_STRING ||
                 type == PARAM_TYPE_BOOL) {
                 if (!cur_paramlist[i].isString) {
-                    Error("Expected string parameter value for parameter \"%s\" with type \"%s\". Ignoring.",
+                    pbrt::Error("Expected string parameter value for parameter \"%s\" with type \"%s\". Ignoring.",
                           name.c_str(), paramTypeToName(type));
                     continue;
                 }
             }
             else if (type != PARAM_TYPE_SPECTRUM) { /* spectrum can be either... */
                 if (cur_paramlist[i].isString) {
-                    Error("Expected numeric parameter value for parameter \"%s\" with type \"%s\".  Ignoring.",
+                    pbrt::Error("Expected numeric parameter value for parameter \"%s\" with type \"%s\".  Ignoring.",
                           name.c_str(), paramTypeToName(type));
                     continue;
                 }
@@ -709,7 +709,7 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
                     if (s == "true") bdata[j] = true;
                     else if (s == "false") bdata[j] = false;
                     else {
-                        Warning("Value \"%s\" unknown for boolean parameter \"%s\"."
+                        pbrt::Warning("Value \"%s\" unknown for boolean parameter \"%s\"."
                             "Using \"false\".", s.c_str(), cur_paramlist[i].name);
                         bdata[j] = false;
                     }
@@ -721,32 +721,32 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
                 ps.AddFloat(name, (float *)data, nItems);
             } else if (type == PARAM_TYPE_POINT) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess values given with point parameter \"%s\". "
+                    pbrt::Warning("Excess values given with point parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
-                ps.AddPoint(name, (Point *)data, nItems / 3);
+                ps.AddPoint(name, (pbrt::Point *)data, nItems / 3);
             } else if (type == PARAM_TYPE_VECTOR) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess values given with vector parameter \"%s\". "
+                    pbrt::Warning("Excess values given with vector parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
-                ps.AddVector(name, (Vector *)data, nItems / 3);
+                ps.AddVector(name, (pbrt::Vector *)data, nItems / 3);
             } else if (type == PARAM_TYPE_NORMAL) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess values given with normal parameter \"%s\". "
+                    pbrt::Warning("Excess values given with normal parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
-                ps.AddNormal(name, (Normal *)data, nItems / 3);
+                ps.AddNormal(name, (pbrt::Normal *)data, nItems / 3);
             } else if (type == PARAM_TYPE_RGB) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess RGB values given with parameter \"%s\". "
+                    pbrt::Warning("Excess RGB values given with parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
                 ps.AddRGBSpectrum(name, (float *)data, nItems);
             } else if (type == PARAM_TYPE_XYZ) {
                 if ((nItems % 3) != 0)
-                    Warning("Excess XYZ values given with parameter \"%s\". "
+                    pbrt::Warning("Excess XYZ values given with parameter \"%s\". "
                             "Ignoring last %d of them", cur_paramlist[i].name, nItems % 3);
                 ps.AddXYZSpectrum(name, (float *)data, nItems);
             } else if (type == PARAM_TYPE_BLACKBODY) {
                 if ((nItems % 2) != 0)
-                    Warning("Excess value given with blackbody parameter \"%s\". "
+                    pbrt::Warning("Excess value given with blackbody parameter \"%s\". "
                             "Ignoring extra one.", cur_paramlist[i].name);
                 ps.AddBlackbodySpectrum(name, (float *)data, nItems);
             } else if (type == PARAM_TYPE_SPECTRUM) {
@@ -755,7 +755,7 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
                 }
                 else {
                     if ((nItems % 2) != 0)
-                        Warning("Non-even number of values given with sampled spectrum "
+                        pbrt::Warning("Non-even number of values given with sampled spectrum "
                                 "parameter \"%s\". Ignoring extra.", cur_paramlist[i].name);
                     ps.AddSampledSpectrum(name, (float *)data, nItems);
                 }
@@ -772,12 +772,12 @@ static void InitParamSet(ParamSet &ps, SpectrumType type) {
                     ps.AddTexture(name, val);
                 }
                 else
-                    Error("Only one string allowed for \"texture\" parameter \"%s\"",
+                    pbrt::Error("Only one string allowed for \"texture\" parameter \"%s\"",
                         name.c_str());
             }
         }
         else
-            Warning("Type of parameter \"%s\" is unknown",
+            pbrt::Warning("Type of parameter \"%s\" is unknown",
                 cur_paramlist[i].name);
     }
 }
@@ -790,7 +790,7 @@ static bool lookupType(const char *name, int *type, string &sname) {
     while (*strp && isspace(*strp))
         ++strp;
     if (!*strp) {
-        Error("Parameter \"%s\" doesn't have a type declaration?!", name);
+        pbrt::Error("Parameter \"%s\" doesn't have a type declaration?!", name);
         return false;
     }
 #define TRY_DECODING_TYPE(name, mask) \
@@ -811,7 +811,7 @@ static bool lookupType(const char *name, int *type, string &sname) {
     else TRY_DECODING_TYPE("blackbody", PARAM_TYPE_BLACKBODY)
     else TRY_DECODING_TYPE("spectrum",  PARAM_TYPE_SPECTRUM)
     else {
-        Error("Unable to decode type for name \"%s\"", name);
+        pbrt::Error("Unable to decode type for name \"%s\"", name);
         return false;
     }
     while (*strp && isspace(*strp))
@@ -819,5 +819,3 @@ static bool lookupType(const char *name, int *type, string &sname) {
     sname = string(strp);
     return true;
 }
-
-

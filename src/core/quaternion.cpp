@@ -35,6 +35,9 @@
 #include "quaternion.h"
 #include "transform.h"
 
+namespace pbrt
+{
+
 // Quaternion Method Definitions
 Transform Quaternion::ToTransform() const {
     float xx = v.x * v.x, yy = v.y * v.y, zz = v.z * v.z;
@@ -104,5 +107,5 @@ Quaternion Slerp(float t, const Quaternion &q1,
         return q1 * cosf(thetap) + qperp * sinf(thetap);
     }
 }
-
+}
 

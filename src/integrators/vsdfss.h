@@ -44,6 +44,9 @@
 #include <vector>
 #include <iostream>
 
+namespace pbrt
+{
+
 // VSDForwardScatteringIntegrator Declarations
 class VSDForwardScatteringIntegrator : public VolumeIntegrator {
 public:
@@ -74,5 +77,7 @@ private:
 };
 
 VSDForwardScatteringIntegrator *CreateVSDForwardScatteringIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VSD_FSS_H

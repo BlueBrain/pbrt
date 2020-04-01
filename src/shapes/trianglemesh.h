@@ -41,6 +41,10 @@
 #include <map>
 using std::map;
 
+
+namespace pbrt
+{
+
 // TriangleMesh Declarations
 class TriangleMesh : public Shape {
 public:
@@ -116,5 +120,5 @@ private:
 TriangleMesh *CreateTriangleMeshShape(const Transform *o2w, const Transform *w2o,
     bool reverseOrientation, const ParamSet &params,
     map<string, Reference<Texture<float> > > *floatTextures = NULL);
-
+}
 #endif // PBRT_SHAPES_TRIANGLEMESH_H

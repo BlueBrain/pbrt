@@ -39,6 +39,9 @@
 // filters/mitchell.h*
 #include "filter.h"
 
+namespace pbrt
+{
+
 // Mitchell Filter Declarations
 class MitchellFilter : public Filter {
 public:
@@ -63,5 +66,7 @@ private:
 
 
 MitchellFilter *CreateMitchellFilter(const ParamSet &ps);
+
+}
 
 #endif // PBRT_FILTERS_MITCHELL_H

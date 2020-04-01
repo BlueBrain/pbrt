@@ -40,6 +40,9 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 struct Photon {
     Spectrum L;
     Ray ray;
@@ -74,5 +77,7 @@ private:
 
 
 SensorIntegrator *CreateSensorIntegrator (const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_SINGLE_H

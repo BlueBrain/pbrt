@@ -44,6 +44,9 @@
 #include "scene.h"
 #include "mipmap.h"
 
+namespace pbrt
+{
+
 // InfiniteAreaLight Declarations
 class InfiniteAreaLight : public Light {
 public:
@@ -70,5 +73,5 @@ private:
 
 InfiniteAreaLight *CreateInfiniteLight(const Transform &light2world,
         const ParamSet &paramSet);
-
+}
 #endif // PBRT_LIGHTS_INFINITE_H

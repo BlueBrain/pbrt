@@ -50,6 +50,9 @@
 #include <sys/errno.h>
 #endif
 
+namespace pbrt
+{
+
 // CreateRadianceProbes Local Declarations
 class CreateRadProbeTask : public Task {
 public:
@@ -353,4 +356,4 @@ CreateRadianceProbes *CreateRadianceProbesRenderer(const Camera *camera,
         bounds, nindir, includeDirect, includeIndirect, time, filename);
 }
 
-
+}

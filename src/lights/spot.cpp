@@ -36,6 +36,9 @@
 #include "paramset.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // SpotLight Method Definitions
 SpotLight::SpotLight(const Transform &light2world,
                      const Spectrum &intensity, float width, float fall)
@@ -113,4 +116,4 @@ Spectrum SpotLight::Sample_L(const Scene *scene, const LightSample &ls,
     return Intensity * Falloff(ray->d);
 }
 
-
+}

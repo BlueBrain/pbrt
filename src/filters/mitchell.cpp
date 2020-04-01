@@ -35,6 +35,9 @@
 #include "filters/mitchell.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Mitchell Filter Method Definitions
 float MitchellFilter::Evaluate(float x, float y) const {
     return Mitchell1D(x * invXWidth) * Mitchell1D(y * invYWidth);
@@ -50,4 +53,4 @@ MitchellFilter *CreateMitchellFilter(const ParamSet &ps) {
     return new MitchellFilter(B, C, xw, yw);
 }
 
-
+}

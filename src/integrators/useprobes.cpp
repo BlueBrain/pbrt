@@ -49,6 +49,9 @@
 #include <sys/errno.h>
 #endif
 
+namespace pbrt
+{
+
 // UseRadianceProbes Method Definitions
 UseRadianceProbes *CreateRadianceProbesSurfaceIntegrator(const ParamSet &paramSet) {
     string filename = paramSet.FindOneFilename("filename", "probes.out");
@@ -177,4 +180,4 @@ Spectrum UseRadianceProbes::Li(const Scene *scene, const Renderer *renderer,
     return L;
 }
 
-
+}

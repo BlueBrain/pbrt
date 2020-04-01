@@ -37,6 +37,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // NURBS Evaluation Functions
 static int KnotOffset(const float *knot, int order, int np, float t) {
     int firstKnot = order - 1;
@@ -235,9 +238,9 @@ void NURBS::Refine(vector<Reference<Shape> > &refined) const {
     Normal *evalNs = new Normal[diceu*dicev];
     int i;
     for (i = 0; i < diceu; ++i)
-        ueval[i] = Lerp((float)i / (float)(diceu-1), umin, umax);
+        ueval[i] = ::Lerp((float)i / (float)(diceu-1), umin, umax);
     for (i = 0; i < dicev; ++i)
-        veval[i] = Lerp((float)i / (float)(dicev-1), vmin, vmax);
+        veval[i] = ::Lerp((float)i / (float)(dicev-1), vmin, vmax);
     // Evaluate NURBS over grid of points
     memset(evalPs, 0, diceu*dicev*sizeof(Point));
     memset(evalNs, 0, diceu*dicev*sizeof(Point));
@@ -354,4 +357,4 @@ NURBS *CreateNURBSShape(const Transform *o2w, const Transform *w2o,
                          isHomogeneous);
 }
 
-
+}

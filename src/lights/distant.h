@@ -42,6 +42,9 @@
 #include "shape.h"
 #include "scene.h"
 
+namespace pbrt
+{
+
 // DistantLight Declarations
 class DistantLight : public Light {
 public:
@@ -64,4 +67,5 @@ private:
 DistantLight *CreateDistantLight(const Transform &light2world,
         const ParamSet &paramSet);
 
+}
 #endif // PBRT_LIGHTS_DISTANT_H

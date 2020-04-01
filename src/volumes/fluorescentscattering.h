@@ -41,6 +41,9 @@
 #include "volume.h"
 #include "montecarlo.h"
 
+namespace pbrt
+{
+
 // FluorescentScatteringVolumeDensity Declarations
 class FluorescentScatteringVolumeDensity : public VolumeRegion {
 public:
@@ -242,4 +245,6 @@ private:
 FluorescentScatteringVolumeDensity *CreateFluorescentScatteringVolumeDensityRegion
 (const Transform &volume2world, const ParamSet &params);
 
+
+}
 #endif // PBRT_VOLUMES_FLUORESCENTSCATTERING_H

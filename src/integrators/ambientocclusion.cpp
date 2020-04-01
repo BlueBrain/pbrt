@@ -38,6 +38,9 @@
 #include "scene.h"
 #include "intersection.h"
 
+namespace pbrt
+{
+
 // AmbientOcclusionIntegrator Method Definitions
 Spectrum AmbientOcclusionIntegrator::Li(const Scene *scene, const Renderer *renderer,
         const RayDifferential &ray, const Intersection &isect,
@@ -68,4 +71,5 @@ AmbientOcclusionIntegrator *CreateAmbientOcclusionIntegrator(const ParamSet &par
     return new AmbientOcclusionIntegrator(nSamples, maxDist);
 }
 
+}
 

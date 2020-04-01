@@ -40,6 +40,8 @@
 // volumes/exponential.h*
 #include "volume.h"
 
+namespace pbrt
+{
 // ExponentialDensity Declarations
 class ExponentialDensity : public DensityRegion {
 public:
@@ -118,4 +120,5 @@ private:
 ExponentialDensity *CreateExponentialVolumeRegion(const Transform &volume2world,
         const ParamSet &params);
 
+}
 #endif // PBRT_VOLUMES_EXPONENTIAL_H

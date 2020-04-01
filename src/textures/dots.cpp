@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/dots.h"
 
+namespace pbrt
+{
+
 // DotsTexture Method Definitions
 DotsTexture<float> *CreateDotsFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -91,4 +94,4 @@ DotsTexture<Spectrum> *CreateDotsSpectrumTexture(const Transform &tex2world,
         tp.GetSpectrumTexture("outside", 0.f));
 }
 
-
+}

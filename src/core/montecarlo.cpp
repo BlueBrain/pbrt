@@ -37,6 +37,9 @@
 #include "shape.h"
 #include "volume.h"
 
+namespace pbrt
+{
+
 // Sampling Local Definitions
 static const int primes[] = {
     // First 1000 prime numbers
@@ -234,7 +237,7 @@ void LDPixelSample(int xPos, int yPos, float shutterOpen,
     for (int i = 0; i < nPixelSamples; ++i) {
         samples[i].imageX = xPos + imageSamples[2*i];
         samples[i].imageY = yPos + imageSamples[2*i+1];
-        samples[i].time = Lerp(timeSamples[i], shutterOpen, shutterClose);
+        samples[i].time = ::Lerp(timeSamples[i], shutterOpen, shutterClose);
         samples[i].lensU = lensSamples[2*i];
         samples[i].lensV = lensSamples[2*i+1];
         // Copy integrator samples into _samples[i]_
@@ -411,7 +414,7 @@ Vector UniformSampleCone(float u1, float u2, float costhetamax) {
 
 Vector UniformSampleCone(float u1, float u2, float costhetamax,
         const Vector &x, const Vector &y, const Vector &z) {
-    float costheta = Lerp(u1, costhetamax, 1.f);
+    float costheta = ::Lerp(u1, costhetamax, 1.f);
     float sintheta = sqrtf(1.f - costheta*costheta);
     float phi = u2 * 2.f * M_PI;
     return cosf(phi) * sintheta * x + sinf(phi) * sintheta * y +
@@ -440,4 +443,5 @@ float HGPdf(const Vector &w, const Vector &wp, float g) {
     return PhaseHG(w, wp, g);
 }
 
+}
 

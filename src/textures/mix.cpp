@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/mix.h"
 
+namespace pbrt
+{
+
 // MixTexture Method Definitions
 MixTexture<float> *CreateMixFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -53,4 +56,4 @@ MixTexture<Spectrum> *CreateMixSpectrumTexture(const Transform &tex2world,
         tp.GetFloatTexture("amount", 0.5f));
 }
 
-
+}

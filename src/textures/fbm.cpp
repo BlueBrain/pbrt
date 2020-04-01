@@ -34,6 +34,9 @@
 #include "stdafx.h"
 #include "textures/fbm.h"
 
+namespace pbrt
+{
+
 // FBmTexture Method Definitions
 FBmTexture<float> *CreateFBmFloatTexture(const Transform &tex2world,
         const TextureParams &tp) {
@@ -53,4 +56,4 @@ FBmTexture<Spectrum> *CreateFBmSpectrumTexture(const Transform &tex2world,
         tp.FindFloat("roughness", .5f), map);
 }
 
-
+}

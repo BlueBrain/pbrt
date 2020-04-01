@@ -40,6 +40,9 @@
 #include <iostream>
 #include <fstream>
 
+namespace pbrt
+{
+
 // VSDIntegrator Method Definitions
 void VSDIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                    const Scene *scene) {
@@ -382,3 +385,5 @@ VSDIntegrator *CreateVSDIntegrator(const ParamSet &params) {
 //        }
 //    }
 //}
+
+}

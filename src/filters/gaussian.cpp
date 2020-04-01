@@ -35,6 +35,9 @@
 #include "filters/gaussian.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // Gaussian Filter Method Definitions
 float GaussianFilter::Evaluate(float x, float y) const {
     return Gaussian(x, expX) * Gaussian(y, expY);
@@ -49,4 +52,4 @@ GaussianFilter *CreateGaussianFilter(const ParamSet &ps) {
     return new GaussianFilter(xw, yw, alpha);
 }
 
-
+}

@@ -40,6 +40,9 @@
 // shapes/rectangle.h*
 #include "shape.h"
 
+namespace pbrt
+{
+
 // Rectangle Declarations
 class Rectangle : public Shape {
 public:
@@ -62,4 +65,5 @@ private:
 Rectangle *CreateRectangleShape(const Transform *o2w, const Transform *w2o,
         bool reverseOrientation, const ParamSet &params);
 
+}
 #endif // PBRT_SHAPES_RECTANGLE_H

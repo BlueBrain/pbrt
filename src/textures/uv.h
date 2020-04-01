@@ -41,6 +41,9 @@
 #include "texture.h"
 #include "paramset.h"
 
+namespace pbrt
+{
+
 // UVTexture Declarations
 class UVTexture : public Texture<Spectrum> {
 public:
@@ -67,4 +70,5 @@ Texture<float> *CreateUVFloatTexture(const Transform &tex2world,
 UVTexture *CreateUVSpectrumTexture(const Transform &tex2world,
         const TextureParams &tp);
 
+}
 #endif // PBRT_TEXTURES_UV_H

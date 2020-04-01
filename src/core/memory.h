@@ -40,6 +40,9 @@
 #include "pbrt.h"
 #include "parallel.h"
 
+namespace pbrt
+{
+
 // Memory Declarations
 class ReferenceCounted {
 public:
@@ -205,6 +208,6 @@ private:
     uint32_t uRes, vRes, uBlocks;
 };
 
-
+}
 
 #endif // PBRT_CORE_MEMORY_H

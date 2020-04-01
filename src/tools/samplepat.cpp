@@ -36,6 +36,8 @@
 #include "progressreporter.h"
 #include "montecarlo.h"
 
+using namespace pbrt;
+
 // BestCandidate Sampling Constants
 #define SQRT_SAMPLE_TABLE_SIZE 64
 #define SAMPLE_TABLE_SIZE (SQRT_SAMPLE_TABLE_SIZE * \

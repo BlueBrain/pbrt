@@ -43,6 +43,8 @@
 #include "montecarlo.h"
 #include "volumeutil.h"
 
+namespace pbrt
+{
 // FluorescentBinaryVolumeGrid Method Definitions
 float FluorescentBinaryVolumeGrid::F(int x, int y, int z) const {
     x = Clamp(x, 0, nx-1);
@@ -68,4 +70,5 @@ FluorescentBinaryVolumeGrid
     BitArray* density = ReadBinaryVolume(prefix, nx, ny, nz);
     return new FluorescentBinaryVolumeGrid(BBox(p0, p1), volume2world,
         nx, ny, nz, density, fex, fem, epsilon, c, yield, gf);
+}
 }

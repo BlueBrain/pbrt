@@ -44,6 +44,9 @@
 
 using namespace std;
 
+namespace pbrt
+{
+
 // VSDVolumeGrid Declarations
 class VSDVolumeGrid : public DensityRegion {
 public:
@@ -98,4 +101,5 @@ private:
 VSDVolumeGrid *CreateVSDGridVolumeRegion(const Transform &volume2world,
         const ParamSet &params);
 
+}
 #endif // PBRT_VOLUMES_VSDVOLUMEGRID_H

@@ -40,6 +40,9 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // SingleScatteringIntegrator Declarations
 class SingleScatteringIntegrator : public VolumeIntegrator {
 public:
@@ -60,5 +63,7 @@ private:
 
 
 SingleScatteringIntegrator *CreateSingleScatteringIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_SINGLE_H

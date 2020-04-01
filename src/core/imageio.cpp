@@ -41,7 +41,7 @@
 #include "stb_image_write.h"
 
 // ImageIO Local Declarations
-static RGBSpectrum *ReadImageEXR(const string &name, int *width, int *height);
+static pbrt::RGBSpectrum *ReadImageEXR(const string &name, int *width, int *height);
 static void WriteImageEXR(const string &name, float *pixels,
         float *alpha, int xRes, int yRes,
         int totalXRes, int totalYRes,
@@ -50,12 +50,12 @@ static void WriteImageTGA(const string &name, float *pixels,
         float *alpha, int xRes, int yRes,
         int totalXRes, int totalYRes,
         int xOffset, int yOffset);
-static RGBSpectrum *ReadImageTGA(const string &name, int *w, int *h);
+static pbrt::RGBSpectrum *ReadImageTGA(const string &name, int *w, int *h);
 static bool WriteImagePFM(const string &filename, const float *rgb, int xres, int yres);
-static RGBSpectrum *ReadImagePFM(const string &filename, int *xres, int *yres);
+static pbrt::RGBSpectrum *ReadImagePFM(const string &filename, int *xres, int *yres);
 
 // ImageIO Function Definitions
-RGBSpectrum *ReadImage(const string &name, int *width, int *height) {
+pbrt::RGBSpectrum *ReadImage(const string &name, int *width, int *height) {
     if (name.size() >= 5) {
         uint32_t suffixOffset = name.size() - 4;
 #ifdef PBRT_HAS_OPENEXR
@@ -70,11 +70,11 @@ RGBSpectrum *ReadImage(const string &name, int *width, int *height) {
             !strcmp(name.c_str() + suffixOffset, ".PFM"))
             return ReadImagePFM(name, width, height);
     }
-    Error("Unable to load image stored in format \"%s\" for filename \"%s\". "
+    pbrt::Error("Unable to load image stored in format \"%s\" for filename \"%s\". "
           "Returning a constant grey image instead.",
           strrchr(name.c_str(), '.') ? (strrchr(name.c_str(), '.') + 1) : "(unknown)",
           name.c_str());
-    RGBSpectrum *ret = new RGBSpectrum[1];
+    pbrt::RGBSpectrum *ret = new pbrt::RGBSpectrum[1];
     ret[0] = 0.5f;
     *width = *height = 1;
     return ret;
@@ -120,12 +120,12 @@ void WriteImage(const string &name, float *pixels, float *alpha, int xRes,
             }
             if (stbi_write_png(name.c_str(), xRes, yRes, 3, rgb8,
                                3 * xRes) == 0)
-                Error("Error writing PNG \"%s\"", name.c_str());
+                pbrt::Error("Error writing PNG \"%s\"", name.c_str());
             delete[] rgb8;
             return;
         }
     }
-    Error("Can't determine image file type from suffix of filename \"%s\"",
+    pbrt::Error("Can't determine image file type from suffix of filename \"%s\"",
           name.c_str());
 }
 
@@ -143,7 +143,7 @@ using namespace Imf;
 using namespace Imath;
 
 // EXR Function Definitions
-static RGBSpectrum *ReadImageEXR(const string &name, int *width, int *height) {
+static pbrt::RGBSpectrum *ReadImageEXR(const string &name, int *width, int *height) {
     try {
     RgbaInputFile file (name.c_str());
     Box2i dw = file.dataWindow();
@@ -153,15 +153,15 @@ static RGBSpectrum *ReadImageEXR(const string &name, int *width, int *height) {
     file.setFrameBuffer(&pixels[0] - dw.min.x - dw.min.y * *width, 1, *width);
     file.readPixels(dw.min.y, dw.max.y);
 
-    RGBSpectrum *ret = new RGBSpectrum[*width * *height];
+    pbrt::RGBSpectrum *ret = new pbrt::RGBSpectrum[*width * *height];
     for (int i = 0; i < *width * *height; ++i) {
         float frgb[3] = { pixels[i].r, pixels[i].g, pixels[i].b };
-        ret[i] = RGBSpectrum::FromRGB(frgb);
+        ret[i] = pbrt::RGBSpectrum::FromRGB(frgb);
     }
-    Info("Read EXR image %s (%d x %d)", name.c_str(), *width, *height);
+    pbrt::Info("Read EXR image %s (%d x %d)", name.c_str(), *width, *height);
     return ret;
     } catch (const std::exception &e) {
-        Error("Unable to read image file \"%s\": %s", name.c_str(),
+        pbrt::Error("Unable to read image file \"%s\": %s", name.c_str(),
             e.what());
         return NULL;
     }
@@ -186,7 +186,7 @@ static void WriteImageEXR(const string &name, float *pixels,
         file.writePixels(yRes);
     }
     catch (const std::exception &e) {
-        Error("Unable to write image file \"%s\": %s", name.c_str(),
+        pbrt::Error("Unable to write image file \"%s\": %s", name.c_str(),
             e.what());
     }
 
@@ -217,7 +217,7 @@ void WriteImageTGA(const string &name, float *pixels,
 
     tga_result result;
     if ((result = tga_write_bgr(name.c_str(), outBuf, xRes, yRes, 24)) != TGA_NOERR)
-        Error("Unable to write output file \"%s\" (%s)", name.c_str(),
+        pbrt::Error("Unable to write output file \"%s\" (%s)", name.c_str(),
               tga_error(result));
 
     delete[] outBuf;
@@ -226,12 +226,12 @@ void WriteImageTGA(const string &name, float *pixels,
 
 
 
-static RGBSpectrum *ReadImageTGA(const string &name, int *width, int *height)
+static pbrt::RGBSpectrum *ReadImageTGA(const string &name, int *width, int *height)
 {
     tga_image img;
     tga_result result;
     if ((result = tga_read(&img, name.c_str())) != TGA_NOERR) {
-        Error("Unable to read from TGA file \"%s\" (%s)", name.c_str(),
+        pbrt::Error("Unable to read from TGA file \"%s\" (%s)", name.c_str(),
               tga_error(result));
         return NULL;
     }
@@ -248,24 +248,24 @@ static RGBSpectrum *ReadImageTGA(const string &name, int *width, int *height)
 
     // "Unpack" the pixels (origin in the lower left corner).
     // TGA pixels are in BGRA format.
-    RGBSpectrum *ret = new RGBSpectrum[*width * *height];
-    RGBSpectrum *dst = ret;
+    pbrt::RGBSpectrum *ret = new pbrt::RGBSpectrum[*width * *height];
+    pbrt::RGBSpectrum *dst = ret;
     for (int y = *height - 1; y >= 0; y--)
         for (int x = 0; x < *width; x++) {
             uint8_t *src = tga_find_pixel(&img, x, y);
             if (tga_is_mono(&img))
-                *dst++ = RGBSpectrum(*src / 255.f);
+                *dst++ = pbrt::RGBSpectrum(*src / 255.f);
             else {
                 float c[3];
                 c[2] = src[0] / 255.f;
                 c[1] = src[1] / 255.f;
                 c[0] = src[2] / 255.f;
-                *dst++ = RGBSpectrum::FromRGB(c);
+                *dst++ = pbrt::RGBSpectrum::FromRGB(c);
             }
     }
 
     tga_free_buffers(&img);
-    Info("Read TGA image %s (%d x %d)", name.c_str(), *width, *height);
+    pbrt::Info("Read TGA image %s (%d x %d)", name.c_str(), *width, *height);
 
     return ret;
 }
@@ -327,9 +327,9 @@ static int readWord(FILE* fp, char* buffer, int bufferLength) {
 
 
 
-static RGBSpectrum *ReadImagePFM(const string &filename, int *xres, int *yres) {
+static pbrt::RGBSpectrum *ReadImagePFM(const string &filename, int *xres, int *yres) {
     float *data = NULL;
-    RGBSpectrum *rgb = NULL;
+    pbrt::RGBSpectrum *rgb = NULL;
     char buffer[ BUFFER_SIZE ];
     unsigned int nFloats;
     int nChannels, width, height;
@@ -391,14 +391,14 @@ static RGBSpectrum *ReadImagePFM(const string &filename, int *xres, int *yres) {
             data[i] *= fabsf(scale);
 
     // create RGBs...
-    rgb = new RGBSpectrum[width*height];
+    rgb = new pbrt::RGBSpectrum[width*height];
     if (nChannels == 1) {
         for (int i = 0; i < width * height; ++i)
             rgb[i] = data[i];
     }
     else {
         for (int i = 0; i < width * height; ++i)
-            rgb[i] = RGBSpectrum::FromRGB(&data[3*i]);
+            rgb[i] = pbrt::RGBSpectrum::FromRGB(&data[3*i]);
     }
 
     delete[] data;
@@ -406,7 +406,7 @@ static RGBSpectrum *ReadImagePFM(const string &filename, int *xres, int *yres) {
     return rgb;
 
  fail:
-    Error("Error reading PFM file \"%s\"", filename.c_str());
+    pbrt::Error("Error reading PFM file \"%s\"", filename.c_str());
     fclose(fp);
     delete[] data;
     delete[] rgb;
@@ -424,7 +424,7 @@ static bool WriteImagePFM(const string &filename, const float *rgb,
 
     fp = fopen(filename.c_str(), "wb");
     if (!fp) {
-        Error("Unable to open output PFM file \"%s\"", filename.c_str());
+        pbrt::Error("Unable to open output PFM file \"%s\"", filename.c_str());
         return false;
     }
 
@@ -456,9 +456,8 @@ static bool WriteImagePFM(const string &filename, const float *rgb,
     return true;
 
  fail:
-    Error("Error writing PFM file \"%s\"", filename.c_str());
+    pbrt::Error("Error writing PFM file \"%s\"", filename.c_str());
     fclose(fp);
     return false;
 }
-
 

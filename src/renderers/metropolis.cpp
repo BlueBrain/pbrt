@@ -49,6 +49,13 @@
 #include "samplers/lowdiscrepancy.h"
 #include "integrators/directlighting.h"
 
+inline float I(const pbrt::Spectrum &L) {
+    return L.y();
+}
+
+namespace pbrt
+{
+
 // Metropolis Local Declarations
 struct PathSample {
     BSDFSample bsdfSample;
@@ -81,7 +88,7 @@ static void LargeStep(RNG &rng, MLTSample *sample, int maxDepth,
     // Do large step mutation of _cameraSample_
     sample->cameraSample.imageX = x;
     sample->cameraSample.imageY = y;
-    sample->cameraSample.time = Lerp(rng.RandomFloat(), t0, t1);
+    sample->cameraSample.time = ::Lerp(rng.RandomFloat(), t0, t1);
     sample->cameraSample.lensU = rng.RandomFloat();
     sample->cameraSample.lensV = rng.RandomFloat();
     for (int i = 0; i < maxDepth; ++i) {
@@ -577,8 +584,8 @@ void MetropolisRenderer::Render(const Scene *scene) {
         MLTSample sample(maxDepth);
         for (uint32_t i = 0; i < nBootstrap; ++i) {
             // Generate random sample and path radiance for MLT bootstrapping
-            float x = Lerp(rng.RandomFloat(), x0, x1);
-            float y = Lerp(rng.RandomFloat(), y0, y1);
+            float x = ::Lerp(rng.RandomFloat(), x0, x1);
+            float y = ::Lerp(rng.RandomFloat(), y0, y1);
             LargeStep(rng, &sample, maxDepth, x, y, t0, t1, bidirectional);
             Spectrum L = PathL(sample, scene, arena, camera, lightDistribution,
                                &cameraPath[0], &lightPath[0], rng);
@@ -599,8 +606,8 @@ void MetropolisRenderer::Render(const Scene *scene) {
         sumI = 0.f;
         MLTSample initialSample(maxDepth);
         for (uint32_t i = 0; i < nBootstrap; ++i) {
-            float x = Lerp(rng.RandomFloat(), x0, x1);
-            float y = Lerp(rng.RandomFloat(), y0, y1);
+            float x = ::Lerp(rng.RandomFloat(), x0, x1);
+            float y = ::Lerp(rng.RandomFloat(), y0, y1);
             LargeStep(rng, &initialSample, maxDepth, x, y, t0, t1,
                       bidirectional);
             sumI += bootstrapI[i];
@@ -635,11 +642,6 @@ void MetropolisRenderer::Render(const Scene *scene) {
     }
     camera->film->WriteImage();
     PBRT_MLT_FINISHED_RENDERING();
-}
-
-
-inline float I(const Spectrum &L) {
-    return L.y();
 }
 
 
@@ -805,4 +807,5 @@ Spectrum MetropolisRenderer::Transmittance(const Scene *scene, const RayDifferen
     return 1.f;
 }
 
+}
 

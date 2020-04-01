@@ -36,6 +36,9 @@
 #include "floatfile.h"
 #include "textures/constant.h"
 
+namespace pbrt
+{
+
 // ParamSet Macros
 #define ADD_PARAM_TYPE(T, vec) \
     (vec).push_back(new ParamSetItem<T>(name, (T *)data, nItems))
@@ -672,5 +675,5 @@ Reference<Texture<float> > TextureParams::GetFloatTextureOrNull(const string &n)
         return NULL;
     }
 }
-
+}
 

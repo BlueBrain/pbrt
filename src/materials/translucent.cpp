@@ -38,6 +38,9 @@
 #include "paramset.h"
 #include "texture.h"
 
+namespace pbrt
+{
+
 // TranslucentMaterial Method Definitions
 BSDF *TranslucentMaterial::GetBSDF(const DifferentialGeometry &dgGeom, const DifferentialGeometry &dgShading, MemoryArena &arena) const {
     float ior = 1.5f;
@@ -86,4 +89,4 @@ TranslucentMaterial *CreateTranslucentMaterial(const Transform &xform,
     return new TranslucentMaterial(Kd, Ks, roughness, reflect, transmit, bumpMap);
 }
 
-
+}

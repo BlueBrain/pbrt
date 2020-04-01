@@ -38,6 +38,10 @@
 
 // core/floatfile.h*
 #include "pbrt.h"
+
+namespace pbrt
+{
 bool ReadFloatFile(const char *filename, vector<float> *values);
+}
 
 #endif // PBRT_CORE_FLOATFILE_H

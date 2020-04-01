@@ -41,6 +41,9 @@
 #include "light.h"
 #include "shape.h"
 
+namespace pbrt
+{
+
 // SpotLight Declarations
 class SpotLight : public Light {
 public:
@@ -63,5 +66,7 @@ private:
 
 
 SpotLight *CreateSpotLight(const Transform &l2w, const ParamSet &paramSet);
+
+}
 
 #endif // PBRT_LIGHTS_SPOT_H

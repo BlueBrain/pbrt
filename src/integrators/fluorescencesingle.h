@@ -41,6 +41,9 @@
 #include "volume.h"
 #include "integrator.h"
 
+namespace pbrt
+{
+
 // SingleScatteringFluorescenceIntegrator Declarations
 class SingleScatteringFluorescenceIntegrator : public VolumeIntegrator {
 public:
@@ -64,5 +67,7 @@ private:
 
 SingleScatteringFluorescenceIntegrator*
 CreateSingleScatteringFluorescenceIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_FLUORESCENCESINGLE_H

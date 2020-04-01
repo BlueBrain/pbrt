@@ -41,6 +41,9 @@
 #include "integrator.h"
 #include "scene.h"
 
+namespace pbrt
+{
+
 // WhittedIntegrator Declarations
 class WhittedIntegrator : public SurfaceIntegrator {
 public:
@@ -59,4 +62,6 @@ private:
 
 WhittedIntegrator *CreateWhittedSurfaceIntegrator(const ParamSet &params);
 
+
+}
 #endif // PBRT_INTEGRATORS_WHITTED_H

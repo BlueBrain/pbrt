@@ -37,6 +37,8 @@
 #include "exponential.h"
 #include "paramset.h"
 
+namespace pbrt
+{
 // ExponentialDensity Method Definitions
 ExponentialDensity *CreateExponentialVolumeRegion(const Transform &volume2world,
         const ParamSet &params) {
@@ -54,4 +56,4 @@ ExponentialDensity *CreateExponentialVolumeRegion(const Transform &volume2world,
         volume2world, a, b, up);
 }
 
-
+}

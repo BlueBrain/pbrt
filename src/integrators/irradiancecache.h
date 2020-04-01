@@ -42,6 +42,9 @@
 #include "octree.h"
 #include "parallel.h"
 
+namespace pbrt
+{
+
 // IrradianceCacheIntegrator Forward Declarations
 struct IrradianceSample;
 
@@ -92,5 +95,7 @@ private:
 
 
 IrradianceCacheIntegrator *CreateIrradianceCacheIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_IRRADIANCECACHE_H

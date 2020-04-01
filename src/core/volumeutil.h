@@ -38,6 +38,9 @@
 
 #include "bitarray.h"
 
+namespace pbrt
+{
+
 void ReadHeader(const std::string &prefix, uint64 &nx, uint64 &ny, uint64 &nz);
 uint8* ReadIntVolume(const std::string &prefix, uint64 &nx, uint64 &ny, uint64 &nz);
 float* ReadFloatVolume(const std::string &prefix, uint64 &nx, uint64 &ny, uint64 &nz);
@@ -55,5 +58,7 @@ void ReadVSDHeader(const std::string &prefix, int &nx, int &ny, int &nz,
 float* ReadVSDVolume(const std::string &prefix, uint64 &nx, uint64 &ny, uint64 &nz,
     float &p0x, float &p0y, float &p0z, float &p1x, float &p1y, float &p1z,
     float &maxValue);
+
+}
 
 #endif // PBRT_CORE_VOLUMEUTIL_H

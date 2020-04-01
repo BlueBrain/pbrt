@@ -42,6 +42,8 @@
 #include "integrator.h"
 #include <vector>
 
+namespace pbrt
+{
 
 // VolumePathIntegrator Declarations
 class VolumeBDPTIntegrator : public VolumeIntegrator {
@@ -88,5 +90,7 @@ private:
 
 
 VolumeBDPTIntegrator *CreateVolumeBDPTIntegrator(const ParamSet &params);
+
+}
 
 #endif // PBRT_INTEGRATORS_VOLUME_BDPT_H

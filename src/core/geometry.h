@@ -40,6 +40,9 @@
 #include "pbrt.h"
 using namespace std;
 
+namespace pbrt
+{
+
 // Geometry Declarations
 class Vector {
 public:
@@ -658,7 +661,7 @@ inline float SphericalPhi(const Vector &v) {
     float p = atan2f(v.y, v.x);
     return (p < 0.f) ? p + 2.f*M_PI : p;
 }
-
+}
 
 
 #endif // PBRT_CORE_GEOMETRY_H
