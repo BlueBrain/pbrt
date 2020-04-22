@@ -51,6 +51,7 @@ namespace pbrt
 
 // Shape Method Definitions
 Sensor::~Sensor() {
+    delete shape;
     delete [] Lpixels;
 }
 
