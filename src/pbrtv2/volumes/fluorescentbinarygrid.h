@@ -2,6 +2,7 @@
 /*
     pbrt source code Copyright(c) 1998-2012 Matt Pharr and Greg Humphreys.
                                   2012-2016 Marwan Abdellah.
+                                  2020 Nadir Román Guerrero
 
     This file is part of pbrt.
 
@@ -37,7 +38,6 @@
 #ifndef PBRT_VOLUMES_FLUORESCENTBINARYVOLUMEGRID_H
 #define PBRT_VOLUMES_FLUORESCENTBINARYVOLUMEGRID_H
 
-// volumes/fluorescentbinarygrid.h*
 #include "volume.h"
 #include "fluorescentgrid.h"
 #include <vector>
@@ -53,15 +53,20 @@ public:
     FluorescentBinaryVolumeGrid(const BBox &e, const Transform &v2w,
             int x, int y, int z, BitArray *data, const Spectrum &fex,
             const Spectrum &fem, float eps, float conc, float phi, float ggf)
-        : FluorescentGridDensity(e, v2w, x, y, z, 0, fex, fem, eps, conc,
-            phi, ggf) { grid = data; }
-    ~FluorescentBinaryVolumeGrid() {
-        grid->~BitArray();
+        : FluorescentGridDensity(e, v2w, x, y, z, nullptr, fex, fem, eps, conc,
+            phi, ggf), grid(data) 
+    {
+    }
+
+    ~FluorescentBinaryVolumeGrid() 
+    {
+        if(grid)
+            delete grid;
     }
     float F(int x, int y, int z) const;
 private:
     // FluorescentBinaryVolumeGrid Private Data
-    BitArray *grid;
+    BitArray *grid {nullptr};
 };
 
 

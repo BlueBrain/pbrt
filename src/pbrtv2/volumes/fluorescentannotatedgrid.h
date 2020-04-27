@@ -1,6 +1,7 @@
 
 /*
     pbrt source code Copyright(c) 2015-2016 Marwan Abdellah.
+                                  2020 Nadir Román Guerrero
 
     This file is part of pbrt.
 
@@ -36,7 +37,6 @@
 #ifndef PBRT_VOLUMES_FLUORESCENTANNOTATEDGRID_H
 #define PBRT_VOLUMES_FLUORESCENTANNOTATEDGRID_H
 
-// volumes/annotatedgrid.h*
 #include "volume.h"
 
 namespace pbrt
@@ -50,26 +50,43 @@ public:
             Spectrum *fex, Spectrum *fem, const float *eps,
             const float *conc, const float *phi, const float *ggf,
             uint64 x, uint64 y, uint64 z, uint8 *ind, const int &ntags)
-        : DensityRegion(0.f, 0.f, 0.f, 0.f, v2w), epsilon(eps), c(conc),
-            yield(phi), nx(x), ny(y), nz(z), extent(e), nTags(ntags) {
-        indices = ind;
-        yield = phi; gf = ggf;
-        epsilon = eps; c = conc;
-        f_ex = fex; f_em = fem;
+        : DensityRegion(0.f, 0.f, 0.f, 0.f, v2w), mu(new Spectrum[ntags]),
+          f_ex(fex), f_em(fem), epsilon(eps), c(conc), yield(phi), gf(ggf), 
+          indices(ind), nx(x), ny(y), nz(z), extent(e), nTags(ntags)
+    {
         for (uint64 i = 0; i < nTags; ++i) {
             f_ex[i].Normalize();
             f_em[i].Normalize();
             f_em[i].NormalizeSPDArea();
         }
         // Compute _mu_ for all the fluorophores
-        mu = new Spectrum[ntags];
-        for (uint64 i = 0; i < nTags; ++i) {
+        for (int i = 0; i < nTags; ++i) {
             mu[i] = LN10 * c[i] * epsilon[i];
         }
         ValidateData();
         PreProcess();
     }
-     ~FluorescentAnnotatedVolumeGrid() { delete[] indices; }
+
+    ~FluorescentAnnotatedVolumeGrid() 
+    { 
+        if(indices)
+            delete[] indices;
+        if(yield)
+            delete[] yield;
+        if(epsilon)
+            delete[] epsilon;
+        if(c)
+            delete[] c;
+        if(gf)
+            delete[] gf;
+        if(f_ex)
+            delete[] f_ex;
+        if(f_em)
+            delete[] f_em;
+        if(mu)
+            delete[] mu;
+    }
+
     void ValidateData() const;
     BBox WorldBound() const { return Inverse(WorldToVolume)(extent); }
     bool IntersectP(const Ray &r, float *t0, float *t1) const {
@@ -101,7 +118,7 @@ public:
         return Mu(p, Vector(), 0.f);
     }
     float Mu(const Point &p, const Vector &, float, const int &wl) const {
-        Mu(p, Vector(), 0.f).Power(wl);
+        return Mu(p, Vector(), 0.f).Power(wl);
     }
     float Sigma_a(const Point &p, const Vector &, float, const int &wl) const {
         return Mu(p, Vector(), 0.f, wl);
@@ -170,7 +187,7 @@ public:
     }
 private:
     // FluorescentAnnotatedGrid Private Data
-    Spectrum *mu, *f_ex, *f_em;
+    Spectrum *mu {nullptr}, *f_ex {nullptr}, *f_em {nullptr};
     const float *epsilon, *c, *yield, *gf;
     const uint8 *indices;
     uint64 nx, ny, nz;

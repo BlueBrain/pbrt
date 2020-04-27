@@ -2,6 +2,7 @@
 /*
     pbrt source code Copyright(c) 1998-2012 Matt Pharr and Greg Humphreys.
                                   2012-2016 Marwan Abdellah.
+                                  2020 Nadir Román Guerrero
 
     This file is part of pbrt.
 
@@ -37,7 +38,6 @@
 #ifndef PBRT_VOLUMES_FLUORESCENTVOLUMEGRID_H
 #define PBRT_VOLUMES_FLUORESCENTVOLUMEGRID_H
 
-// volumes/fluorescentgrid.h*
 #include "volume.h"
 
 namespace pbrt
@@ -51,15 +51,19 @@ public:
             int x, int y, int z, const uchar *data,
             const Spectrum &fex, const Spectrum &fem,
             float eps, float conc, float phi, float ggf)
-        : DensityRegion(0.f, 0.f, 0.f, 0.f, v2w), nx(x), ny(y), nz(z),
-            extent(e), yield(phi), gf(ggf), grid(data) {
+        : DensityRegion(0.f, 0.f, 0.f, 0.f, v2w), yield(phi), gf(ggf), 
+          nx(x), ny(y), nz(z), extent(e), grid(data) {
         f_ex = fex; f_em = fem;
         f_ex.Normalize(); f_em.Normalize(); f_em.NormalizeSPDArea();
         epsilon = eps; c = conc;
         mu = (LN10 * c * epsilon * Spectrum(1.f));
         ValidateData();
     }
-     ~FluorescentGridDensity() { delete[] grid; }
+    ~FluorescentGridDensity() 
+    {
+        if(grid) 
+            delete[] grid; 
+    }
     void ValidateData();
     BBox WorldBound() const { return Inverse(WorldToVolume)(extent); }
     bool IntersectP(const Ray &r, float *t0, float *t1) const {
@@ -102,6 +106,7 @@ public:
     float Mu(const Point &p, const Vector &, float, const int &wl) const {
         if(Fluorescence(WorldToVolume(p)))
             return mu.Power(wl);
+        return 0.f;
     }
     float Sigma_a(const Point &p, const Vector &, float, const int &wl) const {
         return Mu(p, Vector(), 0.f, wl);
@@ -162,7 +167,7 @@ protected:
     const int nx, ny, nz;
     const BBox extent;
 private:
-    // FluorescentGridDensity Protected Data
+    // FluorescentGridDensity Private Data
     const uchar *grid;
 };
 

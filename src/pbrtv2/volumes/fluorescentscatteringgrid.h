@@ -2,6 +2,7 @@
 /*
     pbrt source code Copyright(c) 1998-2012 Matt Pharr and Greg Humphreys.
                                   2012-2015 Marwan Abdellah.
+                                  2020 Nadir Román Guerrero
 
     This file is part of pbrt.
 
@@ -52,8 +53,8 @@ public:
             int x, int y, int z, const float *d,
             const Spectrum &fex = 0.f, const Spectrum &fem = 0.f,
             float eps = 0.f, float conc = 0.f, float phi = 0.f, float ggf = 0.f)
-        : DensityRegion(sa, ss, gg, em, v2w), nx(x), ny(y), nz(z),
-            extent(e), yield(phi), gf(ggf) {
+        : DensityRegion(sa, ss, gg, em, v2w), yield(phi), gf(ggf), 
+          nx(x), ny(y), nz(z), extent(e) {
         fluorescenceDensity = new float[nx*ny*nz];
         memcpy(fluorescenceDensity, d, nx*ny*nz*sizeof(float));
         f_ex = fex; f_em = fem;
@@ -66,7 +67,7 @@ public:
         PreProcess();
         ValidateData();
     }
-     ~FluorescentScatteringGridDensity() { delete[] fluorescenceDensity; }
+    ~FluorescentScatteringGridDensity() { delete[] fluorescenceDensity; }
 
     // Pre-processing
     void PreProcess();
@@ -226,7 +227,7 @@ private:
 };
 
 
-FluorescentScatteringGridDensity *CreateFluorescentGrid(const Transform &volume2world,
+FluorescentScatteringGridDensity *CreateFluorescentScatteringGrid(const Transform &volume2world,
         const ParamSet &params);
 
 }

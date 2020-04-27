@@ -2,6 +2,7 @@
 /*
     pbrt source code Copyright(c) 1998-2010 Matt Pharr and Greg Humphreys.
                                   2012-2015 Marwan Abdellah.
+                                  2020 Nadir Román Guerrero
 
     This file is part of pbrt.
 
@@ -99,7 +100,7 @@ void FluorescentScatteringGridDensity::ValidateData() const {
 }
 
 
-FluorescentScatteringGridDensity *CreateFluorescentGrid(const Transform &volume2world,
+FluorescentScatteringGridDensity *CreateFluorescentScatteringGrid(const Transform &volume2world,
         const ParamSet &params) {
     // Initialize common volume region parameters
     Spectrum sigma_a = params.FindOneSpectrum("sigma_a", 0.);
@@ -115,15 +116,16 @@ FluorescentScatteringGridDensity *CreateFluorescentGrid(const Transform &volume2
     Point p0 = params.FindOnePoint("p0", Point(0,0,0));
     Point p1 = params.FindOnePoint("p1", Point(1,1,1));
     std::string format = params.FindOneString("format", "raw");
-    float* data;
+    
     if (format == std::string("raw")) {
         std::string prefix = params.FindOneString("prefix", "");
         Info("Reading a RAW volume from %s \n", prefix.c_str());
         u_int64_t nx, ny, nz;
-        data = ReadFloatVolume(prefix, nx, ny, nz);
+        const float* data = ReadFloatVolume(prefix, nx, ny, nz);
         return new FluorescentScatteringGridDensity(sigma_a, sigma_s, g, Le,
             BBox(p0, p1), volume2world, nx, ny, nz, data, fex, fem, epsilon, c,
             yield, gf);
+        delete[] data;
     } else {
         Info("Reading a PBRT volume file with density \n");
         int nitems;
