@@ -78,6 +78,7 @@ public:
     bool EraseTexture(const string &);
     float FindOneFloat(const string &, float d) const;
     int FindOneInt(const string &, int d) const;
+    uint64 FindOneUInt(const string &, uint64 d) const;
     bool FindOneBool(const string &, bool d) const;
     Point FindOnePoint(const string &, const Point &d) const;
     Vector FindOneVector(const string &, const Vector &d) const;
@@ -105,6 +106,7 @@ private:
     vector<Reference<ParamSetItem<bool> > > bools;
     vector<Reference<ParamSetItem<uchar> > > uchars;
     vector<Reference<ParamSetItem<int> > > ints;
+    vector<Reference<ParamSetItem<uint64> > > uints;
     vector<Reference<ParamSetItem<float> > > floats;
     vector<Reference<ParamSetItem<Point> > > points;
     vector<Reference<ParamSetItem<Vector> > > vectors;

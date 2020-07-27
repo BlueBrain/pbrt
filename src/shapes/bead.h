@@ -33,37 +33,24 @@
 #pragma once
 #endif
 
-#ifndef PBRT_SHAPES_SPHERE_H
-#define PBRT_SHAPES_SPHERE_H
+#ifndef PBRT_SHAPES_BEAD_H
+#define PBRT_SHAPES_BEAD_H
 
-// shapes/sphere.h*
+// shapes/disk.h*
 #include "shape.h"
+#include "sphere.h"
 
-// Sphere Declarations
-class Sphere : public Shape {
+class Bead : public Sphere
+{
 public:
-    // Sphere Public Methods
-    Sphere(const Transform *o2w, const Transform *w2o, bool ro, float rad,
-           float zmin, float zmax, float phiMax);
-    BBox ObjectBound() const;
-    bool Intersect(const Ray &ray, float *tHit, float *rayEpsilon,
-                   DifferentialGeometry *dg) const;
-    bool IntersectP(const Ray &ray) const;
-    float Area() const;
-    Point Sample(float u1, float u2, Normal *ns) const;
-    Point Sample(const Point &p, float u1, float u2, Normal *ns) const;
-    float Pdf(const Point &p, const Vector &wi) const;
-    bool Projects(const Point &, Point &p, Normal &) const { return false; }
-protected:
-    // Sphere Protected Data
-    float radius;
-    float phiMax;
-    float zmin, zmax;
-    float thetaMin, thetaMax;
+    Bead(const Transform *o2w, const Transform *w2o, bool ro, float rad,
+    float zmin, float zmax, float phiMax, const string &name);
+
+private:
+    std::string name;
 };
 
+Bead *CreateBead(const Transform *o2w, const Transform *w2o,
+        bool reverseOrientation, const ParamSet &params, const string &name);
 
-Sphere *CreateSphereShape(const Transform *o2w, const Transform *w2o,
-        bool reverseOrientation, const ParamSet &params);
-
-#endif // PBRT_SHAPES_SPHERE_H
+#endif // PBRT_SHAPES_BEAD_H

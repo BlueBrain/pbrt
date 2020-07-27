@@ -117,54 +117,42 @@ public:
     virtual float PhotonDensity(const Point &p) const;
     virtual float Fluorescence(const Point &p) const;
     virtual Spectrum Mu(const Point &p, const Vector &wo, float t) const;
-    virtual Spectrum Sigma_a(const Point &p, const Vector &wo,
-                float t) const = 0;
-    virtual Spectrum Sigma_af(const Point &p, const Vector &wo,
-                float t) const;
-    virtual Spectrum Sigma_s(const Point &p, const Vector &wo,
-                float t) const = 0;
+    virtual Spectrum Sigma_a(const Point &p, const Vector &wo, float t) const = 0;
+    virtual Spectrum Sigma_af(const Point &p, const Vector &wo, float t) const;
+    virtual Spectrum Sigma_s(const Point &p, const Vector &wo, float t) const = 0;
     virtual Spectrum Sigma_t(const Point &p, const Vector &wo, float t) const;
     virtual Spectrum STER(const Point &p, const Vector &wo, float t) const;
-    virtual Spectrum ATER(const Point &p, const Vector &wo,
-                float t) const;
+    virtual Spectrum ATER(const Point &p, const Vector &wo, float t) const;
     virtual Spectrum MaxSigma_t() const;
     virtual Spectrum Lve(const Point &p, const Vector &wo, float t) const;
-    virtual Spectrum tau(const Ray &r, float step = 1.f,
-                float offset = 0.5) const = 0;
-    virtual float Mu(const Point &p, const Vector &wo, float t,
-                const int &wl) const;
-    virtual float Sigma_a(const Point &p, const Vector &wo, float t,
-                const int &wl) const = 0;
-    virtual float Sigma_af(const Point &p, const Vector &wo, float t,
-                const int &wl) const;
-    virtual float Sigma_s(const Point &p, const Vector &wo, float t,
-                const int &wl) const = 0;
-    virtual float Sigma_t(const Point &p, const Vector &wo, float t,
-                const int &wl) const;
+    virtual Spectrum tau(const Ray &r, float step = 1.f, float offset = 0.5) const = 0;
+    virtual float Mu(const Point &p, const Vector &wo, float t, const int &wl) const;
+    virtual float Sigma_a(const Point &p, const Vector &wo, float t, const int &wl) const = 0;
+    virtual float Sigma_af(const Point &p, const Vector &wo, float t, const int &wl) const;
+    virtual float Sigma_s(const Point &p, const Vector &wo, float t, const int &wl) const = 0;
+    virtual float Sigma_sf(const Point &p, const Vector &wo, float t, const int &wl) const { return 0.0; }
+    virtual float Sigma_t(const Point &p, const Vector &wo, float t, const int &wl) const;
+    virtual float Sigma_tf(const Point &p, const Vector &wo, float t, const int &wl) const { return 0.0; }
     virtual float MaxSigma_t(const int &wl) const;
-    virtual float STER(const Point &p, const Vector &wo, float t,
-                const int &wl) const;
-    virtual float ATER(const Point &p, const Vector &wo, float t,
-                const int &wl) const;
-    virtual float Lve(const Point &p, const Vector &wo, float t,
-                const int &wl) const;
-    virtual float tauLambda(const Ray &r, float step = 1.f, float offset = 0.5,
-                const int &wl = 0) const = 0;
-    virtual float p(const Point &p, const Vector &wi, const Vector &wo,
-                float t) const;
-    virtual float pf(const Point &p, const Vector &wi, const Vector &wo,
-                float t) const;
+    virtual float MaxSigma_tf(const int &wl) const { return 0.0; }
+    virtual float STER(const Point &p, const Vector &wo, float t, const int &wl) const;
+    virtual float ATER(const Point &p, const Vector &wo, float t, const int &wl) const;
+    virtual float Lve(const Point &p, const Vector &wo, float t, const int &wl) const;
+    virtual float tauLambda(const Ray &r, float step = 1.f, float offset = 0.5, const int &wl = 0) const = 0;
+    virtual float p(const Point &p, const Vector &wi, const Vector &wo, float t) const;
+    virtual float pf(const Point &p, const Vector &wi, const Vector &wo, float t) const;
     virtual Spectrum fEx(const Point &p) const;
     virtual Spectrum fEm(const Point &p) const;
     virtual float fEx(const Point &p, const int &wl) const;
     virtual float fEm(const Point &p, const int &wl) const;
     virtual float Yeild(const Point &p) const;
-    virtual bool SampleDistance(const Ray &r, float *tDis, Point &Psample,
-                float *pdf, RNG &rng) const;
-    virtual bool SampleDirection(const Point &p, const Vector &wi, Vector &wo,
-                float *pdf, RNG &rng) const;
-    virtual bool SampleDistance(const Ray &r, float *tDis, Point &Psample,
-                float *pdf, RNG &rng, const int &wl) const;
+    virtual bool SampleDistance(const Ray &r, float *tDis, Point &Psample, float *pdf, RNG &rng) const;
+    virtual bool SampleDirection(const Point &p, const Vector &wi, Vector &wo, float *pdf, RNG &rng) const;
+    virtual bool SampleDistance(const Ray &r, float *tDis, Point &Psample, float *pdf, RNG &rng, const int &wl) const;
+
+    virtual bool SampleDistance_f(const Ray &r, float *tDis, Point &Psample, float *pdf, RNG &rng) const { return false; }
+    virtual bool SampleDirection_f(const Point &p, const Vector &wi, Vector &wo, float *pdf, RNG &rng) const { return false; }
+
 };
 
 
@@ -257,8 +245,11 @@ public:
     float Sigma_a(const Point &, const Vector &, float, const int &wl) const;
     float Sigma_af(const Point &, const Vector &, float, const int &wl) const;
     float Sigma_s(const Point &, const Vector &, float, const int &wl) const;
+    float Sigma_sf(const Point &, const Vector &, float, const int &wl) const;
     float Sigma_t(const Point &, const Vector &, float, const int &wl) const;
+    float Sigma_tf(const Point &, const Vector &, float, const int &wl) const;
     float MaxSigma_t(const int &wl) const;
+    float MaxSigma_tf(const int &wl) const;
     float STER(const Point &p, const Vector &wo, float t, const int &wl) const;
     float ATER(const Point &p, const Vector &wo, float t, const int &wl) const;
     float Lve(const Point &, const Vector &, float, const int &wl) const;

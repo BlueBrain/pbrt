@@ -238,7 +238,7 @@ void VSDLinearSpriteIntegrator::Preprocess(const Scene *scene, const Camera *cam
     uint64_t totalHits = 0;
     for (uint64_t isensor = 0; isensor < scene->sensors.size(); isensor++) {
         // Print the final hits
-        printf("The sensor %s was hit %d times \n",
+        printf("The sensor %s was hit %zu times \n",
                scene->sensors[isensor]->ReferenceString().c_str(),
                scene->sensors[isensor]->HitCount());
 
@@ -246,7 +246,7 @@ void VSDLinearSpriteIntegrator::Preprocess(const Scene *scene, const Camera *cam
         scene->sensors[isensor]->WriteFilm();
     }
 
-    printf("Total hists %d \n", totalHits);
+    printf("Total hists %zu \n", totalHits);
     exit(EXIT_SUCCESS);
 }
 

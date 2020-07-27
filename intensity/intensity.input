@@ -1,0 +1,90 @@
+################################################################################
+# WARNING: AUTO-GENERATED FILE, DON'T TRY TO EDIT MANUALLY ! 
+# Copyright (c) 2015 - 2016 BBP/EPFL
+# Author : Marwan Abdellah <marwan.abdellah@epfl.ch>
+################################################################################
+
+############################################
+# Camera
+############################################
+# For further detais, look at gluLookAt()
+# Looking always from top 
+# eyeX eyeY eyeZ pX pY pZ  normX normY normZ
+LookAt 0.0 CAMERA_Y_POSITION 0.0  0.0 0.0 0.0  0.0 0.0 -1.0
+
+Camera "orthographic"
+    "float screenwindow" [CAMERA_MIN_X CAMERA_MAX_X CAMERA_MIN_Z CAMERA_MAX_Z]
+
+############################################
+# Film
+############################################
+Film "image"
+    "integer xresolution" [X_RESOLUTION]
+    "integer yresolution" [Z_RESOLUTION]
+    "string filename" "OUTPUT_FILE_NAME.exr"
+
+############################################
+# Sampler
+############################################
+Sampler "bestcandidate"
+    "integer pixelsamples" [32]
+
+############################################
+# Filters
+############################################
+PixelFilter "triangle"
+
+############################################
+# Volume integrator
+############################################
+VolumeIntegrator "SIMULATION_METHOD_SPRITE"
+    "string vsddatadirectory" "DATA_DIRECTORY"
+    "string pshfile" "PSH_FILE"
+    "integer photonsperevent" [200]
+    "float xshift" [X_SHIFT]
+    "float yshift" [Y_SHIFT]
+    "float zshift" [Z_SHIFT]
+    
+############################################
+# Scene
+############################################
+WorldBegin
+
+###########
+### Sensors
+############
+AttributeBegin
+    Translate 0 SENSOR_HEIGHT 0
+    Rotate 90 1 0 0 # X-axis rotation
+    Sensor "rectangle"
+        "float x" [SENSOR_X]
+        "float y" [SENSOR_Y]
+        "integer xpixels" [X_SENSOR_RESOLUTION]
+        "integer ypixels" [Y_SENSOR_RESOLUTION]
+        "float fov" [0]
+        "string reference" "SENSOR_IMAGE_NAME"
+AttributeEnd
+
+############################################
+# Volume
+############################################
+Volume "homogeneous"
+        "point p0" [ VOLUME_MIN_X VOLUME_MIN_Y VOLUME_MIN_Z ]
+        "point p1" [ VOLUME_MAX_X VOLUME_MAX_Y VOLUME_MAX_Z ]
+
+        ###################################################
+        # Assign the optical properties of the medium here
+        # sigma_a : absorption coefficient
+        # sigma_s : scattering coeffecient
+        # These values are used in the actual simulation,
+        # but not used for the rendering of the camera frame.
+        # The optical properties used for the camera-rendering
+        # are fixed in the Li method of the vsd integrator.
+        ###################################################
+        "color sigma_a" [0.20e-3 0.20e-3 0.20e-3]
+        "color sigma_s" [18e-3 18e-3 18e-3]
+
+        # This value is never called in the simulation, code, so we will use it
+        # in the camera-rendering code to highlight the tissue space.
+        "color Le" [0.00001 0.00001 0.00001]
+WorldEnd

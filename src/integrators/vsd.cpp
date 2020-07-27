@@ -176,7 +176,8 @@ void VSDIntegrator::PhotonRandomWalk(const Scene *scene, FluorescentEvent &event
             Sensor* sensor = scene->sensors[sensorId];
             float tHit;
             if (sensor->Hit(ray, &tHit, tDist)) {
-                sensor->RecordHit(ray(tHit), Spectrum(1.0));
+                // sensor->RecordHit(ray(tHit), Spectrum(1.0));
+                sensor->RecordHitAndAngles(ray(tHit), Spectrum(1.0), ray);
                 break;
             }
         }

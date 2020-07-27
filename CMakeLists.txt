@@ -311,6 +311,10 @@ TARGET_LINK_LIBRARIES(pbrt2raw pbrtlib)
 ADD_EXECUTABLE(volumizesprite "src/tools/volumizesprite.cpp")
 TARGET_LINK_LIBRARIES(volumizesprite pbrtlib)
 
+# voxelizesprite
+ADD_EXECUTABLE(voxelizesprite "src/tools/voxelizesprite.cpp")
+TARGET_LINK_LIBRARIES(voxelizesprite pbrtlib)
+
 # spritebounds
 ADD_EXECUTABLE(spritebounds "src/tools/spritebounds.cpp")
 TARGET_LINK_LIBRARIES(spritebounds pbrtlib)

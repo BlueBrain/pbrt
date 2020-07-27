@@ -1,0 +1,99 @@
+####################################################################################################
+# WARNING: AUTO-GENERATED FILE, DON'T TRY TO EDIT MANUALLY ! 
+# Copyright (c) 2015 - 2017 BBP/EPFL
+# Author : Marwan Abdellah <marwan.abdellah@epfl.ch>
+####################################################################################################
+
+####################################################################################################
+# Camera
+####################################################################################################
+# For further detais, look at gluLookAt()
+# Looking always from top 
+# eyeX eyeY eyeZ pX pY pZ  normX normY normZ
+LookAt 0.0 1.0 0.0  0.0 0.0 0.0  0.0 0.0 -1.0
+
+Camera "orthographic"
+    "float screenwindow" [-1 1 -1 1]
+
+####################################################################################################
+# Film
+####################################################################################################
+Film "image"
+    "integer xresolution" [512]
+    "integer yresolution" [512]
+    "string filename" "OUTPUT.exr"
+
+####################################################################################################
+# Sampler
+####################################################################################################
+Sampler "bestcandidate"
+    "integer pixelsamples" [32]
+
+####################################################################################################
+# Filters
+####################################################################################################
+PixelFilter "triangle"
+
+####################################################################################################
+# Volume integrator
+####################################################################################################
+VolumeIntegrator "montecarlofluorescence"
+    "integer numberphotons" [NUMBER_PHOTONS]
+    "point beadposition" [0.0 DEPTH 0.0]
+    
+####################################################################################################
+# Scene
+####################################################################################################
+WorldBegin
+
+###########
+### Sensor
+############
+AttributeBegin
+    Translate 0 49.7 0 # The sensor is 49.7 mm above the tissue surface 
+    Rotate 90 1 0 0 # X-axis rotation
+    Sensor "disk"
+        "float radius" [26.0] # Sensor radius is 26.0 mm
+        "integer xpixels" [1000]
+        "integer ypixels" [1000]
+        "string reference" "OUTPUT_sensor"
+AttributeEnd
+
+###########
+### Interface is treated as a sensor 
+############
+AttributeBegin
+    Translate 0 3.31 0 # The interface is exactly at the top surface 
+    Rotate 90 1 0 0 # X-axis rotation
+    Sensor "rectangle"
+        "float x" [100] # Same X of the volume 
+        "float y" [100] # Same Z of the volume 
+        "integer xpixels" [1000]
+        "integer ypixels" [1000]
+        "string reference" "OUTPUT_interface"
+AttributeEnd
+
+####################################################################################################
+# Volume
+####################################################################################################
+Volume "homogeneous"
+        "point p0" [ -100  0.0 -100 ]
+        "point p1" [  100  3.31  100 ]
+
+        ############################################################################################
+        # Assign the optical properties of the medium here
+        # sigma_a : absorption coefficient
+        # sigma_s : scattering coeffecient
+        # These values are used in the actual simulation,
+        # but not used for the rendering of the camera frame.
+        # The optical properties used for the camera-rendering
+        # are fixed in the Li method of the integrator.
+        ############################################################################################
+        "color sigma_a" [0.4 0.4 0.4]
+        "color sigma_s" [40.0 40.0 40.0]
+        "float g" [0.9]
+
+        # This value is never called in the simulation, code, so we will use it
+        # in the camera-rendering code to highlight the tissue space.
+        "color Le" [0.00001 0.00001 0.00001]
+WorldEnd

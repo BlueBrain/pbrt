@@ -453,6 +453,15 @@ float AggregateVolume::Sigma_af(const Point &p, const Vector &w,
 }
 
 
+float AggregateVolume::MaxSigma_tf(const int &wl) const {
+    float sigma_t(0.f);
+    for (uint32_t i = 0; i < regions.size(); ++i)
+        if (regions[i]->MaxSigma_tf(wl) > sigma_t)
+            sigma_t = regions[i]->MaxSigma_tf(wl);
+    return sigma_t;
+}
+
+
 Spectrum AggregateVolume::Sigma_s(const Point &p, const Vector &w, float time) const {
     Spectrum s(0.);
     for (uint32_t i = 0; i < regions.size(); ++i)
@@ -466,6 +475,15 @@ float AggregateVolume::Sigma_s(const Point &p, const Vector &w,
     float s(0.);
     for (uint32_t i = 0; i < regions.size(); ++i)
         s += regions[i]->Sigma_s(p, w, time, wl);
+    return s;
+}
+
+
+float AggregateVolume::Sigma_sf(const Point &p, const Vector &w,
+                                float time, const int &wl) const {
+    float s(0.);
+    for (uint32_t i = 0; i < regions.size(); ++i)
+        s += regions[i]->Sigma_sf(p, w, time, wl);
     return s;
 }
 
@@ -544,6 +562,14 @@ float AggregateVolume::Sigma_t(const Point &p, const Vector &w, float time,
     return s;
 }
 
+
+float AggregateVolume::Sigma_tf(const Point &p, const Vector &w, float time,
+                               const int &wl) const {
+    float s(0.);
+    for (uint32_t i = 0; i < regions.size(); ++i)
+        s += regions[i]->Sigma_tf(p, w, time, wl);
+    return s;
+}
 
 Spectrum AggregateVolume::fEx(const Point &p) const {
     Spectrum s(0.);

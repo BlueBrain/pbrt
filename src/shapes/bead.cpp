@@ -1,4 +1,3 @@
-
 /*
     pbrt source code Copyright(c) 1998-2012 Matt Pharr and Greg Humphreys.
 
@@ -29,41 +28,22 @@
 
  */
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
+#include "shapes/bead.h"
+#include "stdafx.h"
+#include "paramset.h"
 
-#ifndef PBRT_SHAPES_SPHERE_H
-#define PBRT_SHAPES_SPHERE_H
+Bead::Bead(const Transform *o2w, const Transform *w2o, bool ro, float rad,
+           float zmin, float zmax, float phiMax, const std::string &name)
+    : Sphere(o2w, w2o, ro, rad, zmin, zmax, phiMax) {
+    this->name = name;
+}
 
-// shapes/sphere.h*
-#include "shape.h"
-
-// Sphere Declarations
-class Sphere : public Shape {
-public:
-    // Sphere Public Methods
-    Sphere(const Transform *o2w, const Transform *w2o, bool ro, float rad,
-           float zmin, float zmax, float phiMax);
-    BBox ObjectBound() const;
-    bool Intersect(const Ray &ray, float *tHit, float *rayEpsilon,
-                   DifferentialGeometry *dg) const;
-    bool IntersectP(const Ray &ray) const;
-    float Area() const;
-    Point Sample(float u1, float u2, Normal *ns) const;
-    Point Sample(const Point &p, float u1, float u2, Normal *ns) const;
-    float Pdf(const Point &p, const Vector &wi) const;
-    bool Projects(const Point &, Point &p, Normal &) const { return false; }
-protected:
-    // Sphere Protected Data
-    float radius;
-    float phiMax;
-    float zmin, zmax;
-    float thetaMin, thetaMax;
-};
-
-
-Sphere *CreateSphereShape(const Transform *o2w, const Transform *w2o,
-        bool reverseOrientation, const ParamSet &params);
-
-#endif // PBRT_SHAPES_SPHERE_H
+Bead *CreateBead(const Transform *o2w, const Transform *w2o,
+        bool reverseOrientation, const ParamSet &params,
+        const string &name) {
+    float radius = params.FindOneFloat("radius", 1.f);
+    float zmin = params.FindOneFloat("zmin", -radius);
+    float zmax = params.FindOneFloat("zmax", radius);
+    float phimax = params.FindOneFloat("phimax", 360.f);
+    return new Bead(o2w, w2o, reverseOrientation, radius, zmin, zmax, phimax, name);
+}

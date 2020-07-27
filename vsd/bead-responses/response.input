@@ -1,0 +1,87 @@
+################################################################################
+# WARNING: AUTO-GENERATED FILE, DON'T TRY TO EDIT MANUALLY ! 
+# Copyright (c) 2015 - 2017 BBP/EPFL
+# Author : Marwan Abdellah <marwan.abdellah@epfl.ch>
+################################################################################
+
+############################################
+# Camera
+############################################
+# For further detais, look at gluLookAt()
+# Looking always from top 
+# eyeX eyeY eyeZ pX pY pZ  normX normY normZ
+LookAt 0.0 1.0 0.0  0.0 0.0 0.0  0.0 0.0 -1.0
+
+Camera "orthographic"
+    "float screenwindow" [-1 1 -1 1]
+
+############################################
+# Film
+############################################
+Film "image"
+    "integer xresolution" [512]
+    "integer yresolution" [512]
+    "string filename" "/projects/bbp-pbrt-v2/vsd/bead-responses/output/fiber_0.75mm.exr"
+
+############################################
+# Sampler
+############################################
+Sampler "bestcandidate"
+    "integer pixelsamples" [32]
+
+############################################
+# Filters
+############################################
+PixelFilter "triangle"
+
+############################################
+# Volume integrator
+############################################
+VolumeIntegrator "montecarlofluorescence"
+    "integer numberphotons" [10000000]
+    "point beadposition" [0.0 0.0 0.0]
+    
+############################################
+# Scene
+############################################
+WorldBegin
+
+###########
+### Sensors
+############
+AttributeBegin
+    Translate 0 0.75 0
+    Rotate 90 1 0 0 # X-axis rotation
+    Sensor "rectangle"
+        "float x" [1.0]
+        "float y" [1.0]
+        "integer xpixels" [256]
+        "integer ypixels" [256]
+        "float fov" [20]
+        "string reference" "/projects/bbp-pbrt-v2/vsd/bead-responses/output/fiber"
+AttributeEnd
+
+############################################
+# Volume
+############################################
+Volume "homogeneous"
+        "point p0" [ -100  0.0 -100 ]
+        "point p1" [  100  0.75  100 ]
+
+        ###################################################
+        # Assign the optical properties of the medium here
+        # sigma_a : absorption coefficient
+        # sigma_s : scattering coeffecient
+        # These values are used in the actual simulation,
+        # but not used for the rendering of the camera frame.
+        # The optical properties used for the camera-rendering
+        # are fixed in the Li method of the integrator.
+        ###################################################
+        "color sigma_a" [0.15 0.15 0.15]
+        "color sigma_s" [10.3 10.3 10.3]
+
+        # This value is never called in the simulation, code, so we will use it
+        # in the camera-rendering code to highlight the tissue space.
+        "color Le" [0.00001 0.00001 0.00001]
+WorldEnd
+

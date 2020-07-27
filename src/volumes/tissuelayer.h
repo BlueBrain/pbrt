@@ -34,22 +34,25 @@
 #pragma once
 #endif
 
-#ifndef PBRT_VOLUMES_HOMOGENEOUS_H
-#define PBRT_VOLUMES_HOMOGENEOUS_H
+#ifndef PBRT_VOLUMES_TISSUE_LAYER_H
+#define PBRT_VOLUMES_TISSUE_LAYER_H
 
 // volumes/homogeneous.h*
 #include "volume.h"
 #include "montecarlo.h"
 
-// HomogeneousVolumeDensity Declarations
-class HomogeneousVolumeDensity : public VolumeRegion {
+// TissueLayer Declarations
+class TissueLayer : public VolumeRegion {
 public:
-    // HomogeneousVolumeDensity Public Methods
-    HomogeneousVolumeDensity(const Spectrum &sa, const Spectrum &ss,
-        const float d, float gg, const Spectrum &em, const BBox &e,
+    // TissueLayer Public Methods
+    TissueLayer(const Spectrum &sa_ex, const Spectrum &sa_em,
+        const Spectrum &ss_ex, const Spectrum &ss_em,
+        const float d, float gg_ex, float gg_em, const Spectrum &em, const BBox &e,
         const Transform &v2w) {
         WorldToVolume = Inverse(v2w);
-        sigma_a = sa; sigma_s = ss; g = gg;
+        sigma_a = sa_ex; sigma_af = sa_em;
+        sigma_s = ss_ex; sigma_sf = ss_em;
+        g = gg_ex; gf = gg_em;
         le = em;
         extent = e;
         density = d;
@@ -91,7 +94,7 @@ public:
         return extent.Inside(Pobj) ? (sigma_a * Density(Pobj)) : 0.;
     }
     Spectrum Sigma_af(const Point &p, const Vector &, float) const {
-        return  0.f;
+        return  sigma_af;
     }
     Spectrum Sigma_s(const Point &p, const Vector &, float) const {
         const Point Pobj = WorldToVolume(p);
@@ -130,14 +133,20 @@ public:
         return extent.Inside(Pobj) ? (sigma_a.Power(wl) * Density(Pobj)) : 0.;
     }
     float Sigma_af(const Point &p, const Vector &, float,
-        const int &wl) const { return  0.f; }
+        const int &wl) const {
+        const Point Pobj = WorldToVolume(p);
+        return extent.Inside(Pobj) ? (sigma_af.y() * Density(Pobj)) : 0.;
+    }
     float Sigma_s(const Point &p, const Vector &, float,
         const int &wl) const {
         const Point Pobj = WorldToVolume(p);
         return extent.Inside(Pobj) ? (sigma_s.Power(wl) * Density(Pobj)) : 0.;
     }
     float Sigma_sf(const Point &p, const Vector &, float,
-        const int &wl) const { return  0.f; }
+        const int &wl) const {
+        const Point Pobj = WorldToVolume(p);
+        return extent.Inside(Pobj) ? (sigma_sf.y() * Density(Pobj)) : 0.;
+    }
     float Sigma_t(const Point &p, const Vector &, float,
         const int &wl) const {
         const Point Pobj = WorldToVolume(p);
@@ -145,7 +154,11 @@ public:
                                       * Density(Pobj)) : 0.f;
     }
     float Sigma_tf(const Point &p, const Vector &, float,
-        const int &wl) const { return  0.f; }
+        const int &wl) const {
+        const Point Pobj = WorldToVolume(p);
+        return extent.Inside(Pobj) ? ((sigma_af.y() + sigma_sf.y())
+                                      * Density(Pobj)) : 0.f;
+    }
     float STER(const Point &p, const Vector &w, float time,
         const int &wl) const {
             return (Sigma_s(p, w, time, wl) / Sigma_t(p, w, time, wl));
@@ -161,7 +174,7 @@ public:
         return density * (sigma_a.Power(wl) + sigma_s.Power(wl));
     }
     float MaxSigma_tf(const int &wl) const {
-        return 0.0;
+        return density * (sigma_af.y() + sigma_sf.y());
     }
     float tauLambda(const Ray &ray, float, float, const int &wl) const {
         float t0, t1;
@@ -177,21 +190,27 @@ public:
     bool SampleDirection(const Point &p, const Vector& wi, Vector& wo,
         float* pdf, RNG &rng) const;
 
+    bool SampleDistance_f(const Ray& ray, float* tDist, Point &Psample,
+        float* pdf, RNG &rng) const;
+    bool SampleDirection_f(const Point &p, const Vector& wi, Vector& wo,
+        float* pdf, RNG &rng) const;
+
     // Medium Sampling at Specific Wavelength _wl_
     bool SampleDistance(const Ray& ray, float* tDist, Point &Psample,
         float* pdf, RNG &rng, const int &wl) const;
 
 private:
-    // HomogeneousVolumeDensity Private Data
-    Spectrum sigma_a, sigma_s, le;
-    float g;
+    // TissueLayer Private Data
+    Spectrum sigma_a, sigma_af;
+    Spectrum sigma_s, sigma_sf, le;
+    float g, gf;
     BBox extent;
     Transform WorldToVolume;
     float density;
 };
 
 
-HomogeneousVolumeDensity *CreateHomogeneousVolumeDensityRegion
-(const Transform &volume2world, const ParamSet &params);
+TissueLayer*
+CreateTissueLayerRegion(const Transform &volume2world, const ParamSet &params);
 
-#endif // PBRT_VOLUMES_HOMOGENEOUS_H
+#endif // PBRT_VOLUMES_TISSUE_LAYER_H

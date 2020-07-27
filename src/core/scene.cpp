@@ -53,9 +53,11 @@ Scene::~Scene() {
 
 
 Scene::Scene(Primitive *accel, const vector<Light *> &lts,
-             VolumeRegion *vr, const vector<Sensor *> &snsrs) {
+             VolumeRegion *vr, const vector<Sensor *> &snsrs,
+             const vector<Bead*> &bds) {
     lights = lts;
     sensors = snsrs;
+    beads = bds;
     aggregate = accel;
     volumeRegion = vr;
     // Scene Constructor Implementation

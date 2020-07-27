@@ -43,13 +43,11 @@
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
+#include <mutex>
 
 using namespace std;
 
-// Shape Method Definitions
-Sensor::~Sensor() {
-    delete [] Lpixels;
-}
+std::mutex locker;
 
 
 Sensor::Sensor(const std::string shapeid, const std::string shaperef,
@@ -89,15 +87,29 @@ bool Sensor::Intersect(const Ray &ray, float *tHit) {
 
 
 bool Sensor::Hit(const Ray &ray, float *tHit, float tMax) {
+    // Check if the ray hits the sensor
     if (!Intersect(ray, tHit))
         return false;
     if (tMax < *tHit)
         return false;
+
+    // Check if the ray hits within the range of the angle of acceptance
+    // Get the normal on the sensor
+    Normal normal = Normalize((*shape->ObjectToWorld)(Normal(0,0,1)));
+    const float theta = Degrees(acos(Dot(-normal, ray.d)));
+    if (fieldOfView > 0) {
+        if (theta > fieldOfView) {
+            return false;
+        }
+    }
+
     return true;
 }
 
 
 void Sensor::RecordHit(const Point& point, const Spectrum& energy) {
+
+    locker.lock();
     hitCount++;
 
     // Translate the point to the object space.
@@ -120,6 +132,73 @@ void Sensor::RecordHit(const Point& point, const Spectrum& energy) {
     // Add the energy contribution to the pixel.
     Lpixels[index] += energy;
     recordedEnergy[index] += energy.y();
+    locker.unlock();
+}
+
+
+void Sensor::RecordHitAndAngles(const Point& point, const Spectrum& energy,
+        const Ray &ray) {
+
+    locker.lock();
+    hitCount++;
+
+    // Translate the point to the object space.
+    Point Pobj = (*shape->WorldToObject)(point);
+
+    // Compute the relative offsets of the points on the sensor.
+    BBox sensorExtent = shape->ObjectBound();
+    const float xDistance = (Pobj.x - sensorExtent.pMin.x);
+    const float xSensorLength = (sensorExtent.pMax.x - sensorExtent.pMin.x);
+    const float xRelativeOffset = xDistance / xSensorLength;
+    const float yDistance = (Pobj.y - sensorExtent.pMin.y);
+    const float ySensorLength = (sensorExtent.pMax.y - sensorExtent.pMin.y);
+    const float yRelativeOffset = yDistance / ySensorLength;
+
+    // Find the corresponding pixel.
+    const uint64_t xPixel = Floor2Int(xRelativeOffset * xPixels);
+    const uint64_t yPixel = Floor2Int(yRelativeOffset * yPixels);
+    const uint64_t index = xPixel + xPixels * yPixel;
+
+    // Compute the normal and theta
+    Normal normal = Normalize((*shape->ObjectToWorld)(Normal(0,0,1)));
+    const float theta = Degrees(acos(Dot(-normal, ray.d)));
+
+    Record record;
+    record.x = xPixel;
+    record.y = yPixel;
+    record.theta = theta;
+    records.push_back(record);
+
+    // Add the energy contribution to the pixel.
+    Lpixels[index] += energy;
+    recordedEnergy[index] += energy.y();
+
+    locker.unlock();
+}
+
+bool Sensor::ComputeRefractedRay(const Ray &ray, float tHit, Ray& refractedRay) const {
+    // Get the normal on the sensor
+    Normal normal = Normalize((*shape->ObjectToWorld)(Normal(0,0,1)));
+    const float theta1 = acos(Dot(-normal, ray.d));
+
+    // Use Snell's law to get theta2
+    // n1 sin(theta1) = n2 sin(theta2)
+    const float n1 = 1.38;
+    const float n2 = 1.000293;
+    const float theta2 = std::asin((n1 / n2) * sin(theta1));
+
+    // Critical angle, and reflection inside the tissue
+    if(isnan(theta2)) {
+        return false;
+    }
+
+    // Compute the refracted ray
+    Vector A = n1 * (ray.d + (cos(theta1) * Vector(normal)));
+    Vector B = Vector(-normal) * cos(theta2);
+    Vector refractedDirection = A + B;
+    refractedRay.o = ray(tHit);
+    refractedRay.d = refractedDirection;
+    return true;
 }
 
 
@@ -208,9 +287,25 @@ void Sensor::WriteFilm(void) {
                    << recordedEnergy[x + xPixels* y] << endl;
     stream.close();
 
+     printf("Recorded photons [%zu] \n", hitCount);
+
     delete [] rgb;
 }
 
+
+void Sensor::WriteRecords(void)
+{
+    // Write the records
+    const string file =  reference + ".photons";
+    fstream stream(file.c_str(), ios::out);
+    for(size_t i = 0; i < records.size(); i++) {
+        stream << records[i].x << " " << records[i].y << " "
+               << records[i].theta << "\n";
+    }
+    stream.close();
+
+    printf("Photos recorded [%zu] \n", records.size());
+}
 
 Sensor* CreateSensor(const std::string shapeId, Shape* shape,
                      const ParamSet &params)
@@ -219,7 +314,7 @@ Sensor* CreateSensor(const std::string shapeId, Shape* shape,
     const string reference = params.FindOneString("reference", "sensor");
     const uint64_t xPixels = params.FindOneInt("xpixels", 0);
     const uint64_t yPixels = params.FindOneInt("ypixels", 0);
-    const float fov = params.FindOneFloat("fov", 45.f);
+    const float fov = params.FindOneFloat("fov", 0.f);
 
     if (shapeId == std::string("disk")) {
         float radius = params.FindOneFloat("radius", 0.f);
@@ -236,4 +331,10 @@ Sensor* CreateSensor(const std::string shapeId, Shape* shape,
     }
 
     return sensor;
+}
+
+
+// Shape Method Definitions
+Sensor::~Sensor() {
+    delete [] Lpixels;
 }

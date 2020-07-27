@@ -336,6 +336,10 @@ public:
         return (o.HasNaNs() || d.HasNaNs() ||
                 isnan(mint) || isnan(maxt));
     }
+    void Print(const std::string msg="") const {
+        printf("%s:[O:%f, %f, %f], [D:%f, %f, %f] \n",
+               msg.c_str(), o.x, o.y, o.z, d.x, d.y, d.z);
+    }
 
     // Ray Public Data
     Point o;

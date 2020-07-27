@@ -353,6 +353,9 @@ int ParamSet::FindOneInt(const string &name, int d) const {
     LOOKUP_ONE(ints);
 }
 
+uint64 ParamSet::FindOneUInt(const string &name, uint64 d) const {
+    LOOKUP_ONE(uints);
+}
 
 bool ParamSet::FindOneBool(const string &name, bool d) const {
     LOOKUP_ONE(bools);

@@ -18,10 +18,10 @@ class SlurmConfiguration:
         self.job_name = "VSD-sim"
         self.num_nodes = 1
         self.num_tasks_per_node = 1
-        self.num_cpus_per_task = 4
+        self.num_cpus_per_task = 1
         self.node_list = ""
         self.partition = "prod"
-        self.memory_mb = "4096"
+        self.memory_mb = "2048"
         self.session_time = "12:00:00"
         self.user_name = ""
         self.user_email = ""

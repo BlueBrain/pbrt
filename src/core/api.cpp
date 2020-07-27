@@ -77,20 +77,20 @@
 #include "integrators/useprobes.h"
 #include "integrators/whitted.h"
 #include "integrators/vsd.h"
-
+#include "integrators/montecarlofluorescence.h"
+#include "integrators/mcfee.h"
 #include "integrators/vsdfds.h"
 #include "integrators/vsdfls.h"
 #include "integrators/vsdfss.h"
-
 #include "integrators/vsdbdg.h"
 #include "integrators/vsdblg.h"
 #include "integrators/vsdbsg.h"
-
 #include "integrators/vsdlinear.h"
 #include "integrators/vsdlinearsprite.h"
 #include "integrators/vsdscattering.h"
 #include "integrators/vpl.h"
 #include "lights/collimated.h"
+#include "lights/collimatedwithangle.h"
 #include "lights/diffuse.h"
 #include "lights/distant.h"
 #include "lights/goniometric.h"
@@ -122,6 +122,7 @@
 #include "samplers/lowdiscrepancy.h"
 #include "samplers/random.h"
 #include "samplers/stratified.h"
+#include "shapes/bead.h"
 #include "shapes/cone.h"
 #include "shapes/cylinder.h"
 #include "shapes/disk.h"
@@ -158,6 +159,7 @@
 #include "volumes/homogeneous.h"
 #include "volumes/grid.h"
 #include "volumes/vsdgrid.h"
+#include "volumes/tissuelayer.h"
 
 #include <map>
  #if (_MSC_VER >= 1400)
@@ -224,6 +226,7 @@ struct RenderOptions {
     vector<Light *> lights;
     vector<Reference<Primitive> > primitives;
     vector<Sensor *> sensors;
+    vector<Bead *> beads;
     mutable vector<VolumeRegion *> volumeRegions;
     map<string, vector<Reference<Primitive> > > instances;
     vector<Reference<Primitive> > *currentInstance;
@@ -412,14 +415,21 @@ Shape *MakeSensorSurfaceShape(const string &name,
 }
 
 
+Bead* MakeBead(const string &name, const Transform *object2world,
+        const Transform *world2object, bool reverseOrientation,
+        const ParamSet &paramSet) {
+    return CreateBead(object2world, world2object, reverseOrientation, paramSet,
+            name);
+}
+
+
 Sensor* MakeSensor(const string &name, Shape* shape, const ParamSet &paramSet) {
     return  CreateSensor(name, shape, paramSet);
 }
 
 
 Reference<Material> MakeMaterial(const string &name,
-        const Transform &mtl2world,
-        const TextureParams &mp) {
+        const Transform &mtl2world, const TextureParams &mp) {
     Material *material = NULL;
     if (name == "matte")
         material = CreateMatteMaterial(mtl2world, mp);
@@ -569,6 +579,8 @@ AreaLight *MakeAreaLight(const string &name,
         area = CreateDiffuseAreaLight(light2world, paramSet, shape);
     else if (name == "collimated" || name == "laser")
         area = CreateCollimatedAreaLight(light2world, paramSet, shape);
+    else if (name == "collimatedwithangle")
+        area = CreateCollimatedAreaLightWithAngle(light2world, paramSet, shape);
     else
         Warning("Area light \"%s\" unknown.", name.c_str());
     paramSet.ReportUnused();
@@ -607,6 +619,8 @@ VolumeRegion *MakeVolumeRegion(const string &name,
         vr = CreateFluorescentBinaryVolumeGrid(volume2world, paramSet);
     else if (name == "fluorescentannotatedgrid")
         vr = CreateFluorescentAnnotatedVolumeGrid(volume2world, paramSet);
+    else if (name == "tissuelayer")
+        vr = CreateTissueLayerRegion(volume2world, paramSet);
     else
         Warning("Volume region \"%s\" unknown.", name.c_str());
     paramSet.ReportUnused();
@@ -666,15 +680,12 @@ VolumeIntegrator *MakeVolumeIntegrator(const string &name,
         vi = CreateVSDForwardLinearIntegrator(paramSet);
     else if (name == "vsdfss")
         vi = CreateVSDForwardScatteringIntegrator(paramSet);
-
     else if (name == "vsdbdg")
         vi = CreateVSDBackwardDirectIntegrator(paramSet);
     else if (name == "vsdblg")
         vi = CreateVSDBackwardLinearIntegrator(paramSet);
     else if (name == "vsdbsg")
         vi = CreateVSDBackwardScatteringIntegrator(paramSet);
-
-
     else if (name == "vsdspritelinear")
         vi = CreateVSDLinearSpriteIntegrator(paramSet);
     else if (name == "vsdscattering")
@@ -685,6 +696,10 @@ VolumeIntegrator *MakeVolumeIntegrator(const string &name,
         vi = CreateVolumePathIntegrator(paramSet);
     else if (name == "bdpt")
         vi = CreateVolumeBDPTIntegrator(paramSet);
+    else if (name == "montecarlofluorescence")
+        vi = CreateMonteCarloFluorescenceIntegrator(paramSet);
+    else if (name == "mcfee")
+        vi = CreateMCFEE(paramSet);
     else
         Warning("Volume integrator \"%s\" unknown.", name.c_str());
     paramSet.ReportUnused();
@@ -864,9 +879,8 @@ void pbrtScale(float sx, float sy, float sz) {
 void pbrtLookAt(float ex, float ey, float ez, float lx, float ly,
         float lz, float ux, float uy, float uz) {
     VERIFY_INITIALIZED("LookAt");
-    FOR_ACTIVE_TRANSFORMS({ Warning("This version of pbrt fixes a bug in the LookAt transformation.\n"
-                                    "If your rendered images unexpectedly change, add a \"Scale -1 1 1\"\n"
-                                    "to the start of your scene file."); break; })
+    FOR_ACTIVE_TRANSFORMS({ Warning("This version of pbrt fixes a bug in the LookAt transformation.\n");
+                            break; })
     FOR_ACTIVE_TRANSFORMS(curTransform[i] =
         curTransform[i] * LookAt(Point(ex, ey, ez), Point(lx, ly, lz), Vector(ux, uy, uz));)
 }
@@ -1122,6 +1136,22 @@ void pbrtSensor(const string &name, const ParamSet &params) {
     params.ReportUnused();
 }
 
+void pbrtBead(const string &name, const ParamSet &params) {
+    VERIFY_WORLD("Bead");
+
+    // Create primitive for static shape
+    Transform *obj2world, *world2obj;
+    transformCache.Lookup(curTransform[0], &obj2world, &world2obj);
+
+    // Create the bead
+    Bead* bead = MakeBead(name, obj2world, world2obj,
+           graphicsState.reverseOrientation, params);
+    if (!bead) return;
+
+    renderOptions->beads.push_back(bead);
+    params.ReportUnused();
+}
+
 
 void pbrtShape(const string &name, const ParamSet &params) {
     VERIFY_WORLD("Shape");
@@ -1334,7 +1364,7 @@ Scene *RenderOptions::MakeScene() {
         accelerator = MakeAccelerator("bvh", primitives, ParamSet());
     if (!accelerator)
         Severe("Unable to create \"bvh\" accelerator.");
-    Scene *scene = new Scene(accelerator, lights, volumeRegion, sensors);
+    Scene *scene = new Scene(accelerator, lights, volumeRegion, sensors, beads);
     // Erase primitives, lights, and volume regions from _RenderOptions_
     primitives.erase(primitives.begin(), primitives.end());
     lights.erase(lights.begin(), lights.end());

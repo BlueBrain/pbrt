@@ -89,7 +89,7 @@ void VSDSprite::ReadHeaderData(const string &filePath) {
     bbox.pMax.z = center.z + (dimensions.z / 2.f);
 
 
-#ifdef DEBUG
+// #ifdef DEBUG
     printf("Sprite: [%s] \n", filePath.c_str());
     printf("\t EventsCount %u \n", eventsCount);
     printf("\t Center [%f %f %f] \n", center.x, center.y, center.z);
@@ -97,7 +97,7 @@ void VSDSprite::ReadHeaderData(const string &filePath) {
            dimensions.x, dimensions.y, dimensions.z);
     printf("\t VSDPositionFile [%s] \n", positionFile.c_str());
     printf("\t VSDIntensityFile [%s] \n", intensityFile.c_str());
-#endif
+// #endif
 }
 
 
@@ -136,7 +136,7 @@ void VSDSprite::Read(const string &datadirectory, const string &pshfile,
         printf("The source data has %d fluorescent events \n",
                int(events.size()));
     else {
-        Severe("Wrong sprite count [Given: %d/ Current: %d]\n",
+        Severe("Wrong sprite count [Given: %d/ Current: %zu]\n",
                eventsCount, events.size());
         exit(EXIT_SUCCESS);
     }

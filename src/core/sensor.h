@@ -40,6 +40,15 @@
 #include "memory.h"
 #include "shape.h"
 
+struct Record
+{
+    uint x;
+    uint y;
+    float theta;
+};
+
+typedef std::vector< Record > Records;
+
 class Sensor : public ReferenceCounted
 {
 public:
@@ -50,6 +59,9 @@ public:
     bool Intersect(const Ray &ray, float *tHit);
     bool Hit(const Ray &ray, float *tHit, float tMax);
     void RecordHit(const Point& point, const Spectrum& energy);
+    void RecordHitAndAngles(const Point& point, const Spectrum& energy,
+        const Ray &ray);
+    bool ComputeRefractedRay(const Ray &ray, float tHit, Ray& refractedRay) const;
     std::string ReferenceString(void) const;
     float SurfaceArea(void) const;
     uint64_t NumberPixelsX(void) const;
@@ -62,6 +74,7 @@ public:
     Spectrum* FilmRadiance(void) const;
     uint64_t HitCount(void) const;
     void WriteFilm(void);
+    void WriteRecords(void);
 
     ~Sensor();
 
@@ -79,6 +92,7 @@ private:
     const float fieldOfView; // Sensor field of view.
     Spectrum* Lpixels; // Radiance distribution recorded by the sensor.
     float* recordedEnergy; // Energy recorded by the sensor.
+    Records records; // Keeps track on angle and pixel locations
 };
 
 Sensor* CreateSensor(const std::string shapeid, Shape* shape, const ParamSet &params);

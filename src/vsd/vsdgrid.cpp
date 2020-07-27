@@ -250,7 +250,7 @@ void VSDGrid::WriteRAWVolumeFile(const string &outputDir, const string &prefix,
     for (uint64_t i = 0; i < nx; i++)
         for (uint64_t j = 0; j < ny; j++)
             for (uint64_t k = 0; k < nz; k++) {
-                rawFileStream << uint8_t(int(maxValue * (density[index] / maxValue)));
+                rawFileStream << uint8_t(int(255 * (density[index] / maxValue)));
                 index++;
             }
     rawFileStream.close();
@@ -260,9 +260,9 @@ void VSDGrid::WriteRAWVolumeFile(const string &outputDir, const string &prefix,
     ofstream hdrFileStream;
     hdrFileStream.open(hdrFileName.c_str());
     hdrFileStream << nx << " " << ny << " " << nz   << " ";
-    hdrFileStream << bbox.pMin.x -translation.x     << " "
-                  << bbox.pMin.y -translation.y     << " "
-                  << bbox.pMin.z -translation.z     << " ";
+    hdrFileStream << bbox.pMin.x - translation.x     << " "
+                  << bbox.pMin.y - translation.y     << " "
+                  << bbox.pMin.z - translation.z     << " ";
     hdrFileStream << bbox.pMax.x - translation.x    << " "
                   << bbox.pMax.y - translation.y    << " "
                   << bbox.pMax.z - translation.z    << " ";

@@ -10,16 +10,31 @@
 ### UPDATE THE PARAMETERS HERE ... AND THEN RUN THIS SHELL SCRIPT :)
 ################################################################################
 # The directory where the point sprites are generated
-# INPUT_DIRECTORY=/gpfs/bbp.cscs.ch/project/proj3/resources/signals/vsd/sample/input/mc0/
-INPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/input/stimulus0_seed19837_mc2
+#INPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/input/stimulus0_seed19837_mc2
+#INPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/input/random-sample/input
+#OUTPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/input/random-sample/output-cluster
+
+
+#INPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/input/stimulus0_seed19837_mc2
+#OUTPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/output/stimulus0_seed19837_mc2-updated
+
+INPUT_DIRECTORY=/gpfs/bbp.cscs.ch/project/proj45/vsd/output/reyes-puerta/seed7/mc2
+#OUTPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/output/seed3-fds/
+OUTPUT_DIRECTORY=/gpfs/bbp.cscs.ch/project/proj3/in_silico_experiments/vsd-signals/output/seed7-blg/
+
+
+#/gpfs/bbp.cscs.ch/scratch/gss/bgq/newton/stim-strength-sweep/Ca1p24/stimulus*/seed*/mc2
+# INPUT_DIRECTORY=/gpfs/bbp.cscs.ch/scratch/gss/bgq/newton/stim-strength-sweep/Ca1p24/stimulus0/seed421432/mc2
 
 # Simulation directories on Taylor's scratch
 # /gpfs/bbp.cscs.ch/scratch/gss/bgq/newton/output
 # /gpfs/bbp.cscs.ch/scratch/gss/bgq/newton/output/pulse-train-0/Ca1p24/stimulus0/seed113205/mc2
 
 # The directory where the final results will be produced
-#OUTPUT_DIRECTORY=/gpfs/bbp.cscs.ch/project/proj3/resources/vsd/13.03.2017/output-single
-OUTPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/output/stimulus0_seed19837_mc2
+# OUTPUT_DIRECTORY=/gpfs/bbp.cscs.ch/project/proj3/resources/vsd/13.03.2017/output-single
+# OUTPUT_DIRECTORY=/gpfs/bbp.cscs.ch/project/proj3/in_silico_experiments/vsd_singals/output/Ca1p24_stimulus0_seed421432_mc2
+# OUTPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signals/output/24.05.2017/stimulus0_seed19837_mc2
+
 ################################################################################
 ### Simulation method
 ### [ direct, linear, scattering ] & [ sprite, grid ] & [ forward, backward ] 
@@ -37,7 +52,7 @@ OUTPUT_DIRECTORY=/gpfs/bbp.epfl.ch/project/proj3/in_silico_experiments/vsd-signa
 #                              from the VSD source to the sensor
 # (backward-scattering-grid): backward scattering with monte carlo random walk 
 #                             from the camera to the VSD source
-SIMULATION_METHOD=backward-scattering-grid # backward-direct-grid #forward-direct-sprite
+SIMULATION_METHOD=backward-linear-grid
 
 # A particular time-step to simulate. If you need to simulate the entire time series
 # that is found in the input directory, just set this option to 'series' and

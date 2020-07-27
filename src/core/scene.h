@@ -41,13 +41,14 @@
 #include "primitive.h"
 #include "integrator.h"
 #include "sensor.h"
+#include "shapes/bead.h"
 
 // Scene Declarations
 class Scene {
 public:
     // Scene Public Methods
     Scene(Primitive *accel, const vector<Light *> &lts, VolumeRegion *vr,
-          const vector<Sensor *> &snsrs);
+          const vector<Sensor *> &snsrs, const vector<Bead *> &bds);
     ~Scene();
     bool Intersect(const Ray &ray, Intersection *isect) const {
         PBRT_STARTED_RAY_INTERSECTION(const_cast<Ray *>(&ray));
@@ -68,6 +69,7 @@ public:
     vector<Light *> lights;
     VolumeRegion *volumeRegion;
     vector<Sensor *> sensors;
+    vector<Bead *> beads;
     BBox bound;
 };
 
